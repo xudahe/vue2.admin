@@ -1,0 +1,229 @@
+<html>
+<meta charset="utf-8">
+
+<head>
+
+  <title>jQuery可拖拽旋转的3D图片墙DEMO</title>
+
+  <!-- jquery库和html2canvas库 -->
+  <script type="text/javascript" src="http://www.boolaw.com/tpl/default/js/jquery-1.8.3.min.js"></script>
+
+  <style type="text/css">
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .pic {
+
+      width: 120px;
+
+      height: 180px;
+
+      margin: 150px auto 0;
+
+      position: relative;
+
+      /*transform 旋转元素*/
+
+      transform-style: preserve-3d;
+
+      transform: perspective(800px) rotateX(-10deg) rotateY(0deg);
+
+    }
+
+    body {
+      background-color: #66677c;
+    }
+
+
+
+    .pic img {
+
+      position: absolute;
+
+      width: 100%;
+
+      height: 100%;
+
+      border-radius: 5px;
+
+      box-shadow: 0px 0px 10px #fff;
+
+      /*倒影的设置*/
+
+      -webkit-box-reflect: below 10px -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, .5) 100%);
+
+    }
+
+    .pic p {
+
+      width: 1200px;
+
+      height: 1200px;
+
+      background: -webkit-radial-gradient(center center, 600px 600px, rgba(255, 255, 255, .5), rgba(0, 0, 0, 0));
+
+      position: absolute;
+
+      top: 100%;
+      left: 50%;
+
+      margin-top: -600px;
+
+      margin-left: -600px;
+
+      border-radius: 600px;
+
+      transform: rotateX(90deg);
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+  <div class="pic">
+
+    <img src="" />
+    <img src="" />
+    <img src="" />
+    <img src="" />
+    <img src="" />
+    <img src="" />
+    <img src="" />
+    <img src="" />
+    <img src="" />
+    <img src="" />
+
+    <p></p>
+
+  </div>
+
+
+</body>
+
+<script type="text/javascript">
+  $(function () {
+
+
+
+    var imgL = $(".pic img").size(); //获取当前的img 长度
+
+    var deg = 360 / imgL; //  360/imgL   和角度有关系
+
+    var roY = 0,
+      roX = -10;
+
+    var xN = 0,
+      yN = 0;
+
+    var play = null;
+
+
+
+    $(".pic img").each(function (i) {
+      //遍历 $('.pic img')----改变他们的css样式
+      $(this).css({
+
+        // translateZ 定义2d旋转沿着z轴
+        "transform": "rotateY(" + i * deg + "deg) translateZ(300px)"
+      });
+
+      //防止图片被拖拽
+      $(this).attr('ondragstart', 'return false');
+
+    });
+
+
+
+    $(document).mousedown(function (ev) {
+      //mousedown绑定事件  鼠标按下时触发的时间
+
+      var x_ = ev.clientX; //获取当前鼠标相对于浏览器页面（或客户区）的  x  方向的位置 保存在变量 x_
+
+      var y_ = ev.clientY; //………………y方向的位置  保存在变量y_
+
+      clearInterval(play); //关闭计时器(play)
+
+      console.log('我按下了');
+
+      $(this).bind('mousemove', function (ev) {
+        //给当前元素 （这里的当前元素是document ）绑定 mousemove（鼠标在当前元素内移动的事件）
+
+
+        /*获取当前鼠标的坐标*/
+
+        var x = ev.clientX; //获取当前鼠标相对于浏览器页面（或客户区）的  x  方向的位置    保存在变量 x
+
+        var y = ev.clientY; //………………y方向的位置   保存在变量y
+
+        /*两次坐标之间的距离*/
+
+        xN = x - x_; //计算鼠标在当前元素内 相对 上次鼠标按下时的 x轴距离  并保存在变量
+
+        yN = y - y_; //计算鼠标在当前元素内 相对 上次鼠标按下时的 y轴距离  并保存在变量
+
+
+        roY += xN * 0.2; //按照比例换算  并在变量基础上增加
+
+        roX -= yN * 0.1; //按照比例换算  并在变量基础上增加
+
+        console.log('移动');
+
+        // $('body').append('<div style="width:5px;height:5px;position:absolute;top:' + y + 'px;left:' + x +
+        //   'px;background-color:red"></div>');
+
+
+
+        $('.pic').css({
+          //$('.pic')  改变css动画transform样式  值为…………角度是变量roY,roX的
+          transform: 'perspective(800px) rotateX(' + roX + 'deg) rotateY(' + roY + 'deg)'
+
+        });
+
+        /*之前的鼠标坐标*/
+
+        x_ = ev.clientX; //并将鼠标按下的位置设置成当前移动到的位置
+
+        y_ = ev.clientY; //并将鼠标按下的位置设置成当前移动到的位置
+
+      });
+
+    }).mouseup(function () {
+      //mouseup绑定事件  鼠标松开时触发的事件
+
+      $(this).unbind('mousemove'); //  移除 当前元素（这里的当前元素是document ）的 mousemove（鼠标在当前元素内移动的事件）
+
+      //开始周期性计时器，每30毫秒触发一次
+      var play = setInterval(function () {
+
+        xN *= 0.95; //按照比例换算 
+
+        yN *= 0.95 //按照比例换算 
+
+        if (Math.abs(xN) < 1 && Math.abs(yN) < 1) {
+          //判断  (xN的绝对值<= 1)而且 yN的绝对值也要<= 1)的时候就执行下面的语句
+          clearInterval(play);
+        }
+
+        roY += xN * 0.2; //按照比例换算  并在变量基础上增加
+
+        roX -= yN * 0.1; //按照比例换算  并在变量基础上增加
+
+        $('.pic').css({
+          //$('#wrap')  改变css动画transform样式  值为…………角度是变量roY,roX的
+          transform: 'perspective(800px) rotateX(' + roX + 'deg) rotateY(' + roY + 'deg)'
+
+        });
+
+      }, 30);
+
+    });
+
+  });
+
+</script>
+
+</html>

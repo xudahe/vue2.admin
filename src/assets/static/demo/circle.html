@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>css3动画圆波扩散效果</title>
+  <style>
+    @keyframes warn {
+      0% {
+        transform: scale(0.3);
+        -webkit-transform: scale(0.3);
+        opacity: 0.0;
+      }
+
+      25% {
+        transform: scale(0.3);
+        -webkit-transform: scale(0.3);
+        opacity: 0.1;
+      }
+
+      50% {
+        transform: scale(0.5);
+        -webkit-transform: scale(0.5);
+        opacity: 0.3;
+      }
+
+      75% {
+        transform: scale(0.8);
+        -webkit-transform: scale(0.8);
+        opacity: 0.5;
+      }
+
+      100% {
+        transform: scale(1);
+        -webkit-transform: scale(1);
+        opacity: 0.0;
+      }
+    }
+
+    @keyframes warn1 {
+      0% {
+        transform: scale(0.3);
+        -webkit-transform: scale(0.3);
+        opacity: 0.0;
+      }
+
+      25% {
+        transform: scale(0.3);
+        -webkit-transform: scale(0.3);
+        opacity: 0.1;
+      }
+
+      50% {
+        transform: scale(0.3);
+        -webkit-transform: scale(0.3);
+        opacity: 0.3;
+      }
+
+      75% {
+        transform: scale(0.5);
+        -webkit-transform: scale(0.5);
+        opacity: 0.5;
+      }
+
+      100% {
+        transform: scale(0.8);
+        -webkit-transform: scale(0.8);
+        opacity: 0.0;
+      }
+    }
+
+    .container {
+      left: 10px;
+      top: 10px;
+    }
+
+    /* 保持大小不变的小圆圈 */
+    .dot {
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      left: 64px;
+      top: 64px;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border: 1px solid #33ccff;
+      border-radius: 50%;
+      z-index: 2;
+      background-color: #33ccff;
+      /* 实心圆 ，如果没有这个就是一个小圆圈 */
+    }
+
+    /* 产生动画（向外扩散变大）的圆圈 第一个圆 */
+    .pulse {
+      position: absolute;
+      width: 35px;
+      height: 35px;
+      left: 50px;
+      top: 50px;
+      border: 1px solid #3399ff;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+      z-index: 1;
+      opacity: 0;
+      -webkit-animation: warn 2s ease-out;
+      -moz-animation: warn 2s ease-out;
+      animation: warn 2s ease-out;
+      -webkit-animation-iteration-count: infinite;
+      -moz-animation-iteration-count: infinite;
+      animation-iteration-count: infinite;
+      box-shadow: 1px 1px 30px #3399ff;
+      /* 阴影效果，如果没有这个就是无阴影 */
+    }
+
+    /* 产生动画（向外扩散变大）的圆圈 第二个圆 */
+    .pulse1 {
+      position: absolute;
+      width: 35px;
+      height: 35px;
+      left: 50px;
+      top: 50px;
+      border: 1px solid #3399ff;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+      z-index: 1;
+      opacity: 0;
+      -webkit-animation: warn1 2s ease-out;
+      -moz-animation: warn1 2s ease-out;
+      animation: warn1 2s ease-out;
+      -webkit-animation-iteration-count: infinite;
+      -moz-animation-iteration-count: infinite;
+      animation-iteration-count: infinite;
+      box-shadow: 1px 1px 30px #3399ff;
+      /* 阴影效果，如果没有这个就是无阴影 */
+    }
+
+  </style>
+  <style>
+    .point,
+    .point::before,
+    .point::after {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      content: '';
+    }
+
+    .point::before {
+      animation: scale 2s infinite;
+    }
+
+    .point::after {
+      animation: scale2 2s infinite;
+    }
+
+    @keyframes scale {
+      0% {
+        transform: scale(1);
+        opacity: .9
+      }
+
+      100% {
+        transform: scale(6);
+        opacity: 0;
+      }
+    }
+
+    @keyframes scale2 {
+      0% {
+        transform: scale(1);
+        opacity: .9;
+      }
+
+      100% {
+        transform: scale(12);
+        opacity: 0;
+      }
+    }
+
+
+    .point1,
+    .point1::before,
+    .point1::after {
+      /* 设置颜色 */
+      background-color: rgba(241, 34, 30, .9);
+    }
+
+    .point2,
+    .point2::before,
+    .point2::after {
+      /* 设置颜色 */
+      background-color: rgba(0, 221, 254, .9);
+    }
+
+    .point3,
+    .point3::before,
+    .point3::after {
+      /* 设置颜色 */
+      background-color: rgba(1, 88, 255, .9);
+    }
+
+    .point4,
+    .point4::before,
+    .point4::after {
+      /* 设置颜色 */
+      background-color: rgba(135, 229, 8, .9);
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="container" style="height:94%; width: 96%; overflow: hidden; position: absolute;">
+    <div class="dot"></div>
+    <div class="pulse"></div>
+    <div class="pulse1"></div>
+
+
+    <div class="point point1" style="top: 20%; left: 30%; "></div>
+    <div class="point point2" style="top: 20%; left: 20%; "></div>
+    <div class="point point3" style="top: 49%; left:20%; "></div>
+    <div class="point point4" style="top: 35%; left: 10%; "></div>
+  </div>
+</body>
+
+</html>
