@@ -53,7 +53,7 @@
           </v-header>
           <div class="tree-box">
 
-            <Select v-model="platModel" style="margin: 5px 0;" placeholder="请选择平台" @on-change="platFunction">
+            <Select v-model="sel_platformId" style="margin: 5px 0;" placeholder="请选择平台" @on-change="platFunction">
               <Option v-for="item in platList" :value="item.guid" :key="item.guid">{{ item.platformName }}</Option>
             </Select>
             <div style="border: 1px #eee solid;height: calc(100% - 42px);">
@@ -218,10 +218,12 @@ export default {
       },
 
 
-      platModel: "",
       platList: [],
       systemList: [],
       itemHoverIndex: null,
+
+      sel_platformId: "",
+      sle_systemId: "",
     }
   },
   methods: {
@@ -240,18 +242,6 @@ export default {
       }).catch(err => {
         _this.loading = false;
       })
-    },
-    //获取菜单列表
-    getMenuData() {
-      let _this = this;
-      this.$ajax(this.$apiSet.getMenuByIds)
-        .then(res => {
-          if (!res.data.success) {
-            _this.$errorMsg(res.data.message)
-          } else {
-            _this.menuData = res.data.response;
-          }
-        }).catch(err => { })
     },
     handleButton(val) {
       if (val.methods == 'handleEdit') this.handleEdit(val.index, val.row)
@@ -331,14 +321,22 @@ export default {
     },
     //菜单绑定
     saveMenu() {
+      let _this = this;
       // let ids = this.$refs.menutree.getCheckedKeys().concat(this.$refs.menutree.getHalfCheckedKeys())
       let ids = this.$refs.menutree.getCheckedNodes(false, true).map(item => item.guid)
 
-      this.roleForm = this.sels
-      this.roleForm.menuIds = ids.join(',')
-
-      this.formTitle = "编辑"
-      this.handleSubmit()
+      this.$ajax(this.$apiSet.RoleByMenuId, {
+        roleId: this.sels.guid,
+        platId: this.sel_platformId,
+        systemId: this.sle_systemId,
+        menuIds: ids.join(','),
+      }).then(res => {
+        if (!res.data.success) {
+          _this.$errorMsg(res.data.message)
+        } else {
+          _this.$success(res.data.message)
+        }
+      }).catch(err => { })
     },
     //显示编辑界面
     handleEdit(index, row) {
@@ -384,10 +382,10 @@ export default {
       this.sels = {}
       this.loading = true;
       this.searchData();
-      this.getMenuData();
 
       this.$nextTick(() => {
-        _this.$refs.menutree.setCheckedKeys([])
+        // _this.$refs.menutree.setCheckedKeys([])
+        _this.$refs.menutree.setCheckedNodes([])
       })
     },
 
@@ -400,7 +398,7 @@ export default {
         } else {
           _this.platList = res.data.response;
           if(_this.platList.length > 0) {
-            _this.platModel = _this.platList[0].guid
+            _this.sel_platformId = _this.platList[0].guid
             _this.platFunction(_this.platList[0].guid)
           }
         }
@@ -418,12 +416,25 @@ export default {
           _this.$errorMsg(res.data.message)
         } else {
           _this.systemList = res.data.response;
+          if(_this.systemList.length > 0) _this.systemFunction(_this.systemList[0]);
         }
       }).catch(err => { })
     },
-    //根据系统刷选 菜单
-    systemFunction() {
-      
+     //根据系统刷选 菜单
+    systemFunction(item,index) {
+       let _this = this;
+       _this.itemHoverIndex = index;
+       _this.sle_systemId = item.guid;
+    
+      this.$ajax(this.$apiSet.GetMenuBySystemId, {
+        systemId: item.guid
+      }).then(res => {
+        if (!res.data.success) {
+          _this.$errorMsg(res.data.message)
+        } else {
+          _this.menuData = res.data.response;
+        }
+      }).catch(err => { })
     },
   },
   mounted() {

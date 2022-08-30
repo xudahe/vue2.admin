@@ -84,6 +84,10 @@ const RoleModule = {
     url: '/api/Role/DeleteRole',
     method: 'delete'
   },
+  RoleByMenuId: { //绑定菜单
+    url: '/api/Role/RoleByMenuId',
+    method: 'get'
+  },
 }
 
 const MenuModule = {
@@ -93,6 +97,14 @@ const MenuModule = {
   },
   getMenuByIds: { //根据菜单数据(树状)
     url: '/api/Menu/GetMenuByIds',
+    method: 'get'
+  },
+  GetMenuBySystemId: { //根据系统Id获取菜单数据（树状）
+    url: '/api/Menu/GetMenuBySystemId',
+    method: 'get'
+  },
+  GetParentMenu: { //获取一级菜单
+    url: '/api/Menu/GetParentMenu',
     method: 'get'
   },
   postMenu: { //添加菜单

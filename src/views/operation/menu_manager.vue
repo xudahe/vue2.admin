@@ -10,7 +10,7 @@
           <!--快速查询字段-->
           <el-select v-model="filters.parentId" style="width:160px !important;padding-right: 5px;" placeholder="父级菜单"
             filterable clearable @change="searchData">
-            <el-option v-for="(item, index) in parentData" :key="index" :label="item.menuName" :value="item.id">
+            <el-option v-for="(item, index) in parentData" :key="index" :label="item.menuName" :value="item.guid">
             </el-option>
           </el-select>
           <!--操作按钮组-->
@@ -238,13 +238,12 @@ export default {
     },
     getParentData() {
       let _this = this;
-      this.$ajax(this.$apiSet.getMenuInfo)
+      this.$ajax(this.$apiSet.GetParentMenu)
         .then(res => {
           if (!res.data.success) {
             _this.$errorMsg(res.data.message)
           } else {
-            let data = res.data.response;
-            _this.parentData = data.length > 0 ? data.filter(val => { return val.parentId == null }) : [];
+           _this.parentData = res.data.response;
           }
         }).catch(err => { })
     },

@@ -98,6 +98,7 @@ function getAddRouters() {
     menuinfo: userInfo.menuInfoList,
     deptInfo: userInfo.deptInfoList,
   })
+  console.log( store.getters.info)
 
   store.dispatch("newRoutes", store.getters.info.roleinfo)
   router.addRoutes(store.getters.addRouters) //动态添加路由
