@@ -43,11 +43,13 @@ function getRoutes(req) {
   let routes = req.keys().map(val => {
     // 获取组件配置
     const componentConfig = req(val);
-    // 剥去文件名开头的 `./` 和`.vue`结尾的扩展名
-    const componentName = val.replace(/^\.\//, '').replace(/\.vue$/, '');
-    // 全局注册组件
-    const name = componentConfig.default.name;
 
+    // 第一种方法，剥去文件名开头的 `./` 和`.vue`结尾的扩展名
+    const name = val.replace(/^\.\//, '').replace(/\.vue$/, '');
+    // 第二种方法，此处的name,是组件属性定义的name  
+    // const name = componentConfig.default.name;
+
+    // 全局注册组件
     const component = Vue.component(
       name,
       // 如果这个组件选项是通过 `export default` 导出的，那么就会优先使用 `.default`，否则回退到使用模块的根。
