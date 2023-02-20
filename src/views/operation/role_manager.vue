@@ -59,7 +59,7 @@
             <div style="border: 1px #eee solid;height: calc(100% - 42px);">
               <div v-if="systemList.length > 0"
                 style="float: left;width: 1.7rem;border-right: 1px #C5D9E8 solid;height: 100%;background-color: #f6fbff;overflow-y: auto;overflow-x: hidden;">
-                <el-button :type="itemHoverIndex == index ? 'primary' : ''" :key='index'
+                <el-button :type="sle_systemId == item.guid ? 'primary' : ''" :key='index'
                   @click="systemFunction(item, index)" v-for="(item, index) in systemList"
                   style="display: block;width: 100%;margin-left:0px;height: 45px;">
                   {{ item.systemName }}
@@ -220,7 +220,6 @@ export default {
 
       platList: [],
       systemList: [],
-      itemHoverIndex: null,
 
       sel_platformId: "",
       sle_systemId: "",
@@ -301,7 +300,7 @@ export default {
       this.$refs.menutree.setCheckedNodes([])
       // this.$refs.menutree.setCheckedKeys(item.menuIds ? item.menuIds.split(','):[])
 
-      //item.menuIds前提是guid集合，才用下面方法，如果是id集合则用上面注释的方法
+      //item.menuIds前提是guid集合，才用下面接口方法，如果是id集合则用上面注释的方法
       if (!this.$isNull(item.menuIds)) {
         this.$ajax(this.$apiSet.getMenuInfo, {
           ids: item.menuIds,
@@ -423,7 +422,6 @@ export default {
      //根据系统刷选 菜单
     systemFunction(item,index) {
        let _this = this;
-       _this.itemHoverIndex = index;
        _this.sle_systemId = item.guid;
     
       this.$ajax(this.$apiSet.GetMenuBySystemId, {

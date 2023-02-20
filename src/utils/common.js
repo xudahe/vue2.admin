@@ -12,9 +12,21 @@ common.apiLog = function (vm, data) {
       }
     }).catch(err => {})
 };
-
+F
 //全局通用的天气接口
 common.apiWeather = function (vm, city = '南京') {
+  //code：南京--320100   鼓楼区--320106
+  // vm.$ajax({
+  //   url: 'https://restapi.amap.com/v3/weather/weatherInfo?parameters&key=6c87cc38e8c451572bfefcf7175197a4&city=320106',
+  //   method: 'get'
+  // }).then(
+  //   res => {
+  //     if (res.status == 200) {
+
+  //     }
+  //   }
+  // )
+
   vm.$ajax({
       url: 'http://wthrcdn.etouch.cn/weather_mini?city=' + encodeURI(city),
       dataType: 'jsonp',

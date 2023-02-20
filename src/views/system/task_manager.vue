@@ -195,8 +195,9 @@ export default {
           { label: '删除', type: 'danger', icon: 'el-icon-delete', methods: 'handleDelete' },
         ]
       },
-      //数据自动刷新间隔
-      refresh: { //isRefresh是否刷新，timer刷新时间
+      //数据自动刷新间隔，showRefresh是否显示 ,isRefresh是否自动刷新，timer刷新时间
+      refresh: {
+        showRefresh: true,
         isRefresh: true,
         timer: 120,
       },

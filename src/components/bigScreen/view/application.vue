@@ -126,7 +126,7 @@
 <script>
 import bus from "../../../eventBus.js";
 import { MapControl } from "../../arcgis_map/js/MapControl.js";
-import arcgisMap from "../../../components/arcgis_map/index2.vue";
+import arcgisMap from "../../../components/arcgis_map/index3.vue";
 import splitview from "../../../components/arcgis_map/split/splitview.vue";
 
 
@@ -474,7 +474,7 @@ export default {
 <style lang="less">
 .appDiv2 {
   width: 100%;
-  height: calc(100% - 0.85rem);
+  height: calc(100% - 0.90rem);
   position: relative;
   padding: 0.05rem;
 

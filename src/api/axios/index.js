@@ -30,6 +30,9 @@ axios.defaults.withCredentials = true; //跨域请求，允许保存cookie
 
 if (process.env.NODE_ENV === 'production') {
   axios.defaults.baseURL = AppConfig.baseUrl_Pro; //生产环境接口地址
+} else {
+  // 开发环境在vue.config.js 文件的devServer配置
+  // axios.defaults.baseURL = AppConfig.baseUrl_Dev;
 }
 
 //添加request请求拦截器
@@ -122,10 +125,13 @@ axios.interceptors.response.use(response => {
         error.message = '请求错误,未找到该资源';
         break;
       case 405:
-        error.message = '请求方法未允许';
+        error.message = '请求hhtp方法未允许';
         break;
       case 408:
         error.message = '请求超时';
+        break;
+      case 415:
+        error.message = '参数没有指定Body还是Query';
         break;
       case 429: //ip限流
         error.message = '刷新次数过多，请稍事休息重试';

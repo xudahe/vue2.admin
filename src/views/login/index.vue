@@ -1,8 +1,7 @@
 <!-- 应用系统登录 -->
 <template>
   <div class="login-container">
-    <el-form :model="loginForm" status-icon ref="loginForm" label-position="left" label-width="0px"
-      class="demo-ruleForm login-page">
+    <el-form :model="loginForm" status-icon ref="loginForm" label-position="left" label-width="0px" class="demo-ruleForm login-page">
       <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
         <el-menu-item index="1">帐号登陆</el-menu-item>
         <el-menu-item index="2">短信登陆</el-menu-item>
@@ -13,8 +12,7 @@
             <Icon type="ios-people" :size="20" />&nbsp;用户名：
           </el-col>
           <el-col :span="18">
-            <el-input type="text" v-model="loginForm.username" autocomplete="off" placeholder="请输入用户民" clearable
-              @keydown.enter.native="nextFocus(0)" />
+            <el-input type="text" v-model="loginForm.username" autocomplete="off" placeholder="请输入用户民" clearable @keydown.enter.native="nextFocus(0)" />
           </el-col>
         </el-form-item>
         <el-form-item prop="username" style="border-bottom: 1px solid #eeeeee;">
@@ -22,8 +20,7 @@
             <Icon type="ios-lock" :size="20" />&nbsp;密&nbsp;&nbsp;&nbsp;码：
           </el-col>
           <el-col :span="18">
-            <el-input type="text" v-model="loginForm.password" autocomplete="off" placeholder="请输入密码" show-password
-              @keydown.enter.native="nextFocus(1)" />
+            <el-input type="text" v-model="loginForm.password" autocomplete="off" placeholder="请输入密码" show-password @keydown.enter.native="nextFocus(1)" />
           </el-col>
         </el-form-item>
         <el-form-item prop="code" style="border-bottom: 1px solid #eeeeee;">
@@ -31,8 +28,7 @@
             <Icon type="md-images" :size="20" />&nbsp;验证码：
           </el-col>
           <el-col :span="12">
-            <el-input type="text" v-model="identifyCode" autocomplete="off" placeholder="请输入验证码" clearable
-              @keydown.enter.native="nextFocus(2)" />
+            <el-input type="text" v-model="loginCode" autocomplete="off" placeholder="请输入验证码" clearable @keydown.enter.native="nextFocus(2)" />
           </el-col>
           <el-col :span="6">
             <div class="login-code" @click="setRefreshCode">
@@ -42,10 +38,8 @@
         </el-form-item>
         <el-form-item style="width:100%;">
           <el-col :span="24">
-            <el-button v-show="activeIndex == '1'" type="primary" style="width:100%;"
-              @click.native.prevent="loginSubmit" :loading="logining">{{ loadName }}</el-button>
-            <el-button v-show="activeIndex == '2'" type="primary" style="width:100%;" @click.native.prevent="freeLogin"
-              :loading="logining">{{ loadName }}</el-button>
+            <el-button v-show="activeIndex == '1'" type="primary" style="width:100%;" @click.native.prevent="loginSubmit" :loading="logining">{{ loadName }}</el-button>
+            <el-button v-show="activeIndex == '2'" type="primary" style="width:100%;" @click.native.prevent="freeLogin" :loading="logining">{{ loadName }}</el-button>
           </el-col>
         </el-form-item>
         <el-col :span="12">
@@ -73,6 +67,7 @@ export default {
       timeCode: null,
       timeCount: 60, //验证码刷新时间
       timeSum: 0,
+      loginCode: "",
       identifyCode: "",
       identifyCodes: [
         0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
@@ -100,7 +95,8 @@ export default {
       for (let i = 0; i < 4; i++) {
         this.identifyCode += this.identifyCodes[this.randomNum(0, this.identifyCodes.length)];
       }
-      console.log(this.identifyCode);
+      this.loginCode = JSON.parse(JSON.stringify(this.identifyCode))
+      console.log(this.loginCode);
     },
     //自动重置验证码
     setRefreshCode() {
@@ -181,17 +177,17 @@ export default {
               });
             }
 
-            var token = res.data.token;
+            var token = res.data.response.token;
             _this.$store.commit("saveToken", token); // 保存token
 
             var curTime = new Date();
             var expiredate = new Date(
-              curTime.setSeconds(curTime.getSeconds() + res.data.expires_in)
+              curTime.setSeconds(curTime.getSeconds() + res.data.response.expires_in)
             ); // 定义过期时间
             _this.$store.commit("saveTokenExpire", expiredate); // 保存token过期时间
 
             window.localStorage.refreshtime = expiredate; // 保存刷新时间，这里的和过期时间一致
-            window.localStorage.expires_in = res.data.expires_in;
+            window.localStorage.expires_in = res.data.response.expires_in;
 
             _this.$notify({
               type: "success",
@@ -270,9 +266,14 @@ export default {
     },
   },
   mounted() {
-    // window.localStorage.clear();
-    // window.sessionStorage.clear();
-    // console.info('%c 本地缓存已清空!', "color:green")
+    // 清除状态保持
+    window.localStorage.clear()
+    window.sessionStorage.clear();
+    // 状态保持清除后刷新页面(只刷新当前页面一次)
+    if (window.location.href.indexOf("#reloaded") == -1) {
+      window.location.href = window.location.href + "#reloaded";
+      window.location.reload();
+    }
 
     this.cookies();
     this.setRefreshCode();
@@ -306,9 +307,11 @@ export default {
   width: 100%;
   height: 100%;
   padding: 8% 50%;
-  background-image: linear-gradient(120deg,
-      #00a7f5 45%,
-      #0cb3ff 40%); //渐变背景
+  background-image: linear-gradient(
+    120deg,
+    #00a7f5 45%,
+    #0cb3ff 40%
+  ); //渐变背景
 
   .el-input__inner {
     border: none !important;

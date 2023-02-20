@@ -1964,6 +1964,34 @@ MapControl.mergepolygon = function (geometrystr) {
   } else return '';
 };
 
+//根据多个点 绘制成一个矩形面
+MapControl.polygonByPoint = function (points) {
+  let xPoint = [],
+    yPoint = [];
+  for (let i = 0; i < points.length; i++) {
+    let shape1 = points[i].replace('POINT(', '').replace('POINT (', '').replace(')', '').split(' ');
+    xPoint.push(parseFloat(shape1[0]));
+    yPoint.push(parseFloat(shape1[1]));
+  }
+
+  let xMax = Math.max.apply(null, xPoint) + 15;
+  let xMin = Math.min.apply(null, xPoint) - 15;
+  let yMax = Math.max.apply(null, yPoint) + 15;
+  let yMin = Math.min.apply(null, yPoint) - 15;
+  let shape = 'POLYGON((' + xMin + ' ' + yMin + ',' + xMax + ' ' + yMin + ',' + xMax + ' ' + yMax + ',' + xMin + ' ' + yMax + ',' + xMin + ' ' + yMin + '))';
+
+  return shape;
+};
+
+//两点连接成 一条线
+MapControl.linestringByPoint = function (point1, point2) {
+  let shape1 = point1.replace('POINT(', '').replace('POINT (', '').replace(')', '').split(' ')
+  let shape2 = point2.replace('POINT(', '').replace('POINT (', '').replace(')', '').split(' ')
+  let shape = 'LINESTRING (' + shape1[0] + ' ' + shape1[1] + ', ' + shape2[0] + ' ' + shape2[1] + ')'
+
+  return shape;
+};
+
 //绘制缓冲半径
 MapControl.ShowGeometryBuffer = function (geom, buffer) {
   var distance = buffer;

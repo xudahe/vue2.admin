@@ -176,9 +176,12 @@ module.exports = defineConfig({
         return args
       })
 
+      //添加分析工具 
+      config.plugin('webpack-bundle-analyzer').use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin).end()
+
       // 移除预先加载模块：prefetch，preload
-      // config.plugins.delete('prefetch')
-      // config.plugins.delete('preload')
+      config.plugins.delete('prefetch')
+      config.plugins.delete('preload')
     }
   },
 

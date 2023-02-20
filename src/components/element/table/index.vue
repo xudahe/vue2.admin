@@ -38,13 +38,13 @@
       </el-table-column>
     </el-table>
     <el-row >
-      <el-col :span="4" v-if="showRefresh">
+      <el-col :span="4" v-if="refresh.showRefresh">
         <div style="margin-top: 10px;">
           <el-checkbox v-model="refresh.isRefresh">自动刷新</el-checkbox>
-          <span style="color: green;">{{second}}s</span>
+          <span style="color: green;padding-left: 0.1rem;">{{second}}s</span>
         </div>
       </el-col>
-      <el-col :span="showRefresh ? 20:24">
+      <el-col :span="refresh.showRefresh ? 20:24">
         <pagination ref="pagination" :now-page.sync="nowPage" :now-size.sync="nowSize" :total="tableData.length" @handleSizeChange="handleSizeChange" @handleCurrentChange="handleCurrentChange" />
       </el-col>
     </el-row>
@@ -110,7 +110,7 @@ export default {
       type: Boolean,
       default: false
     },
-    refresh: { //showRefresh是否显示 isRefresh是否刷新，timer刷新时间
+    refresh: { //showRefresh是否显示 ,isRefresh是否自动刷新，timer刷新时间
       type: Object,
       default: () => {
         return { showRefresh: false, isRefresh: false, timer: 120, }

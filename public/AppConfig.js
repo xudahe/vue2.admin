@@ -1,6 +1,5 @@
 /**
  * 配置文件，在index.html文件中引用
- * 注意：发布后要想修改配置文件最好script 引入，不要用import引入
  */
 
 var AppConfig = {
