@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-aside id="asideNav">
-      <div class="logo-name" @click="changeScreen">
+      <div class="logo-name">
         <p v-if="$store.getters.isCollapse">XU</p>
         <p v-else>vue-Admin</p>
       </div>
@@ -60,9 +60,6 @@ export default {
         path: key
       });
     },
-    changeScreen() {
-      this.$router.push({ path: "/platform" });
-    }
   }
 };
 </script>

@@ -14,7 +14,7 @@
         </li>
         <li>
           <div style="display:-webkit-box;cursor: pointer;" @click="$emit('showWeather')">
-            <img class="weathers_img" :src="require('@/assets/static/weather/'+ weather[0].weather +'.gif')" />
+            <img class="weathers_img" src="" />
             <div class="weathers_type">{{weather[0].weather}}</div>
             <div class="weathers_text">{{weather[0].temperature}}℃</div>
           </div>

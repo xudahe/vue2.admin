@@ -1,15 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-// 为Vue应用添加页面间的转场特效
-import vueg from 'vueg'
-// import 'vueg/css/transition-min.css'
+
 // Markdown （mavonEditor）编辑器
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 Vue.use(mavonEditor)
-// 引入videojs的css样式
-import 'video.js/dist/video-js.css'
+
 // 引入前端错误日志
 import './other/error_log'
 // 引入区域loading效果
@@ -363,9 +360,6 @@ Vue.prototype.$isNum = isNum //数字验证
  */
 import ElementResizeDetectorMaker from "element-resize-detector"
 Vue.prototype.$erd = ElementResizeDetectorMaker()
-
-// 传入实例化后的router，和插件的全局配置,`<router-view>`上添加v-transition="false"，可以禁用动画
-Vue.use(vueg, new VueRouter(), defaultConfig.option)
 
 // 阻止显示生产模式的消息
 Vue.config.productionTip = false

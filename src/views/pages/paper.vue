@@ -23,7 +23,7 @@ export default {
             type: 2, //题目类型 1.单选题 2.多选题 3.判断题 4.填空题 5.简答题
             no: 1, //题号
             totalScore: 6, //题目总分
-            subject: "以下属于南方电网员工职业操守中明文规定的有()",
+            subject: "以下属于南方电网员工职业操守中明文规定的有（）",
             answers: [
               { no: "A", answer: "热爱祖国、热爱南网、热爱岗位" },
               { no: "B", answer: "遵纪守法、忠于职守、令行禁止" },
@@ -40,7 +40,7 @@ export default {
             type: 1,
             no: 1,
             subject:
-              "在生产管理信息系统中，下列操作步骤能正确将工单推进流程的是()",
+              "在生产管理信息系统中，下列操作步骤能正确将工单推进流程的是（）",
             totalScore: 1,
             answers: [
               { no: "A", answer: "在工具栏中点击“workflow”标签" },
@@ -245,7 +245,7 @@ export default {
       //   return parseFloat(prev) + parseFloat(curr.score);
       // });
 
-      // Array.reduce()的回调函数接收4个参数，initialValue 指定的初始值,初始值可以是数字,数组,对象.
+      // Array.reduce（）的回调函数接收4个参数，initialValue 指定的初始值,初始值可以是数字,数组,对象.
       // Accumulator (acc) (累计器) 如果传入了initialValue,Accumulator的初始值就是initialValue,没传入就是数组的第一个值
       // Current Value (cur) (当前值)
       // Current Index (idx) (当前索引)如果传入了initialValue,索引从0开始,没传入从1开始

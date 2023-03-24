@@ -61,7 +61,7 @@
             </div>
             <el-card class="box-card" v-for="(sub,index) in item.childs" :key="item.code+(index+1)" :id="item.code+(index+1)">
               <div slot="header" class="clearfix">
-                <el-tag effect="dark"> {{sub.no}} </el-tag>
+                <el-tag effect="dark" style="margin-right: 10px;height:26px;"> {{sub.no}} </el-tag>
                 <span>{{sub.subject}}</span>
                 <span>({{sub.totalScore}}分)</span>
                 <div v-if="type===2 || type===3" style="float: right;">
@@ -575,12 +575,12 @@ export default {
 
 .answer-radio {
   display: block;
-  margin: 5px 0px;
+  margin: 10px 0px;
 }
 
 .answer-checkbox {
   display: block;
-  margin: 5px 0px;
+  margin: 10px 0px;
 }
 
 .subject-title {

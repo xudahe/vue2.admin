@@ -5,7 +5,8 @@
       <v-header icon="md-podium" text="图片列表">
         <div slot="content"></div>
         <div style="text-align: right;">
-          <el-upload ref="upload" class="upload-demo" :action="photourl+'/api/File/imgUpload'" multiple :show-file-list="false" :on-change="handleChange" :before-upload="onBeforeUpload" :on-success="handleSuccess">
+          <el-upload ref="upload" class="upload-demo" :action="photourl + '/api/File/imgUpload'" multiple
+            :show-file-list="false" :on-change="handleChange" :before-upload="onBeforeUpload" :on-success="handleSuccess">
             <el-button size="small" type="primary">上传图片</el-button>
             <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
           </el-upload>
@@ -13,7 +14,9 @@
       </v-header>
 
       <!--列表-->
-      <e-table :table-data="tableData" :loading="loading" :table-label="tableLabel" :table-option="tableOption" :now-page="nowPage" :now-size="nowSize" @handleButton="handleButton" @handleSelectionChange="handleSelectionChange"></e-table>
+      <e-table :table-data="tableData" :loading="loading" :table-label="tableLabel" :table-option="tableOption"
+        :now-page="nowPage" :now-size="nowSize" @handleButton="handleButton"
+        @handleSelectionChange="handleSelectionChange"></e-table>
     </el-card>
 
   </div>
@@ -32,7 +35,11 @@ export default {
       },
       tableData: [
         {
-          name: '123', size: 123, image: ['123', '123', '123'], createTime: new Date(),
+          name: '123', size: 123, image: [
+            require("@/assets/static/img/slide/img.jpg"),
+            require("@/assets/static/img/slide/img1.jpg"),
+            require("@/assets/static/img/slide/img2.jpg"),
+          ], createTime: new Date(),
         }
       ],
       tableLabel: [

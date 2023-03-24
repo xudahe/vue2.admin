@@ -25,6 +25,7 @@ const routerData = {
             eachSelect(routers[j].children);
           }
         }
+        console.log(state.regRouters)
       }
 
     }

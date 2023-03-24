@@ -3,15 +3,14 @@
     <slide-verify ref="slideblock" @success="onSuccess" @again="onAgain" @fulfilled="onFulfilled" @fail="onFail"
       @refresh="onRefresh" :imgs="imgs" :accuracy="accuracy"></slide-verify>
     <div>{{ msg }}</div>
-    <verify></verify>
   </div>
 </template>
 
 <script>
-import verify from "./verify";
+import slideVerify from "./slideVerify.vue"
 
 export default {
-  components: { verify },
+  components: { slideVerify},
   data() {
     return {
       msg: "",

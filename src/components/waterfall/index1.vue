@@ -114,7 +114,7 @@ export default {
       const vm = this;
       let numbers = [25, 35, 45, 55, 65];
 
-      var data = require.context("../../assets/static/img/water", false, /\.(jpeg|png|jpg)$/).keys(), arr = [];
+      var data = require.context("../../assets/static/img/file", false, /\.(jpeg|png|jpg)$/).keys(), arr = [];
       for (let i in data) {
         arr.push(data[i].replace(/\.\//g, '').replace(/\.svg/g, ''));
       }
@@ -123,7 +123,7 @@ export default {
 
       let moreList = [];
       for (let i = 0; i < arr.length; i++) {
-        let imgUrl = require("@/assets/static/img/water/" + arr[i]);
+        let imgUrl = require("@/assets/static/img/file/" + arr[i]);
 
         moreList.push({
           id: i + 1,

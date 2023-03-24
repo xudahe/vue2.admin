@@ -1,10 +1,9 @@
 <template>
   <div ref="home" class="home card_css">
     <el-row>
-      <el-col :span="8">
+      <el-col :span="12">
         <el-card class="box-card" shadow="hover">
-          <!-- <swiper :imgList="imgList"></swiper> -->
-          <calendar></calendar>
+          <swiper :imgList="imgList"></swiper>
         </el-card>
       </el-col>
       <el-col :span="12">
@@ -31,23 +30,23 @@
 import dialog1 from "@/components/dialog/dialog1";
 import slide from "@/components/slideverify/slide";
 import countdown from "@/components/countdown/index1";
-import calendar from "@/components/calendar/index1";
+import swiper from "@/components/carousel/index1"
 
 export default {
   components: {
     dialog1,
     slide,
     countdown,
-    calendar
+    swiper,
   },
   data() {
     return {
       options: [],
       imgList: [
-        { img: "./static/img/home/b1.png" },
-        { img: "./static/img/home/b2.png" },
-        { img: "./static/img/home/b3.png" },
-        { img: "./static/img/home/b4.png" }
+        { img: require("@/assets/static/img/home/b1.png") },
+        { img: require("@/assets/static/img/home/b2.png") },
+        { img: require("@/assets/static/img/home/b3.png") },
+        { img: require("@/assets/static/img/home/b4.png") }
       ],
 
       dialog: {
@@ -69,16 +68,13 @@ export default {
     },
     showdialog2() {
       this.showDialog = true;
-      this.$store.state.drag_com = "handsontable";
-      this.$store.state.drag_ref = "handsontable";
+      this.$store.state.drag_com = "markdown";
+      this.$store.state.drag_ref = "markdown";
       this.$refs.dragdialog.retresize();
     },
     button1() {
       this.$print(this.$refs.home);
     },
-    handleEchartUpdated() {
-      console.log("echarts组件的updated钩子函数被触发");
-    }
   }
 };
 </script>

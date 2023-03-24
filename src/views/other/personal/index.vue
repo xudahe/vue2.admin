@@ -10,7 +10,7 @@
 						<div class="avatar">
 							<el-button icon="el-icon-upload" class="upload-button" circle @click="$refs.avatarForm.dialogVisible = true"></el-button>
 							<el-avatar :size="120" src="" fit="cover">
-                <img :src="require('@/assets/static/img/menus/11.png')"/>
+                <img :src="require('@/assets/static/img/暂无图片01.png')"/>
               </el-avatar>
 							<div class="hover-plus" @click="isShow = true"><svg-icon icon-class="add" class="add-avatar"/></div>
 						</div>

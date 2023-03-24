@@ -1,7 +1,6 @@
 <template>
   <waterfall></waterfall>
 </template>
-
 <script>
 import waterfall from "../../components/waterfall/index1.vue";
 

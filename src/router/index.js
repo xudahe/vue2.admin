@@ -5,14 +5,6 @@ Vue.use(VueRouter)
 import Login from "@/views/login/index"
 import Layout from "@/views/layout/index"
 
-//大屏系统路由
-const
-  bighome = () => import("@/components/bigScreen/view/home"),
-  homePage = () => import("@/components/bigScreen/view/homePage"),
-  application = () => import("@/components/bigScreen/view/application"),
-  pump = () => import("@/components/bigScreen/components/pump/index1"),
-  platform = () => import("@/components/bigScreen/view/platform");
-
 //路由懒加载：减少首次加载时从服务器请求的组件，当路由被访问时，再从服务器请求对应组件。
 //使用动态的import()语法,不是必须加载的组件使用懒加载
 const
@@ -28,14 +20,13 @@ const system_routes = getRoutes(require.context('@/views/system', true, /\.vue$/
 const tools_routes = getRoutes(require.context('@/views/tools', true, /\.vue$/));
 const page_routes = getRoutes(require.context('@/views/pages', true, /\.vue$/));
 const map_routes = getRoutes(require.context('@/views/map', true, /\.vue$/));
-const video_routes = getRoutes(require.context('@/views/video', true, /\.vue$/));
 
 let addRouter = [{
   path: "/index",
   iconCls: "el-icon-tickets", // 图标样式class
   name: "主页",
   component: Layout,
-  children: operation_routes.concat(system_routes).concat(tools_routes).concat(page_routes).concat(map_routes).concat(video_routes)
+  children: operation_routes.concat(system_routes).concat(tools_routes).concat(page_routes).concat(map_routes)
 }];
 
 //自动注册路由
@@ -142,56 +133,6 @@ let defaultRouter = [{
     component: () => import("@/views/workflow/dynamicForm/preview.vue"),
     children: [],
   },
-  {
-    path: '/platform',
-    name: 'platform',
-    hidden: true,
-    meta: {
-      title: "平台切换页面"
-    },
-    component: platform,
-    children: []
-  },
-  {
-    path: '/bighome',
-    name: 'bighome',
-    meta: {
-      title: "大屏入库页面"
-    },
-    hidden: true,
-    component: bighome,
-    children: [{
-        path: '/homePage',
-        name: 'homePage',
-        meta: {
-          title: "综合页面"
-        },
-        hidden: true,
-        component: homePage,
-        children: []
-      },
-      {
-        path: '/application',
-        name: 'application',
-        hidden: true,
-        meta: {
-          title: "应用页面"
-        },
-        component: application,
-        children: []
-      },
-      {
-        path: '/pump',
-        name: 'pump',
-        hidden: true,
-        meta: {
-          title: "泵站页面"
-        },
-        component: pump,
-        children: []
-      },
-    ]
-  }
 ]
 
 /**

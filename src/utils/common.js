@@ -12,7 +12,7 @@ common.apiLog = function (vm, data) {
       }
     }).catch(err => {})
 };
-F
+
 //全局通用的天气接口
 common.apiWeather = function (vm, city = '南京') {
   //code：南京--320100   鼓楼区--320106

@@ -15,7 +15,7 @@ export function debounce(callback, time, immediate = true) {
     var context = this
     // 如果定时器存在,就清除定时器引用
     timeout && clearTimeout(timeout)
-    // 如果参数为true, 则为即执行函数
+    // 如果参数为true, 则为立即执行函数
     if (immediate) {
       // 如果定时器引用不存在,则立刻调用函数;如果定时器存在,则不调用函数
       var isCall = !timeout

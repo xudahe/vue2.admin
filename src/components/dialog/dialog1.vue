@@ -134,25 +134,16 @@ export default {
       let panelname = this.$store.state.drag_com;
       dragPanel.style.top = "100px";
 
-      if (panelname == "handsontable") {
-        if (dragPanel.style.height == "35px") {
-          dragPanel.style.height = "70%";
-          dragPanel.style.width = "60%";
-          this.MaxSize = false;
-        } else {
-          dragPanel.style.height = "35px";
-          dragPanel.style.width = "60%";
-          this.MaxSize = true;
-        }
-      } else {
+
         if (dragPanel.style.height == "35px") {
           dragPanel.style.height = "50%";
+          dragPanel.style.width = "40%";
           this.MaxSize = false;
         } else {
           dragPanel.style.height = "35px";
+          dragPanel.style.width = "40%";
           this.MaxSize = true;
         }
-      }
     },
     retresize() {
       var dragPanel = document.getElementById("dragPanel");
