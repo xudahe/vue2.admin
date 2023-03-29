@@ -215,11 +215,6 @@ export default {
             let userinfo = res.data.response;
             window.localStorage.userInfo = JSON.stringify(userinfo);
 
-            //主题样式
-            // let theme = _this.$isNull(sysInfo[i].theme) ? '001' : sysInfo[i].theme; //主题颜色
-            // _this.$store.commit("templatesMu", theme)
-            // window.localStorage.theme = theme;
-
             this.loginEnd();
             setTimeout(() => {
               _this.$router.push({ path: "/home" }); //登录成功之后重定向到首页

@@ -50,7 +50,9 @@ import './router/intercept.js' //路由拦截
 
 //图片点击放大预览
 import Viewer from 'v-viewer'
-import 'viewerjs/dist/viewer.css'
+// import 'viewerjs/dist/viewer.css'
+// import ".store/v-viewer@1.6.4/node_modules/viewerjs/dist/viewer.css";
+import '@/assets/node-modules/viewerjs/viewer.css'
 Vue.use(Viewer)
 Viewer.setDefaults({
   Options: {

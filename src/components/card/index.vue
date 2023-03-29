@@ -161,8 +161,8 @@ export default {
     display: inline-block;
     width: 50%;
     position: relative;
-    line-height: 0.3rem;
-    height: 0.3rem;
+    line-height: 0.4rem;
+    height: 0.4rem;
     cursor: pointer;
     color: rgba(0, 0, 0, 0.45);
   }
@@ -188,7 +188,7 @@ export default {
 
   .data-item {
     width: 100%;
-    height: 1rem;
+    height: 1.3rem;
   }
 
   .corner-mark {
@@ -244,7 +244,7 @@ export default {
     font-size: 0.12rem;
     height: calc(100% - 0.3rem);
 
-    text-indent: 2em; //首行缩进
+    text-indent: 3em; //首行缩进
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 4;

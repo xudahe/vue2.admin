@@ -23,9 +23,10 @@
       </Col>
       <Col :span="10" class="btndiv-con">
       <Button type="primary" size="small" @click="tabchange">{{tabName}}</Button>
-      <Button type="primary" size="small" v-show="!isEdit" @click="editDuty">编辑值班信息</Button>
-      <Button type="primary" size="small" v-show="isEdit" @click="cancelDuty">取消</Button>
-      <Button type="primary" size="small" v-show="isEdit" @click="saveDuty">保存</Button>
+      <Button type="primary" size="small" v-show="!isEdit && tabName == '列表'" @click="editDuty">编辑值班信息</Button>
+      <Button type="primary" size="small" v-show="isEdit && tabName == '列表'" @click="cancelDuty">取消</Button>
+      <Button type="primary" size="small" v-show="isEdit && tabName == '列表'" @click="saveDuty">保存</Button>
+      <Button type="primary" size="small" v-show="tabName == '日历'">新增</Button>
       </Col>
       <Col :span="24" style="height:calc(100% - 0.6rem);width:100%;">
       <!-- 日历形式 -->

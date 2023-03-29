@@ -16,8 +16,6 @@ const store = new Vuex.Store({
     token: null, // token
     tokenExpire: null, // token过期时间
 
-    theme: '001', //主题样式
-
     //缓存组件，该值是组件中定义的name值，include 名称匹配的组件会被缓存，exclude 名称匹配的组件不被缓存。
     cachedViews: ["t-gdmap", "t-arcgisMap", "t-echartMap", "paper"],
 
@@ -53,9 +51,6 @@ const store = new Vuex.Store({
     freeLogin(state, data) {
       state.freeLogin = data;
     },
-    templatesMu(state, data) {
-      state.theme = data;
-    },
   },
   // 执行异步操作，但不能直接改变state   this.$store.dispatch("saveToken", data);
   // actions的方法最终还是通过调用mutations的方法来实现修改vuex的状态的
@@ -79,7 +74,6 @@ const store = new Vuex.Store({
   getters: {
     token: state => state.token,
     freeLogin: state => state.freeLogin,
-    templates: state => state.theme,
     weather: state => state.weather,
     addRouters: state => state.router.addRouters,
     regRouters: state => state.router.regRouters,

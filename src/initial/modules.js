@@ -39,9 +39,6 @@ import apiSet from "@/api/axios/apiSetting" //请求接口
 // 结合 promise 封装原生ajax
 import http from '@/api/axios/http'
 Vue.use(http)
-// 定义全局混入
-import theme from '@/api/mixins/theme'
-Vue.use(theme)
 // 引入websocket模块
 import Socket from '@/api/websocket'
 // 引入时间格式化函数
