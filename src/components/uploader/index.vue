@@ -87,7 +87,7 @@ export default {
           return (objMessage.response || []).indexOf(chunk.offset + 1) >= 0
         },
         headers: {
-          Authorization: "Bearer " + this.$store.state.token
+          Authorization: "Bearer " + this.$store.state.login.loginToken
         },
         query: function (e) {
           return {

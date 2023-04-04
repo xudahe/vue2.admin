@@ -101,7 +101,7 @@ export default {
     return {
       activeName: "first",
 	    isShow: false,
-      userInfo: JSON.parse(JSON.stringify(this.$store.getters.info.userinfo))
+      userInfo: JSON.parse(JSON.stringify(this.$store.getters.loginInfo.userinfo))
     }
   },
 	methods: {

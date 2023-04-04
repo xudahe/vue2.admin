@@ -2,7 +2,7 @@
   <div>
     <el-header id="header">
       <span class="hideAside" @click="collapse">
-        <i :class="$store.getters.isCollapse ? 'el-icon-s-unfold':'el-icon-s-fold'" style="font-size:0.24rem;"></i>
+        <i :class="$store.getters.isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'" style="font-size:0.24rem;"></i>
       </span>
 
       <screen-record></screen-record>
@@ -15,14 +15,15 @@
         <li>
           <div style="display:-webkit-box;cursor: pointer;" @click="$emit('showWeather')">
             <img class="weathers_img" src="" />
-            <div class="weathers_type">{{weather[0].weather}}</div>
-            <div class="weathers_text">{{weather[0].temperature}}℃</div>
+            <div class="weathers_type">{{ weather[0].weather }}</div>
+            <div class="weathers_text">{{ weather[0].temperature }}℃</div>
           </div>
         </li>
         <li>
           <el-tooltip class="item" effect="dark" :content="tooltipContent" placement="bottom">
-            <el-badge :max="99" :value="$store.getters.errorLogList.length" style="cursor: pointer;" @click.native="$emit('showErrorLogBox')">
-              <svg-icon :class="$store.getters.errorLogList.length == 0 ? 'bug-f':'bug-t'" icon-class="bug" />
+            <el-badge :max="99" :value="$store.getters.errorLogList.length" style="cursor: pointer;"
+              @click.native="$emit('showErrorLogBox')">
+              <svg-icon :class="$store.getters.errorLogList.length == 0 ? 'bug-f' : 'bug-t'" icon-class="bug" />
             </el-badge>
           </el-tooltip>
         </li>
@@ -31,7 +32,7 @@
         </li>
         <li>
           <el-dropdown size="large" class="avatar-dropdown">
-            <span class="el-dropdown-link"> {{user.loginName}}</span>
+            <span class="el-dropdown-link"> {{ user.loginName }}</span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item @click.native="$router.push('/home')">
                 <i class="el-icon-s-home" />首页
@@ -70,7 +71,7 @@ export default {
   },
   data() {
     return {
-      user: this.$store.getters.info.userinfo,
+      user: this.$store.getters.loginInfo.userinfo,
       isfullScreen: true,
       avatar: "./static/img/favicon.ico",
       isFlod: true,
@@ -85,7 +86,9 @@ export default {
       window.sessionStorage.clear();
       window.localStorage.clear();
       // window.location.reload(); //会降低性能
-      this.$router.push({ path: "/login" });
+      this.$store.dispatch("LogOut").then(() => {
+        this.$router.push({ path: "/login" });
+      });
     },
     fullScreen() {
       if (this.isfullScreen) {
@@ -124,7 +127,11 @@ $top: top;
 $bottom: bottom;
 $left: left;
 $right: right;
-$leftright: ($left, $right);
+$leftright: (
+  $left,
+  $right
+);
+
 %w100 {
   width: 100%;
 }
@@ -149,22 +156,28 @@ $leftright: ($left, $right);
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   display: flex;
   justify-content: space-between;
+
   .hideAside {
     @extend %cursor;
   }
+
   .personal {
     display: flex;
     flex-direction: row;
+
     li {
       @include set-value(margin, 13px);
       font-size: 0.12rem;
     }
+
     .fullScreen {
       @extend %cursor;
     }
+
     .el-dropdown-link {
       @extend %cursor;
     }
+
     .icon img {
       margin-#{$top}: 7px;
       -webkit-border-radius: 5px;
@@ -212,7 +225,7 @@ $leftright: ($left, $right);
     vertical-align: middle;
   }
 
-  .el-menu--horizontal > .el-menu-item {
+  .el-menu--horizontal>.el-menu-item {
     height: 50px !important;
     line-height: 50px !important;
   }
@@ -223,5 +236,4 @@ $leftright: ($left, $right);
     padding: 0px 3px !important;
     cursor: pointer;
   }
-}
-</style>
+}</style>

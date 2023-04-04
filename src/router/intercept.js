@@ -37,11 +37,11 @@ router.beforeEach((to, from, next) => {
       next()
     }
 
-    if (store.getters.token) {
+    if (store.getters.loginToken) {
       if (to.path === "/login") {
         next()
       } else {
-        if (store.getters.info == "") {
+        if (store.getters.loginInfo == "") {
           getAddRouters()
           next({
             path: to.path
@@ -75,11 +75,11 @@ function validataToken() {
   if (window.localStorage.refreshtime && (curTime <= refreshtime)) {
     saveRefreshtime(); //刷新Token过期时间
 
-    if (!store.state.token) {
-      store.commit("saveToken", window.localStorage.Token)
+    if (!store.state.login.token) {
+      store.commit("SET_LOGIN_TOKEN", window.localStorage.loginToken)
     }
-    if (!store.state.tokenExpire) {
-      store.commit("saveTokenExpire", window.localStorage.TokenExpire)
+    if (!store.state.login.tokenExpire) {
+      store.commit("SET_TOKEN_EXPIRE", window.localStorage.tokenExpire)
     }
 
     return true
@@ -90,17 +90,17 @@ function validataToken() {
 
 function getAddRouters() {
   // 省略 axios 请求代码 通过 token 向后台请求用户权限等信息
-  let userInfo = JSON.parse(window.localStorage.userInfo ? window.localStorage.userInfo : null);
+  let loginInfo = JSON.parse(window.localStorage.loginInfo ? window.localStorage.loginInfo : null);
 
-  store.dispatch("getInfo", {
-    userinfo: userInfo,
-    roleinfo: userInfo.roleInfoList,
-    menuinfo: userInfo.menuInfoList,
-    deptInfo: userInfo.deptInfoList,
+  store.dispatch("SET_LOGIN_INFO", {
+    userinfo: loginInfo,
+    roleinfo: loginInfo.roleinfo ? loginInfo.roleinfo : loginInfo.roleInfoList,
+    menuinfo: loginInfo.menuinfo ? loginInfo.menuinfo : loginInfo.menuInfoList,
+    deptInfo: loginInfo.deptInfo ? loginInfo.deptInfo : loginInfo.deptInfoList,
   })
-  console.log( store.getters.info)
+  console.log(store.getters.loginInfo)
 
-  store.dispatch("newRoutes", store.getters.info.roleinfo)
+  store.dispatch("newRoutes", store.getters.loginInfo.roleinfo)
   router.addRoutes(store.getters.addRouters) //动态添加路由
 }
 

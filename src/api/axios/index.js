@@ -38,11 +38,11 @@ if (process.env.NODE_ENV === 'production') {
 //添加request请求拦截器
 axios.interceptors.request.use(config => {
   var curTime = new Date()
-  var expiretime = new Date(Date.parse(store.state.tokenExpire))
+  var expiretime = new Date(Date.parse(store.state.login.tokenExpire))
 
   // 判断是否存在token，如果存在的话，则每个http header都加上token
-  if (store.state.token && (curTime < expiretime && store.state.tokenExpire)) {
-    config.headers.Authorization = "Bearer " + store.state.token;
+  if (store.state.login.loginToken && (curTime < expiretime && store.state.login.tokenExpire)) {
+    config.headers.Authorization = "Bearer " + store.state.login.loginToken;
   }
 
   saveRefreshtime();
@@ -85,7 +85,7 @@ axios.interceptors.response.use(response => {
         if (window.localStorage.refreshtime && (curTime <= refreshtime)) {
           // 直接将整个请求 return 出去，不然的话，请求会晚于当前请求，无法达到刷新操作 
           return httpServer(apiSetting.refreshToken, {
-            token: window.localStorage.Token
+            token: window.localStorage.loginToken
           }).then(res => {
               if (res.success == true) {
                 Vue.prototype.$message({
@@ -93,11 +93,11 @@ axios.interceptors.response.use(response => {
                   type: 'success'
                 });
 
-                store.commit("saveToken", res.token);
+                store.commit("SET_LOGIN_TOKEN", res.token);
 
                 var curTime = new Date();
                 var expiredate = new Date(curTime.setSeconds(curTime.getSeconds() + res.expires_in));
-                store.commit("saveTokenExpire", expiredate);
+                store.commit("SET_TOKEN_EXPIRE", expiredate);
 
                 error.config.__isRetryRequest = true;
                 error.config.headers.Authorization = 'Bearer ' + res.token;
@@ -221,8 +221,8 @@ const httpServer = (opts, data) => {
 }
 
 const ToLogin = params => {
-  store.commit("saveToken", "");
-  store.commit("saveTokenExpire", "");
+  store.commit("SET_LOGIN_TOKEN", "");
+  store.commit("SET_TOKEN_EXPIRE", "");
 
   router.replace({
     path: "/login",
@@ -238,7 +238,7 @@ const ToLogin = params => {
 export const saveRefreshtime = params => {
   let nowtime = new Date();
   let lastRefreshtime = window.localStorage.refreshtime ? new Date(window.localStorage.refreshtime) : new Date(-1); //最后刷新时间，当用户操作的时候，实时更新最后的刷新时间，保证用户活跃时间一直有效
-  let expiretime = new Date(Date.parse(window.localStorage.TokenExpire))
+  let expiretime = new Date(Date.parse(window.localStorage.tokenExpire))
 
   //refreshCount 滑动系数：就是你自定义的用户的停止活跃时间段，比如你想用户最大的休眠时间是20分钟，用户可以最多20分钟内不进行操作，
   //如果20分钟后，再操作，就跳转到登录页，如果20分钟内，继续操作，那继续更新时间，休眠时间还是以当前时间 + 20分钟。

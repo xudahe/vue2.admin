@@ -15,7 +15,7 @@
         :unique-opened="$store.getters.uniquerouter"
         :collapse-transition="true"
       >
-        <menu-tree :menuData="$store.getters.info.menuinfo"></menu-tree>
+        <menu-tree :menuData="$store.getters.loginInfo.menuinfo"></menu-tree>
       </el-menu>
     </el-aside>
   </div>

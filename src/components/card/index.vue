@@ -8,7 +8,7 @@
             <div class="data-item">
               <img :src="require('@/assets/static/img/暂无图片.png')" class="imgLeft" v-viewer />
               <div class="text">
-                <div class="card_title">萧杰</div>
+                <div class="card_title">糖果</div>
                 <div class="card_lable">专根示千常备接亲确调大志只定。儿集得分度断制线开示种然事白给参。共度可却积改率教指识细器具资林术</div>
               </div>
             </div>
@@ -192,24 +192,22 @@ export default {
   }
 
   .corner-mark {
-    width: 0.6rem;
-    height: 0.5rem;
-    -webkit-transform: translate(50%, -50%);
+    width: 0.9rem;
+    height: 0.9rem;
     transform: translate(50%, -50%);
     float: right;
-    margin-top: -0.9rem;
-    margin-right: 0.1rem;
+    margin-top: -32%;
+    margin-right: 0.15rem;
   }
 
   .corner-mark__wrapper {
-    height: 0.2rem;
-    line-height: 0.2rem;
+    // height: 0.2rem;
+    // line-height: 0.2rem;
     font-size: 0.08rem;
     background: #ffffff;
     color: #ffaf02;
     text-align: center;
-    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12),
-      0 0 6px rgba(0, 0, 0, 0.12);
+    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.12);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.12);
     position: absolute;
     top: 50%;
@@ -253,20 +251,18 @@ export default {
 
   /*效果二：放大 修改scale(放大的值)*/
   .img-scale {
-    transition: All 0.1s ease-in-out;
-    -webkit-transition: All 0.1s ease-in-out;
-    -moz-transition: All 0.1s ease-in-out;
-    -o-transition: All 0.1s ease-in-out;
+    transition: All 0.4s ease-in-out;
+    -webkit-transition: All 0.4s ease-in-out;
+    -moz-transition: All 0.4s ease-in-out;
+    -o-transition: All 0.4s ease-in-out;
   }
-
   .img-scale:hover {
-    background-color: azure;
     z-index: 9;
-    transform: scale(1.02);
-    -webkit-transform: scale(1.02);
-    -moz-transform: scale(1.02);
-    -o-transform: scale(1.02);
-    -ms-transform: scale(1.02);
+    transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+    -moz-transform: scale(1.05);
+    -o-transform: scale(1.05);
+    -ms-transform: scale(1.05);
   }
 }
 </style>

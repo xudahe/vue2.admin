@@ -178,13 +178,13 @@ export default {
             }
 
             var token = res.data.response.token;
-            _this.$store.commit("saveToken", token); // 保存token
+            _this.$store.commit("SET_LOGIN_TOKEN", token); // 保存token
 
             var curTime = new Date();
             var expiredate = new Date(
               curTime.setSeconds(curTime.getSeconds() + res.data.response.expires_in)
             ); // 定义过期时间
-            _this.$store.commit("saveTokenExpire", expiredate); // 保存token过期时间
+            _this.$store.commit("SET_TOKEN_EXPIRE", expiredate); // 保存token过期时间
 
             window.localStorage.refreshtime = expiredate; // 保存刷新时间，这里的和过期时间一致
             window.localStorage.expires_in = res.data.response.expires_in;
@@ -212,8 +212,8 @@ export default {
           _this.$errorMsg(res.data.message);
         } else {
           loadScripts(['./AppSetting.js']).then((e) => {
-            let userinfo = res.data.response;
-            window.localStorage.userInfo = JSON.stringify(userinfo);
+            let loginInfo = res.data.response;
+            window.localStorage.loginInfo = JSON.stringify(loginInfo);
 
             this.loginEnd();
             setTimeout(() => {
@@ -221,7 +221,7 @@ export default {
 
               _this.$notify({
                 type: "success",
-                message: `登录成功 \n 欢迎管理员：${userinfo.realName}！Token 将在 ${window.localStorage.expires_in / 60} 分钟后过期！`,
+                message: `登录成功 \n 欢迎管理员：${loginInfo.realName}！Token 将在 ${window.localStorage.expires_in / 60} 分钟后过期！`,
                 duration: 3000
               });
             }, 1000);
@@ -233,7 +233,7 @@ export default {
       });
     },
     handleSelect(key, keyPath) {
-      this.$store.commit("freeLogin", key == '1' ? false : true);
+      this.$store.commit("SET_FREE_lOGIN", key == '1' ? false : true);
       this.activeIndex = key;
     },
     freeLogin() {
@@ -241,15 +241,15 @@ export default {
       this.loginStart();
 
       axios.get(require('@/assets/static/data/loginInfo.json')).then(function (res) {
-        let userinfo = res.data.response;
-        window.localStorage.userInfo = JSON.stringify(userinfo);
+        let loginInfo = res.data.response;
+        window.localStorage.loginInfo = JSON.stringify(loginInfo);
 
         this.loginEnd();
         setTimeout(() => {
           _this.$router.push({ path: "/home" });
           _this.$notify({
             type: "success",
-            message: `登录成功 \n 欢迎管理员：${userinfo.realName}！Token 将在 ${window.localStorage.expires_in / 60} 分钟后过期！`,
+            message: `登录成功 \n 欢迎管理员：${loginInfo.realName}！Token 将在 ${window.localStorage.expires_in / 60} 分钟后过期！`,
             duration: 3000
           });
         }, 1000);
