@@ -1,16 +1,16 @@
 import axios from 'axios'
 
 // 获取组织机构根节点
-const GET_DEPT_ROOT = () => axios.get(require('@/assets/static/data/orgform/depRoot.json'))
+const GET_DEPT_ROOT = () => axios.get('/data/orgform/depRoot.json')
 
 // 根据部门id获取分页人员信息
-const GET_PAGE_EMPLOYEE = data => axios.get(require('@/assets/static/data/orgform/userData.json'), data)
+const GET_PAGE_EMPLOYEE = data => axios.get('/data/orgform/userData.json', data)
 
 // 获取组织机构子节点
-const GET_DEPT_TREE = data => axios.get(require('@/assets/static/data/orgform/depChild.json'), data)
+const GET_DEPT_TREE = data => axios.get('/data/orgform/depChild.json', data)
 
 // 获取组织机构下人员信息
-const GET_USER_BY_DEPT = data => axios.get(require('@/assets/static/data/orgform/userData.json'), data)
+const GET_USER_BY_DEPT = data => axios.get('/data/orgform/userData.json', data)
 
 
 const toHump = name => name.replace(/\_(\w)/g, function (all, letter) {

@@ -4,8 +4,8 @@
 
 <script>
 
-import reginCode from "@/assets/static/data/mapjson/reginCode";
-import province from "@/assets/static/data/mapjson/province";
+import reginCode from "@/assets/data/mapjson/reginCode";
+import province from "@/assets/data/mapjson/province";
 
 export default {
   name: "EchartMap",

@@ -1,7 +1,8 @@
 <!-- 应用系统登录 -->
 <template>
   <div class="login-container">
-    <el-form :model="loginForm" status-icon ref="loginForm" label-position="left" label-width="0px" class="demo-ruleForm login-page">
+    <el-form :model="loginForm" status-icon ref="loginForm" label-position="left" label-width="0px"
+      class="demo-ruleForm login-page">
       <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
         <el-menu-item index="1">帐号登陆</el-menu-item>
         <el-menu-item index="2">短信登陆</el-menu-item>
@@ -12,7 +13,8 @@
             <Icon type="ios-people" :size="20" />&nbsp;用户名：
           </el-col>
           <el-col :span="18">
-            <el-input type="text" v-model="loginForm.username" autocomplete="off" placeholder="请输入用户民" clearable @keydown.enter.native="nextFocus(0)" />
+            <el-input type="text" v-model="loginForm.username" autocomplete="off" placeholder="请输入用户民" clearable
+              @keydown.enter.native="nextFocus(0)" />
           </el-col>
         </el-form-item>
         <el-form-item prop="username" style="border-bottom: 1px solid #eeeeee;">
@@ -20,7 +22,8 @@
             <Icon type="ios-lock" :size="20" />&nbsp;密&nbsp;&nbsp;&nbsp;码：
           </el-col>
           <el-col :span="18">
-            <el-input type="text" v-model="loginForm.password" autocomplete="off" placeholder="请输入密码" show-password @keydown.enter.native="nextFocus(1)" />
+            <el-input type="text" v-model="loginForm.password" autocomplete="off" placeholder="请输入密码" show-password
+              @keydown.enter.native="nextFocus(1)" />
           </el-col>
         </el-form-item>
         <el-form-item prop="code" style="border-bottom: 1px solid #eeeeee;">
@@ -28,7 +31,8 @@
             <Icon type="md-images" :size="20" />&nbsp;验证码：
           </el-col>
           <el-col :span="12">
-            <el-input type="text" v-model="loginCode" autocomplete="off" placeholder="请输入验证码" clearable @keydown.enter.native="nextFocus(2)" />
+            <el-input type="text" v-model="loginCode" autocomplete="off" placeholder="请输入验证码" clearable
+              @keydown.enter.native="nextFocus(2)" />
           </el-col>
           <el-col :span="6">
             <div class="login-code" @click="setRefreshCode">
@@ -38,8 +42,10 @@
         </el-form-item>
         <el-form-item style="width:100%;">
           <el-col :span="24">
-            <el-button v-show="activeIndex == '1'" type="primary" style="width:100%;" @click.native.prevent="loginSubmit" :loading="logining">{{ loadName }}</el-button>
-            <el-button v-show="activeIndex == '2'" type="primary" style="width:100%;" @click.native.prevent="freeLogin" :loading="logining">{{ loadName }}</el-button>
+            <el-button v-show="activeIndex == '1'" type="primary" style="width:100%;" @click.native.prevent="loginSubmit"
+              :loading="logining">{{ loadName }}</el-button>
+            <el-button v-show="activeIndex == '2'" type="primary" style="width:100%;" @click.native.prevent="freeLogin"
+              :loading="logining">{{ loadName }}</el-button>
           </el-col>
         </el-form-item>
         <el-col :span="12">
@@ -240,16 +246,17 @@ export default {
       let _this = this;
       this.loginStart();
 
-      axios.get(require('@/assets/static/data/loginInfo.json')).then(function (res) {
+      //特别注意：json文件存放在public目录下，如/public/data/jsonData.json,那么在请求json数据的时候，地址千万千万千万不能写/public/data/jsonData.json，而是写/data/jsonData.json，否则会报404，因为静态资源在打包后，默认public内的文件放在项目根目录，
+      axios.get('/data/loginInfo.json').then(function (res) {
         let loginInfo = res.data.response;
         window.localStorage.loginInfo = JSON.stringify(loginInfo);
 
-        this.loginEnd();
+        _this.loginEnd();
         setTimeout(() => {
           _this.$router.push({ path: "/home" });
           _this.$notify({
             type: "success",
-            message: `登录成功 \n 欢迎管理员：${loginInfo.realName}！Token 将在 ${window.localStorage.expires_in / 60} 分钟后过期！`,
+            message: `登录成功 \n 欢迎管理员：${loginInfo.realName}！`,
             duration: 3000
           });
         }, 1000);
@@ -302,11 +309,9 @@ export default {
   width: 100%;
   height: 100%;
   padding: 8% 50%;
-  background-image: linear-gradient(
-    120deg,
-    #00a7f5 45%,
-    #0cb3ff 40%
-  ); //渐变背景
+  background-image: linear-gradient(120deg,
+      #00a7f5 45%,
+      #0cb3ff 40%); //渐变背景
 
   .el-input__inner {
     border: none !important;
@@ -328,5 +333,4 @@ export default {
     margin: 0px 0px 15px;
     text-align: left;
   }
-}
-</style>
+}</style>
