@@ -1,79 +1,75 @@
 <template>
-  <div>
-    <el-header id="header">
-      <span class="hideAside" @click="collapse">
-        <i :class="$store.getters.isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'" style="font-size:0.24rem;"></i>
-      </span>
+  <div id="header">
+    <span class="hideAside" @click="collapse">
+      <i :class="$store.getters.isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'" style="font-size:0.24rem;"></i>
+    </span>
 
-      <screen-record></screen-record>
-      <ul class="personal">
-        <li class="fullScreen" @click="fullScreen">
-          <el-tooltip class="item" effect="dark" content="全屏" placement="bottom">
-            <i class="fa fa-arrows-alt fa-lg"></i>
-          </el-tooltip>
-        </li>
-        <li>
-          <div style="display:-webkit-box;cursor: pointer;" @click="$emit('showWeather')">
-            <img class="weathers_img" src="" />
-            <div class="weathers_type">{{ weather[0].weather }}</div>
-            <div class="weathers_text">{{ weather[0].temperature }}℃</div>
-          </div>
-        </li>
-        <li>
-          <el-tooltip class="item" effect="dark" :content="tooltipContent" placement="bottom">
-            <el-badge :max="99" :value="$store.getters.errorLogList.length" style="cursor: pointer;"
-              @click.native="$emit('showErrorLogBox')">
-              <svg-icon :class="$store.getters.errorLogList.length == 0 ? 'bug-f' : 'bug-t'" icon-class="bug" />
-            </el-badge>
-          </el-tooltip>
-        </li>
-        <li>
-          <colorPicker></colorPicker>
-        </li>
-        <li>
-          <el-dropdown size="large" class="avatar-dropdown">
-            <span class="el-dropdown-link"> {{ user.loginName }}</span>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item @click.native="$router.push('/home')">
-                <i class="el-icon-s-home" />首页
-              </el-dropdown-item>
-              <el-dropdown-item @click.native="$router.push('/personal')">
-                <i class="el-icon-s-custom" />个人中心
-              </el-dropdown-item>
-              <el-dropdown-item @click.native="logout">
-                <i class="fa fa-paper-plane" />退出登录
-              </el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-        </li>
-        <!-- <li class="icon"><img :src="avatar"/></li> -->
-      </ul>
-    </el-header>
-    <!-- <tabNav></tabNav> -->
-    <tagNav></tagNav>
+    <screen-record></screen-record>
+    <ul class="personal">
+      <li class="fullScreen" @click="fullScreen">
+        <el-tooltip class="item" effect="dark" content="全屏" placement="bottom">
+          <i class="fa fa-arrows-alt fa-lg"></i>
+        </el-tooltip>
+      </li>
+      <li>
+        <div style="display:-webkit-box;cursor: pointer;" @click="$emit('showWeather')">
+          <img class="weathers_img" src="" />
+          <div class="weathers_type">{{ weather[0].weather }}</div>
+          <div class="weathers_text">{{ weather[0].temperature }}℃</div>
+        </div>
+      </li>
+      <li>
+        <el-tooltip class="item" effect="dark" :content="tooltipContent" placement="bottom">
+          <el-badge :max="99" :value="$store.getters.errorLogList.length" style="cursor: pointer;"
+            @click.native="$emit('showErrorLogBox')">
+            <!-- <svg-icon :class="$store.getters.errorLogList.length == 0 ? 'bug-f' : 'bug-t'" icon-class="bug" /> -->
+            <el-button icon="el-icon-bell" circle size="mini"></el-button>
+          </el-badge>
+        </el-tooltip>
+      </li>
+      <li>
+        <colorPicker></colorPicker>
+      </li>
+      <li>
+        <el-dropdown trigger="click" class="avatar-dropdown">
+          <span class="el-dropdown-link"> {{ loginInfo.userinfo.loginName }}</span>
+          <el-dropdown-menu slot="dropdown" style="top: 38px;">
+            <el-dropdown-item @click.native="$router.push('/home')">
+              <i class="el-icon-s-home" />首页
+            </el-dropdown-item>
+            <el-dropdown-item @click.native="$router.push('/personal')">
+              <i class="el-icon-s-custom" />个人中心
+            </el-dropdown-item>
+            <el-dropdown-item @click.native="logout">
+              <i class="fa fa-paper-plane" />退出登录
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </li>
+      <li>
+        <el-avatar size="small" :src="avatar" style="margin-top: 50%;"></el-avatar>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import tabNav from "./tabNav"
-import tagNav from "./tagNav"
 import screenRecord from "@/components/recording/index1";
 
 export default {
   name: "Header",
-  components: { tabNav, tagNav, screenRecord },
+  components: { screenRecord },
   computed: {
-    ...mapGetters(["weather"]), //天气数据
+    ...mapGetters(["loginInfo", "weather"]), //天气数据
     tooltipContent() {
       return this.$store.getters.errorLogList.length == 0 ? `无异常` : `${this.$store.getters.errorLogList.length} 个异常`
     },
   },
   data() {
     return {
-      user: this.$store.getters.loginInfo.userinfo,
       isfullScreen: true,
-      avatar: "./static/img/favicon.ico",
+      avatar: "https://himg.bdimg.com/sys/portrait/item/public.1.d0bbce53.jn3BCDx37C9aK8sqBwSfvQ.jpg",
       isFlod: true,
     }
   },
@@ -122,7 +118,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 $top: top;
 $bottom: bottom;
 $left: left;
@@ -151,13 +147,14 @@ $leftright: (
 }
 
 #header {
-  max-height: 50px;
-  line-height: 50px;
+  // height: 60px;
+  // line-height: 60px;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   display: flex;
   justify-content: space-between;
 
   .hideAside {
+    padding-left: 20px;
     @extend %cursor;
   }
 
@@ -176,15 +173,6 @@ $leftright: (
 
     .el-dropdown-link {
       @extend %cursor;
-    }
-
-    .icon img {
-      margin-#{$top}: 7px;
-      -webkit-border-radius: 5px;
-      -moz-border-radius: 5px;
-      border-radius: 5px;
-      width: 40px;
-      height: 40px;
     }
   }
 
@@ -225,15 +213,11 @@ $leftright: (
     vertical-align: middle;
   }
 
-  .el-menu--horizontal>.el-menu-item {
-    height: 50px !important;
-    line-height: 50px !important;
-  }
-
-  .el-badge__content.is-fixed {
+  ::v-deep .el-badge__content.is-fixed {
     top: 14px !important;
     line-height: 14px !important;
     padding: 0px 3px !important;
     cursor: pointer;
   }
-}</style>
+}
+</style>

@@ -101,7 +101,7 @@ function getAddRouters() {
   console.log(store.getters.loginInfo)
 
   store.dispatch("newRoutes", store.getters.loginInfo.roleinfo)
-  router.addRoutes(store.getters.addRouters) //动态添加路由
+  // router.addRoutes(store.getters.addRouters) //动态添加路由
 }
 
 // 路由跳转前都是会经过beforeEach，而beforeEach可以通过next来控制到底去哪个路由。根据这个特性我们就可以在beforeEach中设置一些条件来控制路由的重定向。

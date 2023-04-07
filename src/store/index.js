@@ -61,9 +61,11 @@ const store = new Vuex.Store({
     freeLogin: state => state.login.freeLogin,
 
     weather: state => state.weather,
+    cachedViews: state => state.cachedViews,
+
     addRouters: state => state.router.addRouters,
     regRouters: state => state.router.regRouters,
-    cachedViews: state => state.cachedViews,
+    defaultRouter: state => state.router.defaultRouter,
     routers: state => state.router.routers,
 
     isCollapse: state => state.layout.isCollapse,

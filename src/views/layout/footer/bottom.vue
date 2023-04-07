@@ -1,22 +1,18 @@
 <style>
 .bootombar {
-  position: fixed;
-  bottom: 0px;
-  right: 0px;
-  left: 0px;
-  height: 30px;
-  background: #3f8ffe;
-  z-index: 999;
+  background: #409EFF;
+  height: 100%;
+  width: 100%;
 }
 </style>
 
 <template>
   <div class="bootombar">
-    <div style="float:left;width:50%;margin-left: 10px;"></div>
-    <div style="float:right;width:50%;margin-left: -10px;">
+    <div style="float:left;width:50%;height: 100%;"></div>
+    <div style="float:right;width:50%;height: 100%;">
       <div style="float:right">
-        <Button type="primary" icon="ios-timer" @click="LoadDataCenter()">数据中心</Button>
-        <Button type="primary" icon="ios-timer" @click="LoadTaskCenter()">任务列表</Button>
+        <el-button size="mini" type="primary" icon="el-icon-time" @click="LoadDataCenter()">数据中心</el-button>
+        <el-button size="mini" type="primary" icon="el-icon-time" @click="LoadTaskCenter()">任务列表</el-button>
       </div>
     </div>
   </div>

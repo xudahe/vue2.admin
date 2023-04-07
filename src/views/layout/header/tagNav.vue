@@ -150,8 +150,8 @@ export default {
 <style lang="less" scoped>
 .tags-nav {
   width: 100%;
-  height: 42px !important;
-  line-height: 42px;
+  // height: 42px !important;
+  // line-height: 42px;
   position: relative;
   border-top: 1px solid #f0f0f0;
   border-bottom: 1px solid #f0f0f0;

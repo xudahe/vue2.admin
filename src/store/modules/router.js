@@ -2,20 +2,28 @@ import {
   defaultRouter,
   addRouter
 } from "@/router/index"
+import Router from "@/router/index"
 
 const routerData = {
   state: {
-    routers: [],
-    addRouters: [],
+    defaultRouter: [], //默认路由
+    addRouters: [], //动态添加的路由
+    routers: [], //合并后的总路由
+
     regRouters: "|", //已注册的路由名称
   },
   mutations: {
     setRouters: (state, routers) => {
-      state.regRouters = "|";
-      state.addRouters = routers; // 保存动态路由用来addRouter
-      state.routers = defaultRouter.concat(routers); // 所有权限的路由表
+      state.addRouters = routers;
+      state.defaultRouter = defaultRouter;
+      state.routers = state.defaultRouter.concat(state.addRouters);
       eachSelect(state.routers);
       console.log(state)
+
+      //vue-router使用addRoute动态添加layout主界面的子路由
+      for (const key in state.addRouters) {
+        Router.addRoute('layout', state.addRouters[key]);
+      }
 
       function eachSelect(routers) {
         for (let j = 0; j < routers.length; j++) {
@@ -25,9 +33,7 @@ const routerData = {
             eachSelect(routers[j].children);
           }
         }
-        console.log(state.regRouters)
       }
-
     }
   },
   actions: {

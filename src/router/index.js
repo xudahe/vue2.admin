@@ -14,24 +14,19 @@ const
   Error_403 = () => import('@/views/other/error/403'),
   Error_404 = () => import('@/views/other/error/404');
 
-//异步挂载的路由
-const operation_routes = getRoutes(require.context('@/views/operation', true, /\.vue$/));
-const system_routes = getRoutes(require.context('@/views/system', true, /\.vue$/));
-const tools_routes = getRoutes(require.context('@/views/tools', true, /\.vue$/));
-const page_routes = getRoutes(require.context('@/views/pages', true, /\.vue$/));
-const map_routes = getRoutes(require.context('@/views/map', true, /\.vue$/));
+//动态添加的路由
+let addRouter = [];
 
-let addRouter = [{
-  path: "/index",
-  iconCls: "el-icon-tickets", // 图标样式class
-  name: "主页",
-  component: Layout,
-  children: operation_routes.concat(system_routes).concat(tools_routes).concat(page_routes).concat(map_routes)
-}];
+//异步挂载的路由
+getRoutes(require.context('@/views/operation', true, /\.vue$/));
+getRoutes(require.context('@/views/system', true, /\.vue$/));
+getRoutes(require.context('@/views/tools', true, /\.vue$/));
+getRoutes(require.context('@/views/pages', true, /\.vue$/));
+getRoutes(require.context('@/views/map', true, /\.vue$/));
 
 //自动注册路由
 function getRoutes(req) {
-  let routes = req.keys().map(val => {
+  req.keys().map(val => {
     // 获取组件配置
     const componentConfig = req(val);
 
@@ -46,15 +41,14 @@ function getRoutes(req) {
       // 如果这个组件选项是通过 `export default` 导出的，那么就会优先使用 `.default`，否则回退到使用模块的根。
       componentConfig.default || componentConfig
     );
-    return {
+
+    addRouter.push({
       path: '/' + name,
       name: name,
       component,
       children: []
-    }
+    })
   });
-
-  return routes;
 }
 
 //默认路由
@@ -78,8 +72,8 @@ let defaultRouter = [{
     children: []
   },
   {
-    path: "/index",
-    name: '主页',
+    path: "/layout",
+    name: 'layout',
     meta: {
       title: "主页"
     },
@@ -87,13 +81,19 @@ let defaultRouter = [{
     component: Layout,
     children: [{
         path: "/home",
-        name: "首页",
+        name: "home",
+        meta: {
+          title: "首页"
+        },
         component: Home,
         children: []
       },
       {
         path: "/personal",
-        name: "个人中心",
+        name: "personal",
+        meta: {
+          title: "个人中心"
+        },
         component: personal,
         children: [],
         // keepAlive: true,  //缓存页面，也可使用<keep-alive></keep-alive>
@@ -168,10 +168,14 @@ VueRouter.prototype.replace = function replace(location) {
   return originalReplace.call(this, location).catch(err => err)
 };
 
-export default new VueRouter({
+//创建路由
+export const createRouter = () => new VueRouter({
   // mode: 'history', //注意 打包时需要将该处注释 否则将出现静态文件找不到
   routes: defaultRouter
-});
+})
+const Router = createRouter() // 获得 route 实例
+
+export default Router
 
 export {
   defaultRouter,

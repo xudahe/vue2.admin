@@ -1,23 +1,47 @@
 <template>
-  <div>
-    <el-aside id="asideNav">
-      <div class="logo-name">
-        <p v-if="$store.getters.isCollapse">XU</p>
-        <p v-else>vue-Admin</p>
-      </div>
-      <el-menu
-        :default-active="$route.path"
-        class="el-menu-vertical"
-        @select="selectmenu"
-        mode="vertical"
-        :collapse="$store.getters.isCollapse"
-        :router="$store.getters.uniquerouter"
-        :unique-opened="$store.getters.uniquerouter"
-        :collapse-transition="true"
-      >
-        <menu-tree :menuData="$store.getters.loginInfo.menuinfo"></menu-tree>
-      </el-menu>
-    </el-aside>
+  <div id="asideNav">
+    <div class="logo-name">
+      <p v-if="$store.getters.isCollapse">XU</p>
+      <p v-else>vue-Admin</p>
+    </div>
+    <!-- <el-menu :default-active="$route.path" class="el-menu-vertical" @select="selectmenu" mode="vertical"
+      :collapse="$store.getters.isCollapse" :router="$store.getters.uniquerouter"
+      :unique-opened="$store.getters.uniquerouter" :collapse-transition="true">
+      <menu-tree :menuData="$store.getters.loginInfo.menuinfo"></menu-tree>
+    </el-menu> -->
+
+    <el-menu default-active="1-4-1" class="el-menu-vertical-demo" :collapse="$store.getters.isCollapse">
+      <el-submenu index="1">
+        <template slot="title">
+          <i class="el-icon-location"></i>
+          <span slot="title">导航一</span>
+        </template>
+        <el-menu-item-group>
+          <span slot="title">分组一</span>
+          <el-menu-item index="1-1">选项1</el-menu-item>
+          <el-menu-item index="1-2">选项2</el-menu-item>
+        </el-menu-item-group>
+        <el-menu-item-group title="分组2">
+          <el-menu-item index="1-3">选项3</el-menu-item>
+        </el-menu-item-group>
+        <el-submenu index="1-4">
+          <span slot="title">选项4</span>
+          <el-menu-item index="1-4-1">选项1</el-menu-item>
+        </el-submenu>
+      </el-submenu>
+      <el-menu-item index="2">
+        <i class="el-icon-menu"></i>
+        <span slot="title">导航二</span>
+      </el-menu-item>
+      <el-menu-item index="3" disabled>
+        <i class="el-icon-document"></i>
+        <span slot="title">导航三</span>
+      </el-menu-item>
+      <el-menu-item index="4">
+        <i class="el-icon-setting"></i>
+        <span slot="title">导航四</span>
+      </el-menu-item>
+    </el-menu>
   </div>
 </template>
 
@@ -31,7 +55,7 @@ export default {
   },
   watch: {
     // 监听浏览器直接输入路由，将此路由添加到tabnavBox
-    "$route.path": function(val) {
+    "$route.path": function (val) {
       this.selectmenu(val);
     }
   },
@@ -40,7 +64,7 @@ export default {
       let router = this.$store.getters.routers;
       let name = "";
 
-      let navTitle = function(path, routerARR) {
+      let navTitle = function (path, routerARR) {
         for (let i = 0; i < routerARR.length; i++) {
           if (routerARR[i].children.length > 0 || routerARR[i].path === path) {
             if (
@@ -64,18 +88,28 @@ export default {
 };
 </script>
 
+<style>
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
+  min-height: 400px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+</style>
+
 <style lang="scss">
 #asideNav {
-  width: auto !important;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  border-right: solid 1px #e6e6e6;
 
   .logo-name {
     // background-color: #03152a !important;
     width: 100%;
     font-weight: 300;
     z-index: 999;
+
     p {
       height: 50px;
       line-height: 50px;
@@ -84,22 +118,20 @@ export default {
       color: #5e6d82;
     }
   }
+
   .logo-name p {
     cursor: pointer;
   }
-  .el-menu-vertical:not(.el-menu--collapse) {
-    width: 200px;
-    height: 100%;
-    overflow-y: scroll;
-    overflow-x: hidden;
-  }
+
   .el-menu {
     flex: 1;
     overflow: inherit;
     border-right: none;
+
     &::-webkit-scrollbar {
       display: none;
     }
+
     .fa {
       vertical-align: middle;
       margin-right: 5px;
