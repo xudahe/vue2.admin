@@ -10,7 +10,7 @@
 						<div class="avatar">
 							<el-button icon="el-icon-upload" class="upload-button" circle @click="$refs.avatarForm.dialogVisible = true"></el-button>
 							<el-avatar :size="120" src="" fit="cover">
-                <img :src="require('@/assets/static/img/暂无图片01.png')"/>
+                <img :src="require('@/assets/image/暂无图片.png')"/>
               </el-avatar>
 							<div class="hover-plus" @click="isShow = true"><svg-icon icon-class="add" class="add-avatar"/></div>
 						</div>
@@ -61,7 +61,7 @@
               <el-input type="text" v-model="userInfo.address" autocomplete="off" placeholder="请输入地址" clearable/>
             </el-form-item>
             <el-form-item  label="性别：">
-               <el-select v-model="userInfo.sex" placeholder="请选择性别" clearable>
+               <el-select v-model="userInfo.sex" placeholder="请选择性别" clearable style="width: 100%;">
                 <el-option label="男" value="1"></el-option>
                 <el-option label="女" value="0"></el-option>
               </el-select>

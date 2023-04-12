@@ -41,13 +41,13 @@
               <el-input v-model="menuForm.className" autocomplete="off" placeholder="请输入路由地址" clearable></el-input>
             </el-form-item>
             <el-form-item label="系统名称" prop="systemId">
-              <el-select v-model="menuForm.systemId" placeholder="请选择系统名称" filterable clearable>
+              <el-select v-model="menuForm.systemId" placeholder="请选择系统名称" filterable clearable style="width: 100%;">
                 <el-option :label="item.systemName" :value="item.guid" :key="index"
                   v-for="(item, index) in platformData"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="加载方式" prop="loadWay">
-              <el-select v-model="menuForm.loadWay" placeholder="请选择系统名称">
+              <el-select v-model="menuForm.loadWay" placeholder="请选择系统名称" style="width: 100%;">
                 <el-option label="右侧" value="右侧"></el-option>
                 <el-option label="顶部" value="顶部"></el-option>
               </el-select>
@@ -64,7 +64,7 @@
               <el-input v-model="menuForm.menuName" autocomplete="off" placeholder="请输入菜单名称" clearable></el-input>
             </el-form-item>
             <el-form-item label="父级菜单" prop="parentId">
-              <el-select v-model="menuForm.parentId" placeholder="请选择父级菜单" filterable clearable>
+              <el-select v-model="menuForm.parentId" placeholder="请选择父级菜单" filterable clearable style="width: 100%;">
                 <el-option :label="item.menuName" :value="item.guid" :key="index" v-for="(item, index) in parentData">
                 </el-option>
               </el-select>

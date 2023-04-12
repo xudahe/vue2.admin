@@ -21,7 +21,7 @@
           <!-- 非编辑状态 -->
           <template v-else>
             <span class="tree-lable" :title="node.label">
-              <img :src="require('@/assets/static/img/file/folder.png')" style="width:0.15rem;margin-right: 0.05rem;" />
+              <img :src="require('@/assets/image/file/folder.png')" style="width:0.15rem;margin-right: 0.05rem;" />
               {{ node.label }}
             </span>
           </template>

@@ -35,7 +35,7 @@
               <el-input v-model="deptForm.deptName" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item label="负责人" prop="deptUser">
-              <el-select v-model="deptForm.deptUser" placeholder="请选择部门负责人" filterable clearable>
+              <el-select v-model="deptForm.deptUser" placeholder="请选择部门负责人" filterable clearable style="width: 100%;">
                 <el-option :label="item.realName" :value="item.id" :key="index" v-for="(item, index) in userData">
                 </el-option>
               </el-select>
@@ -49,7 +49,7 @@
               <el-input v-model="deptForm.deptCode" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item label="上级部门" prop="parentId" filterable clearable>
-              <el-select v-model="deptForm.parentId" placeholder="请选择上级部门" filterable clearable>
+              <el-select v-model="deptForm.parentId" placeholder="请选择上级部门" filterable clearable style="width: 100%;">
                 <el-option :label="item.deptName" :value="item.id" :key="index" v-for="(item, index) in tableData">
                 </el-option>
               </el-select>

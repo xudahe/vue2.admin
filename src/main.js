@@ -46,6 +46,12 @@ req.keys().forEach(val => {
   Vue.component(component.name, component)
 })
 
+const compt = require.context('@/components/common', true, /\.vue$/)
+compt.keys().forEach(val => {
+  const component = compt(val).default
+  Vue.component(component.name, component)
+})
+
 import './router/intercept.js' //路由拦截
 
 //图片点击放大预览
@@ -78,10 +84,6 @@ Viewer.setDefaults({
     'url': 'data-source' // 设置大图片的 url
   }
 })
-
-
-import FormControls from './views/workflow/formControls/index.js'
-Vue.use(FormControls)
 
 // 设置浏览器标题
 Vue.directive('title', {

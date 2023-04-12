@@ -167,7 +167,7 @@ export default {
       }
     },
     downloadExl: function (json, downName, type) { // 导出到excel
-      debugger
+      
       let keyMap = [] // 获取键
       for (let k in json[0]) {
         if (json[0].hasOwnProperty(k)) {

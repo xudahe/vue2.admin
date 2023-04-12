@@ -425,8 +425,8 @@
           },
           {
             "systemId": "8d623338-75bd-431a-aa1c-1602496c99c7",
-            "className": "/fromPanel",
-            "menuName": "fromPanel",
+            "className": "/formsPanel",
+            "menuName": "formsPanel",
             "icon": "el-icon-edit-outline",
             "routerUrl": null,
             "parentId": "7f0b482e-8253-fb9f-ed06-aae354844398",
@@ -1066,8 +1066,8 @@
                   },
                   {
                     "systemId": "8d623338-75bd-431a-aa1c-1602496c99c7",
-                    "className": "/fromPanel",
-                    "menuName": "fromPanel",
+                    "className": "/formsPanel",
+                    "menuName": "formsPanel",
                     "icon": "el-icon-edit-outline",
                     "routerUrl": null,
                     "parentId": "7f0b482e-8253-fb9f-ed06-aae354844398",

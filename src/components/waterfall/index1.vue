@@ -1,19 +1,21 @@
 <template>
   <!-- 主体瀑布流区域，无限滚动 -->
-  <div id="waterfall" class="v-waterfall-content" ref="abc" v-infinite-scroll="getMoreData" infinite-scroll-disabled="disabled" infinite-scroll-distance="10" style="overflow:auto">
+  <div id="waterfall" class="v-waterfall-content" ref="abc" v-infinite-scroll="getMoreData"
+    infinite-scroll-disabled="disabled" infinite-scroll-distance="10" style="overflow:auto">
     <back-top :options="{ target: '#waterfall', isMove: true }" />
-    <div v-for="img in waterfallList" :key="img.key" class="v-waterfall-item img-scale" :style="{top: img.top + 'px',left: img.left + 'px',width: imageWidth + 'px',height: img.height + 'px'}">
+    <div v-for="img in waterfallList" :key="img.key" class="v-waterfall-item img-scale"
+      :style="{ top: img.top + 'px', left: img.left + 'px', width: imageWidth + 'px', height: img.height + 'px' }">
       <!-- 图片卡片 -->
       <el-card shadow="hover" :body-style="{ padding: '0px', 'border-radius': '10px' }" @click.native="openDialog(img)">
         <!-- 图片懒加载 -->
         <el-image :src="img.src" class="image" :key="img.src" lazy>
           <!-- 加载前占位 -->
           <div slot="placeholder" class="image-slot">
-            <div :style="{height: img.height + 'px',width: imageWidth + 'px', backgroundColor: img.colour}"></div>
+            <div :style="{ height: img.height + 'px', width: imageWidth + 'px', backgroundColor: img.colour }"></div>
           </div>
           <!-- 加载失败占位 -->
           <div slot="error" class="image-slot">
-            <div :style="{height: img.height + 'px',width: imageWidth + 'px',backgroundColor: img.colour }"></div>
+            <div :style="{ height: img.height + 'px', width: imageWidth + 'px', backgroundColor: img.colour }"></div>
           </div>
         </el-image>
       </el-card>
@@ -114,7 +116,7 @@ export default {
       const vm = this;
       let numbers = [25, 35, 45, 55, 65];
 
-      var data = require.context("../../assets/static/img/file", false, /\.(jpeg|png|jpg)$/).keys(), arr = [];
+      var data = require.context("../../assets/image/file", false, /\.(jpeg|png|jpg)$/).keys(), arr = [];
       for (let i in data) {
         arr.push(data[i].replace(/\.\//g, '').replace(/\.svg/g, ''));
       }
@@ -123,7 +125,7 @@ export default {
 
       let moreList = [];
       for (let i = 0; i < arr.length; i++) {
-        let imgUrl = require("@/assets/static/img/file/" + arr[i]);
+        let imgUrl = require("@/assets/image/file/" + arr[i]);
 
         moreList.push({
           id: i + 1,
@@ -229,6 +231,7 @@ export default {
     -moz-transition: All 0.4s ease-in-out;
     -o-transition: All 0.4s ease-in-out;
   }
+
   .img-scale:hover {
     z-index: 9;
     transform: scale(1.2);
@@ -237,5 +240,4 @@ export default {
     -o-transform: scale(1.2);
     -ms-transform: scale(1.2);
   }
-}
-</style>
+}</style>

@@ -361,18 +361,9 @@ Vue.prototype.$erd = ElementResizeDetectorMaker()
 // 阻止显示生产模式的消息
 Vue.config.productionTip = false
 
-Vue.prototype.LayerTree = function (tree) {
-  let tempTree = JSON.parse(JSON.stringify(tree))
-  for (let i = 0; i < tempTree.length; i++) {
-    for (let j = 0; j < tempTree[i].children.length; j++) {
-      tempTree[i].children[j].checked = true
-      tempTree[i].children[j].disableCheckbox = false
-    }
-    tempTree[i].disableCheckbox = false
-  }
-  return tempTree
-};
 
-Vue.prototype.$getDefalut = function (obj, key, df) {
-  return (obj === undefined || key === undefined || !this.$isNull(obj[key])) ? df : obj[key];
+Vue.prototype.$isNotEmpty = function(obj){
+  return (obj !== undefined && obj !== null && obj !== '' && obj !== 'null')
 }
+
+Vue.prototype.$deepCopy = function (obj){return JSON.parse(JSON.stringify(obj))}

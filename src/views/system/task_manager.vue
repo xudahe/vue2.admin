@@ -38,7 +38,7 @@
               </el-col>
             </el-form-item>
             <el-form-item label="触发器类型" prop="triggerType">
-              <el-select v-model="taskForm.triggerType" placeholder="请选择类型">
+              <el-select v-model="taskForm.triggerType" placeholder="请选择类型" style="width: 100%;">
                 <el-option label="simple" value="simple"></el-option>
                 <el-option label="cron" value="cron"></el-option>
               </el-select>

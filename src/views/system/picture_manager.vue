@@ -36,9 +36,9 @@ export default {
       tableData: [
         {
           name: '123', size: 123, image: [
-            require("@/assets/static/img/slide/img.jpg"),
-            require("@/assets/static/img/slide/img1.jpg"),
-            require("@/assets/static/img/slide/img2.jpg"),
+            require("@/assets/image/slide/img.jpg"),
+            require("@/assets/image/slide/img1.jpg"),
+            require("@/assets/image/slide/img2.jpg"),
           ], createTime: new Date(),
         }
       ],

@@ -80,6 +80,12 @@ export default {
         this.$refs.popup.style.top = "50px";
       });
     },
+    retresize_flood() {
+      this.$nextTick(() => {
+        this.$refs.popup.style.left = "300px";
+        this.$refs.popup.style.top = "50px";
+      });
+    },
     setEvent(btn) {
       this.$emit(btn.clickEvent);
       this.$emit("onbtnclick", btn);

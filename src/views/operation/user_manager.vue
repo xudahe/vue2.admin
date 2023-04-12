@@ -72,7 +72,7 @@
                 :disabled="formTitle == '编辑' ? true : false" clearable></el-input>
             </el-form-item>
             <el-form-item label="部门" prop="deptId">
-              <el-select v-model="userForm.deptId" placeholder="请选择所属部门" filterable clearable>
+              <el-select v-model="userForm.deptId" placeholder="请选择所属部门" filterable clearable style="width: 100%;">
                 <el-option label="财务部" value="1"></el-option>
                 <el-option label="开发部" value="2"></el-option>
                 <el-option label="市场部" value="3"></el-option>

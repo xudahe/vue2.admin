@@ -221,5 +221,15 @@ module.exports = defineConfig({
   pwa: {},
 
   // 可以用来传递任何第三方插件选项
-  pluginOptions: {}
+  pluginOptions: {
+     // 安装 style-resources-loader 与 vue-cli-plugin-style-resources-loader
+     "style-resources-loader": {
+      preProcessor: "less",
+      patterns: [
+        // 两种路径写法都可以，这里的路径不能使用 @ 符号，否则会报错
+        // path.resolve(__dirname, './src/assets/theme.less')
+        path.resolve(__dirname, 'src/assets/theme.less')
+      ],
+    },
+  }
 })

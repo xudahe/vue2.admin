@@ -4,26 +4,18 @@
       <p v-if="$store.getters.isCollapse">XU</p>
       <p v-else>vue-Admin</p>
     </div>
-    <!-- <el-menu :default-active="$route.path" class="el-menu-vertical" @select="selectmenu" mode="vertical"
-      :collapse="$store.getters.isCollapse" :router="$store.getters.uniquerouter"
+    <el-menu :default-active="$route.path" class="el-menu-vertical" :class="{ 'is-menu-span': $store.getters.isCollapse }"
+      @select="selectmenu" mode="vertical" :collapse="$store.getters.isCollapse" :router="$store.getters.uniquerouter"
       :unique-opened="$store.getters.uniquerouter" :collapse-transition="true">
       <menu-tree :menuData="$store.getters.loginInfo.menuinfo"></menu-tree>
-    </el-menu> -->
+    </el-menu>
 
-    <el-menu default-active="1-4-1" class="el-menu-vertical-demo" :collapse="$store.getters.isCollapse">
+    <!-- <el-menu default-active="1-4-1" class="el-menu-vertical-demo" :collapse="$store.getters.isCollapse">
       <el-submenu index="1">
         <template slot="title">
           <i class="el-icon-location"></i>
           <span slot="title">导航一</span>
         </template>
-        <el-menu-item-group>
-          <span slot="title">分组一</span>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="分组2">
-          <el-menu-item index="1-3">选项3</el-menu-item>
-        </el-menu-item-group>
         <el-submenu index="1-4">
           <span slot="title">选项4</span>
           <el-menu-item index="1-4-1">选项1</el-menu-item>
@@ -41,7 +33,7 @@
         <i class="el-icon-setting"></i>
         <span slot="title">导航四</span>
       </el-menu-item>
-    </el-menu>
+    </el-menu> -->
   </div>
 </template>
 
@@ -67,10 +59,7 @@ export default {
       let navTitle = function (path, routerARR) {
         for (let i = 0; i < routerARR.length; i++) {
           if (routerARR[i].children.length > 0 || routerARR[i].path === path) {
-            if (
-              routerARR[i].path === path &&
-              routerARR[i].children.length < 1
-            ) {
+            if (routerARR[i].path === path && routerARR[i].children.length < 1) {
               name = routerARR[i].name;
               break;
             }
@@ -88,12 +77,20 @@ export default {
 };
 </script>
 
-<style>
+<style >
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;
   min-height: 400px;
   overflow-y: scroll;
   overflow-x: hidden;
+}
+
+.is-menu-span .el-submenu__title span {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  visibility: hidden;
+  display: inline-block;
 }
 </style>
 
@@ -111,16 +108,13 @@ export default {
     z-index: 999;
 
     p {
+      cursor: pointer;
       height: 50px;
       line-height: 50px;
       text-align: center;
       font-size: 16px;
       color: #5e6d82;
     }
-  }
-
-  .logo-name p {
-    cursor: pointer;
   }
 
   .el-menu {

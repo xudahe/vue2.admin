@@ -5,6 +5,10 @@ Vue.use(VueRouter)
 import Login from "@/views/login/index"
 import Layout from "@/views/layout/index"
 
+const viewport = {
+  content: "width=device-width, initial-scale=1.0, user-scalable=no"
+}
+
 //路由懒加载：减少首次加载时从服务器请求的组件，当路由被访问时，再从服务器请求对应组件。
 //使用动态的import()语法,不是必须加载的组件使用懒加载
 const
@@ -98,12 +102,31 @@ let defaultRouter = [{
         children: [],
         // keepAlive: true,  //缓存页面，也可使用<keep-alive></keep-alive>
       },
+      
       {
-        path: "/fromPanel",
-        name: "fromPanel",
-        component: () => import("@/views/workflow/fromPanel.vue"),
+        path: "/workflow",
+        name: "workflow",
+        component: () => import("@/views/workflow/index.vue"),
         children: [],
-      }
+      },
+      {
+        path: "/workSpace",
+        name: "workSpace",
+        component: () => import("@/views/workflow/WorkSpace/index.vue"),
+        children: [],
+      },
+      {
+        path: "/formsPanel",
+        name: "formsPanel",
+        component: () => import("@/views/workflow/admin/FormsPanel.vue"),
+        children: [],
+      },
+      {
+        path: "/formProcess",
+        name: "formProcess",
+        component: () => import("@/views/workflow/admin/FormProcess.vue"),
+        children: [],
+      },
     ]
   },
   {
@@ -123,15 +146,6 @@ let defaultRouter = [{
     name: "500",
     component: Error_500,
     children: []
-  },
-  {
-    path: "/preview",
-    name: "preview",
-    meta: {
-      title: "表单预览"
-    },
-    component: () => import("@/views/workflow/dynamicForm/preview.vue"),
-    children: [],
   },
 ]
 

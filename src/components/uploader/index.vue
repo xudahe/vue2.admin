@@ -27,7 +27,7 @@
             <li v-for="file in props.fileList" :key="file.id">
               <uploader-file :class="'file_' + file.id" ref="files" :file="file" :list="true"></uploader-file>
             </li>
-            <div class="no-file" v-if="!props.fileList.length"><i class="iconfont icon-empty-file"></i> 暂无待上传文件</div>
+            <div class="no-file" v-if="!props.fileList.length">暂无待上传文件</div>
           </ul>
         </div>
       </uploader-list>

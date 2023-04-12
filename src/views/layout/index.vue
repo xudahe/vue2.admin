@@ -1,7 +1,7 @@
 <template>
   <div id="loyout">
     <el-container>
-      <el-container style="height: calc(100% - 30px);">
+      <el-container style="height: calc(100% - 0px);">
         <el-aside :width="$store.getters.isCollapse ? '65px' : '201px'"
           style="overflow-x: hidden; border-right: solid 1px #e6e6e6;">
           <layoutAside></layoutAside>
@@ -15,16 +15,15 @@
             <tagNav style="height:42px;line-height: 42px;width: 100%;"></tagNav>
 
             <keep-alive :include="$store.getters.cachedViews">
-              <router-view style="height:calc(100% - 42px);width: 100%;"></router-view>
+              <router-view style="height:calc(100% - 42px);width: 100%;">
+              </router-view>
             </keep-alive>
-
-            <back-top :options="{ target: '#elmain', isMove: true }" />
           </el-main>
         </el-container>
       </el-container>
-      <el-footer style="height:30px;">
+      <!-- <el-footer style="height:30px;">
         <layoutBottom></layoutBottom>
-      </el-footer>
+      </el-footer> -->
     </el-container>
 
     <error-log ref="errorLogBox" />

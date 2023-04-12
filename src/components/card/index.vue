@@ -1,20 +1,16 @@
 <template>
-  <div class="v-card">
+  <div class="v-card" id="v-card">
+    <back-top :options="{ target: '#v-card', isMove: true }" />
     <el-row>
       <el-col v-for="(item, index) in datalist" v-bind="colProps" style="padding: 0.05rem;" :key="index"
         class="img-scale">
         <el-card class="box-card" shadow="hover" style="border: 1px solid #ebeef5;">
           <div class="panel_body">
             <div class="data-item">
-              <img :src="require('@/assets/static/img/暂无图片.png')" class="imgLeft" v-viewer />
+              <img :src="require('@/assets/image/暂无图片.png')" class="imgLeft" v-viewer />
               <div class="text">
                 <div class="card_title">糖果</div>
-                <div class="card_lable">专根示千常备接亲确调大志只定。儿集得分度断制线开示种然事白给参。共度可却积改率教指识细器具资林术</div>
-              </div>
-            </div>
-            <div class="corner-mark">
-              <div class="corner-mark__wrapper">
-                HOT
+                <div class="card_lable">糖果，是糖果糕点的一种，指以糖类为主要成分的一种小吃。若水果或坚果类食物裹上糖衣，则称为甜食（如糖葫芦）</div>
               </div>
             </div>
           </div>
@@ -138,6 +134,7 @@ export default {
   padding: 0.1rem 0.5rem;
   height: 100%;
   width: 100%;
+  overflow: auto;
 
   @{deep}.el-card__body {
     padding: 0 !important;
@@ -152,6 +149,7 @@ export default {
   }
 
   .panel_actions {
+    width: 100%;
     background: rgba(0, 0, 0, 0.02);
     border-top: 1px solid rgba(0, 0, 0, 0.04);
   }
@@ -191,40 +189,14 @@ export default {
     height: 1.3rem;
   }
 
-  .corner-mark {
-    width: 0.9rem;
-    height: 0.9rem;
-    transform: translate(50%, -50%);
-    float: right;
-    margin-top: -32%;
-    margin-right: 0.15rem;
-  }
-
-  .corner-mark__wrapper {
-    // height: 0.2rem;
-    // line-height: 0.2rem;
-    font-size: 0.08rem;
-    background: #ffffff;
-    color: #ffaf02;
-    text-align: center;
-    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.12);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.12);
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    -webkit-transform: translateY(-50%) rotate(45deg);
-    transform: translateY(-50%) rotate(45deg);
-  }
-
   .data-item .imgLeft {
-    width: 0.8rem;
-    height: 0.8rem;
+    width: 1.0rem;
     // float: left;
-    margin-top: 0.2rem;
+    margin-top: 0.3rem;
   }
 
   .data-item .text {
-    width: calc(~"100% - 0.8rem");
+    width: calc(~"100% - 1.0rem");
     height: 100%;
     float: left;
     padding-left: 0.05rem;
@@ -240,8 +212,7 @@ export default {
 
   .card_lable {
     font-size: 0.12rem;
-    height: calc(100% - 0.3rem);
-
+    // height: calc(100% - 0.3rem);
     text-indent: 3em; //首行缩进
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -251,18 +222,19 @@ export default {
 
   /*效果二：放大 修改scale(放大的值)*/
   .img-scale {
-    transition: All 0.4s ease-in-out;
-    -webkit-transition: All 0.4s ease-in-out;
-    -moz-transition: All 0.4s ease-in-out;
-    -o-transition: All 0.4s ease-in-out;
+    transition: All 0.2s ease-in-out;
+    -webkit-transition: All 0.2s ease-in-out;
+    -moz-transition: All 0.2s ease-in-out;
+    -o-transition: All 0.2s ease-in-out;
   }
+
   .img-scale:hover {
     z-index: 9;
-    transform: scale(1.05);
-    -webkit-transform: scale(1.05);
-    -moz-transform: scale(1.05);
-    -o-transform: scale(1.05);
-    -ms-transform: scale(1.05);
+    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -o-transform: scale(1.02);
+    -ms-transform: scale(1.02);
   }
 }
 </style>

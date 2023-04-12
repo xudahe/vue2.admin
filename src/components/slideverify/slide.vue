@@ -15,12 +15,12 @@ export default {
     return {
       msg: "",
       imgs: [
-        require("@/assets/static/img/slide/img.jpg"),
-        require("@/assets/static/img/slide/img1.jpg"),
-        require("@/assets/static/img/slide/img2.jpg"),
-        require("@/assets/static/img/slide/img3.jpg"),
-        require("@/assets/static/img/slide/img4.jpg"),
-        require("@/assets/static/img/slide/img5.jpg")
+        require("@/assets/image/slide/img.jpg"),
+        require("@/assets/image/slide/img1.jpg"),
+        require("@/assets/image/slide/img2.jpg"),
+        require("@/assets/image/slide/img3.jpg"),
+        require("@/assets/image/slide/img4.jpg"),
+        require("@/assets/image/slide/img5.jpg")
       ],
       accuracy: 2 // 精确度小，可允许的误差范围小；为1时，则表示滑块要与凹槽完全重叠，才能验证成功。默认值为5
     };
@@ -56,18 +56,5 @@ export default {
 </script>
 
 <style>
-.btn {
-  margin-top: 20px;
-  outline: 0;
-  border: none;
-  padding: 8px 15px;
-  border-radius: 5px;
-  color: #fff;
-  background-color: #1890ff;
-  cursor: pointer;
-}
 
-.btn:active {
-  box-shadow: 1px 5px 0 rgba(0, 0, 0, 0.1) inset;
-}
 </style>

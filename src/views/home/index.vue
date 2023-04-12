@@ -43,10 +43,10 @@ export default {
     return {
       options: [],
       imgList: [
-        { img: require("@/assets/static/img/home/b1.png") },
-        { img: require("@/assets/static/img/home/b2.png") },
-        { img: require("@/assets/static/img/home/b3.png") },
-        { img: require("@/assets/static/img/home/b4.png") }
+        { img: require("@/assets/image/home/b1.png") },
+        { img: require("@/assets/image/home/b2.png") },
+        { img: require("@/assets/image/home/b3.png") },
+        { img: require("@/assets/image/home/b4.png") }
       ],
 
       dialog: {

@@ -13,7 +13,7 @@
       </li>
       <li>
         <div style="display:-webkit-box;cursor: pointer;" @click="$emit('showWeather')">
-          <img class="weathers_img" src="" />
+          <img class="weathers_img" :src="weather[0].imgUrl" />
           <div class="weathers_type">{{ weather[0].weather }}</div>
           <div class="weathers_text">{{ weather[0].temperature }}℃</div>
         </div>

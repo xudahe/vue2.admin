@@ -9,7 +9,7 @@ export default {
   name: "card",
   data() {
     return {
-      datalist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+      datalist: [],
       columns: {
         xxl: 6,
         xl: 4,
@@ -20,7 +20,14 @@ export default {
       }
     };
   },
-  methods: {}
+  mounted() {
+    for (let i = 0; i < 36; i++) {
+      this.datalist.push(i)
+
+    }
+  },
+  methods: {
+  }
 };
 </script>
 

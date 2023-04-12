@@ -1,15 +1,24 @@
 <template>
   <section>
     <div style="height:100%;width:100%" id="container" width tabindex="0"></div>
+
     <div class="search-div">
       <el-input id="tipInput" v-model="inputSearchVal" placeholder="请输入搜索名称">
       </el-input>
+      <div class="geolocation">
+        <el-tooltip class="item" effect="dark" content="定位到当前位置" placement="bottom">
+          <el-button type="primary" icon="el-icon-location-outline" circle @click.native="Geolocation"></el-button>
+        </el-tooltip>
+      </div>
     </div>
-    <div class="geolocation">
-      <el-tooltip class="item" effect="dark" content="定位到当前位置" placement="left">
-        <el-button type="primary" icon="el-icon-location-outline" circle @click.native="Geolocation"></el-button>
-      </el-tooltip>
-    </div>
+
+    <!-- <template v-for="(item, index) in rightMenu">
+      <div class="menuItem fade-in-left" :key="index" @click="selectClickR(item, index)"
+        :style="{ top: 9 + Number(index + 1) * 7 + '%', width: selNameR == item.name ? '1.7rem' : '1.5rem', background: item.color, }">
+        <img :src="item.icon" class="icon-img" />{{ item.name }}
+      </div>
+    </template> -->
+
   </section>
 </template>
 
@@ -44,7 +53,42 @@ export default {
       map: null,
 
       inputSearchVal: "",
-      placeSearch: null
+      placeSearch: null,
+
+      //-------------------------------------------------------------------
+      selNameR: '',
+      rightMenu: [{
+        name: '图层',
+        icon: require('@/assets/image/flood/tuli.png'),
+        color: '#FF9C1B'
+      },
+      {
+        name: '值班人',
+        icon: require('@/assets/image/flood/tuli.png'),
+        color: '#06B400'
+      },
+      {
+        name: '防汛直播',
+        icon: require('@/assets/image/flood/tuli.png'),
+        color: '#1f39ac'
+      },
+      {
+        name: '截流井调度',
+        icon: require('@/assets/image/flood/tuli.png'),
+        color: '#7F01C2'
+      },
+      {
+        name: '处置反馈',
+        icon: require('@/assets/image/flood/tuli.png'),
+        color: '#0077F2'
+      },
+      {
+        name: '气象信息',
+        icon: require('@/assets/image/flood/tuli.png'),
+        color: '#D32B91'
+      },
+      ],
+
     };
   },
   async created() {
@@ -76,9 +120,9 @@ export default {
         AMap.plugin(
           ["AMap.ToolBar", "AMap.Scale", "AMap.MapType", "AMap.ControlBar"],
           function () {
-            map.addControl(new AMap.ToolBar()); //工具条
+            // map.addControl(new AMap.ToolBar()); //工具条
             map.addControl(new AMap.Scale()); //左下角地图比例尺
-            map.addControl(new AMap.MapType()); // 卫星和标准切换，可加路况显示
+            // map.addControl(new AMap.MapType()); // 卫星和标准切换，可加路况显示
             // map.addControl(new AMap.ControlBar()); // 组合了旋转、倾斜、复位、缩放在内的地图控件，在3D地图模式下会显示
           }
         );
@@ -158,46 +202,55 @@ export default {
           zoomToAccuracy: true //  定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
         });
 
+        _this.map.addControl(geolocation);
+
         geolocation.getCurrentPosition();
         AMap.event.addListener(geolocation, "complete", function (result) {
-          console.log(result);
+          console.log("定位成功信息：", result);
 
-          // 定位成功之后再定位处添加一个marker
-          var marker = new AMap.Marker({
-            position: result.position,
-            offset: new AMap.Pixel(0, 0),
-            icon: "", // marker的图标，可以自定义，不写默认使用高德自带的
-            map: _this.map // map ---> 要显示该marker的地图对象
-          });
-          _this.map.setCenter(result.position); //定位到中心点
+          AMapMarker(result)
         });
         AMap.event.addListener(geolocation, "error", function (result) {
-          _this.getLatLng();
-        });
-      });
-    },
-    getLatLng() {
-      this.AMap.plugin("AMap.CitySearch", function () {
-        let citySearch = new AMap.CitySearch();
-        citySearch.getLocalCity(function (status, result) {
-          if (status === "complete" && result.info === "OK") {
-            // 查询成功，result即为当前所在城市信息
-            AMap.plugin("AMap.Geocoder", function () {
-              let geocoder = new AMap.Geocoder({
-                // city 指定进行编码查询的城市，支持传入城市名、adcode 和 citycode
-                city: result.adcode
-              });
-              let lnglat = result.rectangle.split(";")[0].split(",");
-              geocoder.getAddress(lnglat, function (status, data) {
-                if (status === "complete" && data.info === "OK") {
-                  // data为对应的地理位置详细信息
-                  console.log(data);
-                }
-              });
+          // console.log("定位失败错误：", result);
+
+          //使用CitySearch插件获取当前所在城市信息
+          AMap.plugin("AMap.CitySearch", function () {
+            var citySearch = new AMap.CitySearch();
+            citySearch.getLocalCity(function (status, result) {
+              if (status === "complete" && result.info === "OK") {
+                let lnglat = result.rectangle.split(";");
+                let lnglat1 = lnglat[0].split(","), lnglat2 = lnglat[1].split(",");
+                let lng = (parseFloat(lnglat1[0]) + parseFloat(lnglat2[0])) / 2;
+                let lat = (parseFloat(lnglat1[1]) + parseFloat(lnglat2[1])) / 2;
+
+                result.position = [lng, lat];
+                AMapMarker(result)
+              }
             });
-          }
+          });
         });
       });
+
+      //点标记
+      function AMapMarker(result) {
+        console.log(result)
+        var marker = new AMap.Marker({
+          position: result.position,
+          offset: new AMap.Pixel(0, 0),
+          icon: "", // marker的图标，可以自定义，不写默认使用高德自带的
+          map: _this.map // map ---> 要显示该marker的地图对象
+        });
+        _this.map.setCenter(result.position); //定位到中心点
+      }
+    },
+    //---------------------------------------------------------------------
+    selectClickR(item, index) {
+      if (this.selNameR == item.name) {
+        this.selNameR = null;
+      } else {
+        this.selNameR = item.name;
+
+      }
     }
   }
 };
@@ -207,18 +260,36 @@ export default {
   position: absolute;
   display: flex;
   align-items: center;
-  right: 100px;
-  top: 108px;
+  left: 220px;
+  top: 115px;
   width: 250px;
   height: 40px;
   box-sizing: border-box;
 }
+
 .geolocation {
+  margin-left: 10px;
+}
+
+
+.menuItem {
+  cursor: pointer;
   position: absolute;
-  display: flex;
-  align-items: center;
-  right: 28px;
-  bottom: 100px;
-  box-sizing: border-box;
+  height: 0.35rem;
+  line-height: 0.35rem;
+  color: #ffffff;
+  right: 0.01rem;
+  border-radius: 5px 0 0px 5px;
+  text-align: left;
+  font-size: 0.17rem;
+  padding-left: 0.2rem;
+
+  .icon-img {
+    height: 0.20rem;
+    margin-right: 0.1rem;
+    // top: 0.02rem;
+    position: relative;
+    vertical-align: middle;
+  }
 }
 </style>

@@ -118,7 +118,7 @@ export default {
 }
 .avatar-box {
   position: relative;
-  top: 57px;
+  padding-top: 57px;
   text-align: center;
   flex: 1;
 }

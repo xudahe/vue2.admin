@@ -1,7 +1,7 @@
 export default {
   state: {
     isCollapse: false,
-    uniquerouter: true,
+    uniquerouter: true, //是否只保持一个子菜单的展开
     openNav: {},
     tabnavBox: JSON.parse(localStorage.getItem("addTab")) || [{ 
       title: "home",
