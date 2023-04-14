@@ -6,7 +6,7 @@
           <draggable style="width: 100%; min-height:25px" :list="prioritySortList" group="from" :options="sortOption">
             <div :class="{'drag-no-choose': true, 'drag-hover': cd.id === selectedNode.id}"
                  v-for="(cd, index) in prioritySortList">
-              <ellipsis style="width: 160px;" hover-tip :content="cd.name"/>
+              <ellipsis style="width: 130px;" hover-tip :content="cd.name"/>
               <div>优先级 {{ index + 1 }}</div>
             </div>
           </draggable>
@@ -119,7 +119,7 @@ export default {
   background: #f8f8f8;
   border-radius: 5px;
   margin: 5px 0;
-  height: 25px;
+  height: 35px;
   line-height: 25px;
   padding: 5px 10px;
   border: 1px solid #ffffff;

@@ -114,6 +114,7 @@ export default {
       form.settings = JSON.parse(form.settings)
       form.formItems = JSON.parse(form.formItems)
       form.process = JSON.parse(form.process)
+      console.log(form)
       this.$store.commit('loadForm', form)
 
       // getFormDetail(formId).then(rsp => {

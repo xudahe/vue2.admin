@@ -28,9 +28,9 @@
 
                     <!--列表-->
                     <e-table :table-data="tableData" :loading="loading" :table-label="tableLabel"
-                        :table-option="tableOption" :now-page="nowPage" :now-size="nowSize"
-                        @handleRowClick="handleRowClick" @handleButton="handleButton"
-                        @handleSelectionChange="handleSelectionChange" @searchData="searchData"></e-table>
+                        :table-option="tableOption" :now-page="nowPage" :now-size="nowSize" @handleRowClick="handleRowClick"
+                        @handleButton="handleButton" @handleSelectionChange="handleSelectionChange"
+                        @searchData="searchData"></e-table>
                 </el-card>
             </el-col>
             <el-col :sm="24" :md="5" style="height:100%;">
@@ -47,15 +47,15 @@
                     </v-header>
 
                     <div class="tree-box">
-                        <el-tree ref="systemtree" :data="systemData" :check-strictly="checkStrictly"
-                            :props="defaultProps" @node-click="nodeclick" default-expand-all show-checkbox
-                            node-key="id" />
+                        <el-tree ref="systemtree" :data="systemData" :check-strictly="checkStrictly" :props="defaultProps"
+                            @node-click="nodeclick" default-expand-all show-checkbox node-key="guid" />
                     </div>
                 </el-card>
             </el-col>
         </el-row>
         <!--弹出界面-->
-        <el-dialog :title="formTitle" :visible.sync="formVisible" width="500px" v-model="formVisible" :close-on-click-modal="false">
+        <el-dialog :title="formTitle" :visible.sync="formVisible" width="500px" v-model="formVisible"
+            :close-on-click-modal="false">
             <el-form :model="platForm" label-width="80px" :rules="formRules" ref="platForm">
                 <el-row>
                     <el-col :span="24">
@@ -72,8 +72,7 @@
                     </el-col>
                     <el-col :span="24">
                         <el-form-item label="主题编号" prop="theme">
-                            <el-input v-model="platForm.theme" autocomplete="off" placeholder="请输入主题编号"
-                                clearable>
+                            <el-input v-model="platForm.theme" autocomplete="off" placeholder="请输入主题编号" clearable>
                             </el-input>
                         </el-form-item>
                     </el-col>
@@ -93,7 +92,8 @@
                     </el-col>
                     <el-col :span="24">
                         <el-form-item label="备注" prop="remark">
-                            <el-input v-model="platForm.remark" autocomplete="off" type="textarea" :autosize="{ minRows: 2, maxRows: 6 }"></el-input>
+                            <el-input v-model="platForm.remark" autocomplete="off" type="textarea"
+                                :autosize="{ minRows: 2, maxRows: 6 }"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -295,33 +295,14 @@ export default {
         },
         // 初始化系统选中
         initialSystemCheck(item) {
-            let _this = this;
             this.$refs.systemtree.setCheckedKeys([])
-            // this.$refs.systemtree.setCheckedKeys(item.systemIds ? item.systemIds.split(','):[])
-
-            //item.systemIds前提是guid集合，才用下面方法，如果是id集合则用上面注释的方法
-            if (!this.$isNull(item.systemIds)) {
-                this.$ajax(this.$apiSet.getSystemInfo, {
-                    ids: item.systemIds,
-                }).then(res => {
-                    if (res.data.success) {
-                        let ids = res.data.response.map(item => item.id);
-
-                        this.checkStrictly = true  //重点：给树节点赋值之前 先设置为true
-                        this.$nextTick(() => {
-                            this.$refs.systemtree.setCheckedKeys(ids) //给树节点赋值
-                            this.checkStrictly = false //重点： 赋值完成后 设置为false
-                        })
-                    }
-                }).catch(err => { })
-            }
+            this.$refs.systemtree.setCheckedKeys(item.systemIds ? item.systemIds.split(',') : [])
         },
         nodeclick(data, node) {
             node.checked = !(node.checked)
         },
         //角色绑定
         saveSystem() {
-            // let ids = this.$refs.roletree.getCheckedKeys().concat(this.$refs.roletree.getHalfCheckedKeys())
             let ids = this.$refs.systemtree.getCheckedNodes(false, true).map(item => item.guid)
 
             this.platForm = this.sels

@@ -42,7 +42,7 @@
 
           <div class="tree-box">
             <el-tree ref="roletree" :data="roleData" :check-strictly="checkStrictly" :props="defaultProps"
-              @node-click="nodeclick" default-expand-all show-checkbox node-key="id" />
+              @node-click="nodeclick" default-expand-all show-checkbox node-key="guid" />
           </div>
         </el-card>
       </el-col>
@@ -302,33 +302,14 @@ export default {
     },
     // 初始化角色选中
     initialRoleCheck(item) {
-      let _this = this;
       this.$refs.roletree.setCheckedKeys([])
-      // this.$refs.roletree.setCheckedKeys(item.roleIds ? item.roleIds.split(','):[])
-
-      //item.roleIds前提是guid集合，才用下面方法，如果是id集合则用上面注释的方法
-      if (!this.$isNull(item.roleIds)) {
-        this.$ajax(this.$apiSet.getRoleInfo, {
-          ids: item.roleIds,
-        }).then(res => {
-          if (res.data.success) {
-            let ids = res.data.response.map(item => item.id);
-
-            this.checkStrictly = true  //重点：给树节点赋值之前 先设置为true
-            this.$nextTick(() => {
-              this.$refs.roletree.setCheckedKeys(ids) //给树节点赋值
-              this.checkStrictly = false //重点： 赋值完成后 设置为false
-            })
-          }
-        }).catch(err => { })
-      }
+      this.$refs.roletree.setCheckedKeys(item.roleIds ? item.roleIds.split(','):[])
     },
     nodeclick(data, node) {
       node.checked = !(node.checked)
     },
     //角色绑定
     saveRole() {
-      // let ids = this.$refs.roletree.getCheckedKeys().concat(this.$refs.roletree.getHalfCheckedKeys())
       let ids = this.$refs.roletree.getCheckedNodes(false, true).map(item => item.guid)
 
       this.userForm = this.sels

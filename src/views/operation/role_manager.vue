@@ -71,7 +71,7 @@
               </div>
               <div style="width:calc(100% - 1.7rem);height: 100%;overflow: auto;">
                 <el-tree ref="menutree" :data="menuData" :check-strictly="checkStrictly" :props="defaultProps"
-                  @node-click="nodeclick" default-expand-all show-checkbox node-key="id" />
+                  @node-click="nodeclick" default-expand-all show-checkbox node-key="guid" />
               </div>
             </div>
 
@@ -296,24 +296,8 @@ export default {
     },
     // 初始化菜单选中
     initialMenuCheck(item) {
-      let _this = this;
       this.$refs.menutree.setCheckedNodes([])
-      // this.$refs.menutree.setCheckedKeys(item.menuIds ? item.menuIds.split(','):[])
-
-      //item.menuIds前提是guid集合，才用下面接口方法，如果是id集合则用上面注释的方法
-      if (!this.$isNull(item.menuIds)) {
-        this.$ajax(this.$apiSet.getMenuInfo, {
-          ids: item.menuIds,
-        }).then(res => {
-          if (res.data.success) {
-            this.checkStrictly = true  //重点：给树节点赋值之前 先设置为true
-            this.$nextTick(() => {
-              this.$refs.menutree.setCheckedNodes(res.data.response) //给树节点赋值
-              this.checkStrictly = false //重点： 赋值完成后 设置为false
-            })
-          }
-        }).catch(err => { })
-      }
+      this.$refs.menutree.setCheckedKeys(item.menuIds ? item.menuIds.split(','):[])
     },
     nodeclick(data, node) {
       node.checked = !(node.checked)
@@ -321,7 +305,6 @@ export default {
     //菜单绑定
     saveMenu() {
       let _this = this;
-      // let ids = this.$refs.menutree.getCheckedKeys().concat(this.$refs.menutree.getHalfCheckedKeys())
       let ids = this.$refs.menutree.getCheckedNodes(false, true).map(item => item.guid)
 
       this.$ajax(this.$apiSet.RoleByMenuId, {

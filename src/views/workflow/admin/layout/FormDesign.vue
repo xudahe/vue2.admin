@@ -24,6 +24,9 @@
     <el-main class="layout-main">
       <div class="tool-nav">
         <div>
+          <el-tooltip class="item" effect="dark" content="清空表单" placement="bottom-start">
+            <i class="el-icon-delete"></i>
+          </el-tooltip>
           <el-tooltip class="item" effect="dark" content="撤销" placement="bottom-start">
             <i class="el-icon-refresh-left"></i>
           </el-tooltip>
