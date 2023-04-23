@@ -310,14 +310,4 @@ export default {
   }
 }
 
-::-webkit-scrollbar {
-  width: 2px;
-  height: 2px;
-  background-color: white;
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 16px;
-  background-color: #e8e8e8;
-}
 </style>

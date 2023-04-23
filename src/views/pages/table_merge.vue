@@ -36,7 +36,7 @@ export default {
                   title: "地块类别",
                   key: "地块类别",
                   align: "left",
-                  width: 180
+                  minWidth: 180
                 },
                 {
                   title: "首字母",

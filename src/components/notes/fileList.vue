@@ -13,8 +13,9 @@
     </div>
 
     <el-scrollbar class="scrollbar-list" wrap-class="scrollbar-wrapper" :noresize="false" tag="ul">
-      <li v-for="(item, index) in fileList" :key="index" :class="selectIndex == index ? 'file-item color' : 'file-item'" @click="selectClick(item, index)" @mouseenter="item.showTool = true" @mouseleave="item.showTool = false">
-        <i class="el-icon-document" style="font-size:15px;margin-right:3px;" />
+      <li v-for="(item, index) in fileList" :key="index" :class="selectIndex == index ? 'file-item color' : 'file-item'"
+        @click="selectClick(item, index)" @mouseenter="item.showTool = true" @mouseleave="item.showTool = false">
+        <i class="el-icon-document" style="font-size:15px;margin-right:5px;" />
         <p class="item-title" :title="item.title">{{ item.title }}</p>
         <p class="item-time" v-if="!item.showTool">
           {{ item.time | formatDate("yyyy-mm-dd") }}
@@ -60,7 +61,13 @@ export default {
       this.$emit("selectItem", item);
     },
     clickDel(item) {
-      this.$emit("deleteFile", item);
+      this.$confirm('确定要删除文件《' + item.title + '》吗?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$emit("deleteFile", item);
+      })
     }
   }
 };
@@ -86,6 +93,7 @@ export default {
 .scrollbar-list {
   height: calc(100% - 60px);
   user-select: none;
+
   .file-item {
     display: flex;
     align-items: center;
@@ -107,18 +115,21 @@ export default {
       white-space: nowrap;
       overflow: hidden;
     }
+
     .item-time {
       font-size: 12px;
       padding-right: 10px;
     }
+
     .item-tool {
       font-size: 12px;
       padding-right: 10px;
     }
   }
+
   .color,
   .file-item:hover {
-    background-color: #aae4ea;
+    background-color: #e3f6ff;
   }
 }
 </style>

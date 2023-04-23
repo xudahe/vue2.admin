@@ -196,12 +196,13 @@ export default {
 
 
   .menuBox {
+    letter-spacing: 1px;
+    border-radius: 5px;
     margin: 0;
     background: #fff;
     z-index: 999;
     position: fixed;
     padding: 0;
-    border: 1px solid #cccccc;
     font-size: 12px;
     font-weight: 400;
     color: #333;
@@ -215,7 +216,7 @@ export default {
       line-height: 0.4rem;
 
       &:hover {
-        background: #e1e6ea;
+        background: #e3f6ff;
       }
     }
   }

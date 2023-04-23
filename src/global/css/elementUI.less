@@ -3,28 +3,51 @@
   width: 100% !important;
 }
 
-// .el-dialog {
-//   margin-top: 10vh !important;
-// }
 
-.el-dialog__headerbtn {
-  top: 15px !important;
-  right: 15px !important;
+//-------------------------------------------el-dialog-----------------------------------------------
+
+.el-dialog {
+  padding: 0;
+  background: #fff
 }
 
 .el-dialog__header {
-  padding: 10px !important;
-  background: beige !important;
+  height: 36px;
+  line-height: 36px;
+  background: linear-gradient(0deg, #266FE8, #4787F0);
+  color: #fff;
+  padding: 0 10px 0 20px;
+  margin-bottom: 0
+}
+
+.el-dialog__title {
+  color: #fff;
+  font-size: 16px
+}
+
+.el-dialog__headerbtn {
+  top: 7px;
+  right: 10px
+}
+
+.el-icon-close:before {
+  color: #fff;
+  // font-size: 22px
+}
+
+.el-dialog .btn-bottom {
+  margin: 20px 0 0;
+  text-align: center
 }
 
 .el-dialog__body {
-  // padding: 10px !important;
+  padding: 10px !important;
   height: calc(~"100% - 50px") !important;
   overflow: auto !important;
 }
 
 
-
+//-------------------------------------------el-card-----------------------------------------------
 
 .card_css {
 
@@ -41,6 +64,15 @@
     padding: 16px 10px !important;
   }
 
+}
+
+//-------------------------------------------el-tree-----------------------------------------------
+.el-tree-node__content:hover {
+  background-color: #e3f6ff
+}
+.el-tree-node__content {
+  padding-right: 5px;
+  height: 30px !important;
 }
 
 .el-loading-spinner i {
@@ -73,6 +105,6 @@
 }
 
 
-.el-row{
+.el-row {
   width: 100%;
 }

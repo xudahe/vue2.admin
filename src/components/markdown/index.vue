@@ -1,6 +1,6 @@
 <template>
     <div class="mavon-editor">
-        <mavon-editor :toolbars="toolbars"  @imgAdd="handleEditorImgAdd" @imgDel="handleEditorImgDel" style="height:500px" v-model="content" @change="change" ref=md />
+        <mavon-editor :toolbars="toolbars"  @imgAdd="handleEditorImgAdd" @imgDel="handleEditorImgDel" style="height:100%;width: 100%;" v-model="content" @change="change" ref=md />
     </div>
 </template>
 
@@ -74,5 +74,8 @@ export default {
 </script>
 
 <style scoped>
-
+.mavon-editor{
+    height: 100%;
+    width: 100%;
+}
 </style>

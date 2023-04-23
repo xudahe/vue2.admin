@@ -11,11 +11,14 @@
     </div>
 
     <el-scrollbar class="scrollbar-list" wrap-class="scrollbar-wrapper" :noresize="false">
-      <el-tree ref="tree" :data="fileData" :props="defaultProps" :default-expand-all="true" :filter-node-method="filterNode" @node-click="handleNodeClick" @node-contextmenu="rightClick" style="background-color: #f5f5f5;" highlight-current node-key="id">
+      <el-tree ref="tree" :data="fileData" :props="defaultProps" :default-expand-all="true"
+        :filter-node-method="filterNode" @node-click="handleNodeClick" @node-contextmenu="rightClick" highlight-current
+        node-key="id">
         <div class="custom-tree-node" slot-scope="{ node, data }">
           <!-- 编辑状态 -->
           <template v-if="node.isEdit">
-            <el-input v-model="data.fileName" autofocus size="mini" :ref="'slotTreeInput' + node.id" @keyup.enter.native="handleInput(node, data)" @blur.stop="handleInput(node, data)">
+            <el-input v-model="data.fileName" autofocus size="mini" :ref="'slotTreeInput' + node.id"
+              @keyup.enter.native="handleInput(node, data)" @blur.stop="handleInput(node, data)">
             </el-input>
           </template>
           <!-- 非编辑状态 -->
@@ -30,7 +33,8 @@
     </el-scrollbar>
     <!-- 鼠标右键产生的选项 -->
     <div v-show="menuVisible" id="menu" class="rightMenu">
-      <el-menu class="el-menu-vertical rightClickMenu" @select="handleRightSelect" text-color="#303133" active-text-color="#303133">
+      <el-menu class="el-menu-vertical rightClickMenu" @select="handleRightSelect" text-color="#303133"
+        active-text-color="#303133">
         <el-menu-item index="1" class="menuItem">
           <i class="el-icon-folder-add" style="font-size: 15px;"></i>
           <span slot="title">新建文件夹</span>
@@ -593,7 +597,6 @@ export default {
 .scrollbar-list {
   height: calc(100% - 60px);
   padding: 5px;
-  background-color: #f5f5f5;
 
   .tree-lable,
   .custom-tree-node {
@@ -604,13 +607,12 @@ export default {
     display: block;
   }
 
-  @{deep}.el-tree--highlight-current
-    .el-tree-node.is-current
-    > .el-tree-node__content {
-    color: #fff !important;
-    background-color: #398dee !important;
+  @{deep}.el-tree--highlight-current .el-tree-node.is-current>.el-tree-node__content {
+    color: #409eff !important;
+    background-color: #e3f6ff !important;
   }
 }
+
 .el-menu-item {
   padding-left: 10px !important;
   height: 30px !important;

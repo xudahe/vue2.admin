@@ -52,23 +52,6 @@
   .gx-scrollbar {
     background: #ffffff;
   }
-  .gx-scrollbar::-webkit-scrollbar {
-    /*滚动条整体样式*/
-    width: 5px; /*高宽分别对应横竖滚动条的尺寸*/
-    height: 10px;
-  }
-  .gx-scrollbar::-webkit-scrollbar-thumb {
-    /*滚动条里面小方块*/
-    border-radius: 10px;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-    background: #d3d3d3;
-  }
-  .gx-scrollbar::-webkit-scrollbar-track {
-    /*滚动条里面轨道*/
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    background: #ededed;
-  }
 
   .diaglogpanel {
     position: absolute;
@@ -148,7 +131,7 @@ export default {
     retresize() {
       var dragPanel = document.getElementById("dragPanel");
       dragPanel.style.top = "100px";
-      dragPanel.style.height = "70%";
+      dragPanel.style.height = "80%";
       dragPanel.style.width = "60%";
     }
   },

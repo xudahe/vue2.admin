@@ -81,29 +81,23 @@
     </el-row>
 
     <!--弹出界面-->
-    <el-dialog :title="formTitle" :visible.sync="formVisible" v-model="formVisible" :close-on-click-modal="false">
+    <el-dialog :title="formTitle" :visible.sync="formVisible" v-model="formVisible" width="500px" :close-on-click-modal="false">
       <el-form :model="roleForm" label-width="80px" :rules="formRules" ref="roleForm">
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="角色名称" prop="roleName">
-              <el-input v-model="roleForm.roleName" autocomplete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="备注" prop="remark">
-              <el-input v-model="roleForm.remark" autocomplete="off" type="textarea"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="角色编码" prop="roleCode">
-              <el-input v-model="roleForm.roleCode" autocomplete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="状态" prop="enabled">
-              <el-radio-group v-model="roleForm.enabled">
-                <el-radio :label="false">正常</el-radio>
-                <el-radio :label="true">禁用</el-radio>
-              </el-radio-group>
-            </el-form-item>
-          </el-col>
-        </el-row>
+        <el-form-item label="角色名称" prop="roleName">
+          <el-input v-model="roleForm.roleName" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="角色编码" prop="roleCode">
+          <el-input v-model="roleForm.roleCode" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="状态" prop="enabled">
+          <el-radio-group v-model="roleForm.enabled">
+            <el-radio :label="false">正常</el-radio>
+            <el-radio :label="true">禁用</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="备注" prop="remark">
+          <el-input v-model="roleForm.remark" autocomplete="off" type="textarea"></el-input>
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click.native="formVisible = false">取消</el-button>
@@ -297,7 +291,7 @@ export default {
     // 初始化菜单选中
     initialMenuCheck(item) {
       this.$refs.menutree.setCheckedNodes([])
-      this.$refs.menutree.setCheckedKeys(item.menuIds ? item.menuIds.split(','):[])
+      this.$refs.menutree.setCheckedKeys(item.menuIds ? item.menuIds.split(',') : [])
     },
     nodeclick(data, node) {
       node.checked = !(node.checked)
@@ -379,7 +373,7 @@ export default {
           _this.$errorMsg(res.data.message)
         } else {
           _this.platList = res.data.response;
-          if(_this.platList.length > 0) {
+          if (_this.platList.length > 0) {
             _this.sel_platformId = _this.platList[0].guid
             _this.platFunction(_this.platList[0].guid)
           }
@@ -389,8 +383,8 @@ export default {
     //根据平台刷选 系统
     platFunction(value) {
       let _this = this;
-      let item =  _this.platList.filter(item=> item.guid == value)
-    
+      let item = _this.platList.filter(item => item.guid == value)
+
       this.$ajax(this.$apiSet.getSystemInfo, {
         ids: item[0].systemIds
       }).then(res => {
@@ -398,15 +392,15 @@ export default {
           _this.$errorMsg(res.data.message)
         } else {
           _this.systemList = res.data.response;
-          if(_this.systemList.length > 0) _this.systemFunction(_this.systemList[0]);
+          if (_this.systemList.length > 0) _this.systemFunction(_this.systemList[0]);
         }
       }).catch(err => { })
     },
-     //根据系统刷选 菜单
-    systemFunction(item,index) {
-       let _this = this;
-       _this.sle_systemId = item.guid;
-    
+    //根据系统刷选 菜单
+    systemFunction(item, index) {
+      let _this = this;
+      _this.sle_systemId = item.guid;
+
       this.$ajax(this.$apiSet.GetMenuBySystemId, {
         systemId: item.guid
       }).then(res => {

@@ -30,10 +30,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.el-dialog__wrapper {
-  /deep/ .el-dialog__body {
-    height: calc(100% - 40px) !important;
-    padding: 10px !important;
-  }
-}
+
 </style>
