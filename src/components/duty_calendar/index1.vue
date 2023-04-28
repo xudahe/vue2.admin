@@ -90,15 +90,12 @@ export default {
     },
     editDuty() {
       this.isEdit = true;
-      bus.$emit('saveDuty', 'edit');
     },
     cancelDuty() {
       this.isEdit = false;
-      bus.$emit('saveDuty', 'cancel');
     },
     saveDuty() {
       this.isEdit = false;
-      bus.$emit('saveDuty', 'save');
     },
   }
 }

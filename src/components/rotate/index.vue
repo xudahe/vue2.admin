@@ -1,8 +1,10 @@
 <!--可拖拽旋转的3D图片墙DEMO-->
 <template>
   <div class="jieruwang">
-    <div class='pic' id='pic' :style="{ '-webkit-transform': picLate,'transform': picLate }">
-      <img v-for="(item,idx) in imgList" :key='item+idx' :src="item.imgUrl" :style="{ '-webkit-transform': 'rotateY(' + idx * deg + 'deg) translateZ(300px)','transform': 'rotateY(' + idx * deg + 'deg) translateZ(300px)' }" @mousedown.prevent @mouseup.prevent @mousemove.prevent></img>
+    <div class='pic' id='pic' :style="{ '-webkit-transform': picLate, 'transform': picLate }">
+      <img v-for="(item, idx) in imgList" :key='item + idx' :src="item.imgUrl"
+        :style="{ '-webkit-transform': 'rotateY(' + idx * deg + 'deg) translateZ(300px)', 'transform': 'rotateY(' + idx * deg + 'deg) translateZ(300px)' }"
+        @mousedown.prevent @mouseup.prevent @mousemove.prevent />
       <p></p>
     </div>
   </div>
@@ -149,6 +151,7 @@ export default {
     transform-style: preserve-3d;
     // transform: perspective(800px) rotateX(-10deg) rotateY(0deg);
   }
+
   .pic img {
     position: absolute;
     width: 100%;
@@ -157,24 +160,13 @@ export default {
     box-shadow: 0px 0px 10px #fff;
 
     /*倒影的设置*/
-    -webkit-box-reflect: below 10px -webkit-linear-gradient(top, rgba(
-            0,
-            0,
-            0,
-            0
-          )
-          50%, rgba(0, 0, 0, 0.5) 100%);
+    -webkit-box-reflect: below 10px -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.5) 100%);
   }
 
   .pic p {
     width: 1200px;
     height: 1200px;
-    background: -webkit-radial-gradient(
-      center center,
-      600px 600px,
-      rgba(255, 255, 255, 0.5),
-      rgba(0, 0, 0, 0)
-    );
+    background: -webkit-radial-gradient(center center, 600px 600px, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0));
     position: absolute;
     top: 100%;
     left: 50%;

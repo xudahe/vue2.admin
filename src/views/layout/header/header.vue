@@ -82,8 +82,15 @@ export default {
       window.sessionStorage.clear();
       window.localStorage.clear();
       // window.location.reload(); //会降低性能
-      this.$store.dispatch("LogOut").then(() => {
-        this.$router.push({ path: "/login" });
+      
+      this.$confirm("是否退出系统, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(() => {
+        this.$store.dispatch("LogOut").then(() => {
+          this.$router.push({ path: "/login" });
+        });
       });
     },
     fullScreen() {

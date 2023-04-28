@@ -49,10 +49,10 @@
      border-radius: 2em;
    }
 
-   /*滚动条的宽度*/
+   /*滚动条的宽度和高度*/
    ::-webkit-scrollbar {
      width: 4px;
-     height: 8px;
+     height: 10px;
    }
 
    /*滚动条的设置*/

@@ -99,7 +99,6 @@ export default {
             "transform",
             `translate(${parseInt(this.backTopOptions.right)}px, ${parseInt(this.backTopOptions.bottom)}px)`
           ));
-      this.$setMemorySes("scrollTop", e.target.scrollTop);
     },
     initialListener() {
       const _this = this;

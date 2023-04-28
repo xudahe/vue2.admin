@@ -28,38 +28,33 @@ router.beforeEach((to, from, next) => {
     return NProgress.done();
   }
 
-  if (store.getters.freeLogin) {
-    getAddRouters()
+  if (!validataToken()) {
     next()
-  } else {
+  }
 
-    if (!validataToken()) {
+  if (store.getters.accessToken) {
+    if (to.path === "/login") {
       next()
-    }
-
-    if (store.getters.loginToken) {
-      if (to.path === "/login") {
-        next()
-      } else {
-        if (store.getters.loginInfo == "") {
-          getAddRouters()
-          next({
-            path: to.path
-          })
-        } else {
-          next()
-        }
-      }
     } else {
-      if (to.path === "/login") {
-        next()
-      } else {
+      if (store.getters.loginInfo == "") {
+        getAddRouters()
         next({
-          path: "/login"
+          path: to.path
         })
+      } else {
+        next()
       }
+    }
+  } else {
+    if (to.path === "/login") {
+      next()
+    } else {
+      next({
+        path: "/login"
+      })
     }
   }
+
 })
 
 // 全局后置钩子-常用于结束动画等
@@ -71,16 +66,11 @@ router.afterEach(() => {
 function validataToken() {
   var curTime = new Date()
   var refreshtime = new Date(Date.parse(window.localStorage.refreshtime))
+  console.log(`Token 将在 ${refreshtime}后过期！`)
+
   // 如果在用户操作的活跃期内，刷新Token过期时间
   if (window.localStorage.refreshtime && (curTime <= refreshtime)) {
     saveRefreshtime(); //刷新Token过期时间
-
-    if (!store.state.login.token) {
-      store.commit("SET_LOGIN_TOKEN", window.localStorage.loginToken)
-    }
-    if (!store.state.login.tokenExpire) {
-      store.commit("SET_TOKEN_EXPIRE", window.localStorage.tokenExpire)
-    }
 
     return true
   } else {
@@ -101,7 +91,6 @@ function getAddRouters() {
   console.log(store.getters.loginInfo)
 
   store.dispatch("newRoutes", store.getters.loginInfo.roleinfo)
-  // router.addRoutes(store.getters.addRouters) //动态添加路由
 }
 
 // 路由跳转前都是会经过beforeEach，而beforeEach可以通过next来控制到底去哪个路由。根据这个特性我们就可以在beforeEach中设置一些条件来控制路由的重定向。

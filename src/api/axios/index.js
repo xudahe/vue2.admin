@@ -41,8 +41,8 @@ axios.interceptors.request.use(config => {
   var expiretime = new Date(Date.parse(store.state.login.tokenExpire))
 
   // 判断是否存在token，如果存在的话，则每个http header都加上token
-  if (store.state.login.loginToken && (curTime < expiretime && store.state.login.tokenExpire)) {
-    config.headers.Authorization = "Bearer " + store.state.login.loginToken;
+  if (store.state.login.accessToken && (curTime < expiretime && store.state.login.tokenExpire)) {
+    config.headers.Authorization = "Bearer " + store.state.login.accessToken;
   }
 
   saveRefreshtime();
@@ -85,7 +85,7 @@ axios.interceptors.response.use(response => {
         if (window.localStorage.refreshtime && (curTime <= refreshtime)) {
           // 直接将整个请求 return 出去，不然的话，请求会晚于当前请求，无法达到刷新操作 
           return httpServer(apiSetting.refreshToken, {
-            token: window.localStorage.loginToken
+            token: window.localStorage.accessToken
           }).then(res => {
               if (res.success == true) {
                 Vue.prototype.$message({
@@ -93,11 +93,12 @@ axios.interceptors.response.use(response => {
                   type: 'success'
                 });
 
-                store.commit("SET_LOGIN_TOKEN", res.token);
-
                 var curTime = new Date();
                 var expiredate = new Date(curTime.setSeconds(curTime.getSeconds() + res.expires_in));
+
                 store.commit("SET_TOKEN_EXPIRE", expiredate);
+                store.commit("SET_ACCESS_TOKEN", res.token);
+                window.localStorage.refreshtime = expiredate; //保存刷新时间，这里的和过期时间一致，但每次操作都会进一步刷新改时间
 
                 error.config.__isRetryRequest = true;
                 error.config.headers.Authorization = 'Bearer ' + res.token;
@@ -221,17 +222,15 @@ const httpServer = (opts, data) => {
 }
 
 const ToLogin = params => {
-  store.commit("SET_LOGIN_TOKEN", "");
-  store.commit("SET_TOKEN_EXPIRE", "");
-
-  router.replace({
-    path: "/login",
-    query: {
-      redirect: router.currentRoute.fullPath
-    }
+  store.dispatch("LogOut").then(() => {
+    router.replace({
+      path: "/login",
+      query: {
+        redirect: router.currentRoute.fullPath
+      }
+    });
+    // window.location.reload()
   });
-
-  // window.location.reload()
 };
 
 //当执行操作时更新刷新时间，这个的作用主要是记录当前用户的操作活跃期，当在这个活跃期内，就可以滑动更新，如果超过了这个时期，就跳转到登录页

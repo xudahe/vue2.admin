@@ -15,7 +15,8 @@
     <el-scrollbar class="scrollbar-list" wrap-class="scrollbar-wrapper" :noresize="false" tag="ul">
       <li v-for="(item, index) in fileList" :key="index" :class="selectIndex == index ? 'file-item color' : 'file-item'"
         @click="selectClick(item, index)" @mouseenter="item.showTool = true" @mouseleave="item.showTool = false">
-        <i class="el-icon-document" style="font-size:15px;margin-right:5px;" />
+        <!-- <i class="el-icon-document" style="font-size:15px;margin-right:5px;" /> -->
+        <img :src="require('@/assets/image/file/txt.png')" style="width:0.20rem;margin-right: 0.05rem;" />
         <p class="item-title" :title="item.title">{{ item.title }}</p>
         <p class="item-time" v-if="!item.showTool">
           {{ item.time | formatDate("yyyy-mm-dd") }}

@@ -11,8 +11,6 @@ import workflow from './modules/workflow';
 
 const store = new Vuex.Store({
   state: {
-    token: null, // token
-
     //缓存组件，该值是组件中定义的name值，include 名称匹配的组件会被缓存，exclude 名称匹配的组件不被缓存。
     cachedViews: ["t-gdmap", "t-arcgisMap", "t-echartMap", "paper"],
 
@@ -45,8 +43,9 @@ const store = new Vuex.Store({
       commit
     }) {
       return new Promise((resolve, reject) => {
-        commit('SET_LOGIN_INFO', '');
-        commit('SET_LOGIN_TOKEN', '');
+        commit('SET_LOGIN_INFO','');
+        commit('SET_ACCESS_TOKEN', '');
+        commit('SET_REFRESH_TOKEN','');
         commit('SET_TOKEN_EXPIRE', '');
 
         resolve();
@@ -56,9 +55,8 @@ const store = new Vuex.Store({
   // Getters相当于vue中的computed计算属性，getter的返回值根据它的依赖被缓存起来，且只有当它的依赖值发生改变时才会重新计算。
   // Getters可以用于监听，state中的值的变化，返回计算后的结果。
   getters: {
-    loginToken: state => state.login.loginToken,
+    accessToken: state => state.login.accessToken,
     loginInfo: state => state.login.loginInfo,
-    freeLogin: state => state.login.freeLogin,
 
     weather: state => state.weather,
     cachedViews: state => state.cachedViews,

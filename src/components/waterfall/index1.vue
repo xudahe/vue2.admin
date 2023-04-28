@@ -116,7 +116,7 @@ export default {
       const vm = this;
       let numbers = [25, 35, 45, 55, 65];
 
-      var data = require.context("../../assets/image/file", false, /\.(jpeg|png|jpg)$/).keys(), arr = [];
+      var data = require.context("../../assets/image/weather", false, /\.(jpeg|png|jpg)$/).keys(), arr = [];
       for (let i in data) {
         arr.push(data[i].replace(/\.\//g, '').replace(/\.svg/g, ''));
       }
@@ -125,7 +125,7 @@ export default {
 
       let moreList = [];
       for (let i = 0; i < arr.length; i++) {
-        let imgUrl = require("@/assets/image/file/" + arr[i]);
+        let imgUrl = require("@/assets/image/weather/" + arr[i]);
 
         moreList.push({
           id: i + 1,
@@ -153,7 +153,7 @@ export default {
         //图片渲染列表，先把高宽和占位颜色赋值直接push到waterfallList，图片的实际url等图片加载上了在赋值
         let imgData = {};
         imgData.height = (this.imageWidth / moreList[i].width) * moreList[i].height;
-        console.log("第" + i + "张图片的高度是：" + imgData.height);
+        console.log("第" + (i + 1) + "张图片的高度是：" + imgData.height);
         imgData.id = moreList[i].id;
         //获取随机占位背景色
         imgData.colour = this.suijicolour[i % 9];
@@ -240,4 +240,5 @@ export default {
     -o-transform: scale(1.2);
     -ms-transform: scale(1.2);
   }
-}</style>
+}
+</style>

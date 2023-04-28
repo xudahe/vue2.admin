@@ -1,7 +1,10 @@
 <!-- 文件编辑组件 -->
 <template>
   <div class="content-edit">
-    <el-input class="file-title" v-model="currentTitle" placeholder="请输入标题" />
+    <div class="file-title">
+      <el-input prefix-icon="el-icon-edit" size="medium" v-model="currentTitle" placeholder="请输入标题" />
+    </div>
+
     <mavon-editor v-bind="$attrs" v-on="$listeners" class="markdown-wrapper" />
   </div>
 </template>
@@ -19,7 +22,7 @@ export default {
   },
   data() {
     return {
-      currentTitle: this.title
+      currentTitle: this.title,
     };
   },
   watch: {
@@ -31,7 +34,7 @@ export default {
     },
     currentTitle: {
       handler: function (newVal, oldVal) {
-        this.$emit("update:title", newVal);
+        if (!this.$isNull(newVal)) this.$emit("update:title", newVal);
       },
       deep: true
     }
@@ -43,10 +46,11 @@ export default {
 .content-edit {
   height: 100%;
   width: 100%;
+
   .file-title {
-    padding-left: 5px;
-    height: 56px;
-    line-height: 56px;
+    padding-left: 0.2rem;
+    height: 0.68rem;
+    line-height: 0.68rem;
     font-size: 18px;
     font-weight: 500;
 
@@ -59,7 +63,7 @@ export default {
   }
 
   .markdown-wrapper {
-    height: calc(100% - 56px);
+    height: calc(100% - 0.68rem);
 
     &.fullscreen {
       height: 100%;

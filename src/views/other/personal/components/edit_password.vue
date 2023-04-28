@@ -100,7 +100,6 @@ export default {
       //       }
       //     }).then(() => {
       //       this.$successMsg("修改成功，请重新登录");
-      //       this.$setMemoryPmt("token", "");
       //       this.$router.push({ path: "/login" });
       //     });
       //   } else {

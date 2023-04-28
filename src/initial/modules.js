@@ -1,6 +1,4 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
-
 
 // Markdown （mavonEditor）编辑器
 import mavonEditor from 'mavon-editor'
@@ -57,8 +55,6 @@ import InsertAfter from '@/api/dom/insert_after'
 import Copy from '@/api/dom/copy'
 // 引入全屏函数
 import FullScreen from '@/api/other/full_screen'
-// 引入存储模块
-import Memory from '@/api/storage'
 // 引入文件下载模块
 import Download from '@/api/file/download'
 // 引入打印功能
@@ -210,28 +206,6 @@ Vue.prototype.$removeClass = SetClass.removeClass
  * @param {DOM Object} element DOM元素
  */
 Vue.prototype.$getClassName = SetClass.getClassName
-
-/**
- * @description 设置存储值
- * @param {String} key 存储键
- * @param {Any} value 存储值
- */
-Vue.prototype.$setMemorySes = Memory.setMemorySes
-Vue.prototype.$setMemoryPmt = Memory.setMemoryPmt
-
-/**
- * @description 获取存储值
- * @param {String} key 存储值
- * @return {Any} 返回值
- */
-Vue.prototype.$getMemorySes = Memory.getMemorySes
-Vue.prototype.$getMemoryPmt = Memory.getMemoryPmt
-
-/**
- * @description 清空浏览器存储的数据
- */
-Vue.prototype.$clearMemorySes = Memory.clearMemorySes
-Vue.prototype.$clearMemoryPmt = Memory.clearMemoryPmt
 
 /**
  * @description 获取图片文件地址与文件信息

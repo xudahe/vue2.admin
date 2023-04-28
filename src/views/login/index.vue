@@ -42,10 +42,8 @@
         </el-form-item>
         <el-form-item style="width:100%;">
           <el-col :span="24">
-            <el-button v-show="activeIndex == '1'" type="primary" style="width:100%;" @click.native.prevent="loginSubmit"
-              :loading="logining">{{ loadName }}</el-button>
-            <el-button v-show="activeIndex == '2'" type="primary" style="width:100%;" @click.native.prevent="freeLogin"
-              :loading="logining">{{ loadName }}</el-button>
+            <el-button type="primary" style="width:100%;" @click.native.prevent="loginSubmit" :loading="logining">{{
+              loadName }}</el-button>
           </el-col>
         </el-form-item>
         <el-col :span="12">
@@ -152,7 +150,7 @@ export default {
       this.$loading.hideLoading();
     },
     loginError() {
-      this.$notify({ type: "error", message: `登录失败！`, duration: 2000 });
+      this.$notify({ type: "error", message: `登录失败！`, duration: 1000 });
       this.logining = false;
       this.loadName = "登录";
       this.$loading.hideLoading();
@@ -182,18 +180,14 @@ export default {
                 expires: 3
               });
             }
-
-            var token = res.data.response.token;
-            _this.$store.commit("SET_LOGIN_TOKEN", token); // 保存token
+            var source = res.data.response;
 
             var curTime = new Date();
-            var expiredate = new Date(
-              curTime.setSeconds(curTime.getSeconds() + res.data.response.expires_in)
-            ); // 定义过期时间
-            _this.$store.commit("SET_TOKEN_EXPIRE", expiredate); // 保存token过期时间
+            var expiredate = new Date(curTime.setSeconds(curTime.getSeconds() + source.expires_in));
 
-            window.localStorage.refreshtime = expiredate; // 保存刷新时间，这里的和过期时间一致
-            window.localStorage.expires_in = res.data.response.expires_in;
+            _this.$store.commit("SET_TOKEN_EXPIRE", expiredate); // 保存token过期时间
+            _this.$store.commit("SET_ACCESS_TOKEN", source.token); // 保存token
+            window.localStorage.refreshtime = expiredate; //保存刷新时间，这里的和过期时间一致，但每次操作都会进一步刷新改时间
 
             _this.$notify({
               type: "success",
@@ -201,7 +195,7 @@ export default {
               duration: 2000
             });
 
-            _this.getLoginByToken(token);
+            _this.getLoginByToken(source.token);
           }
         })
         .catch(err => {
@@ -218,16 +212,19 @@ export default {
           _this.$errorMsg(res.data.message);
         } else {
           loadScripts(['./AppSetting.js']).then((e) => {
+            _this.loginEnd();
+
             let loginInfo = res.data.response;
             window.localStorage.loginInfo = JSON.stringify(loginInfo);
 
-            this.loginEnd();
             setTimeout(() => {
+              let refreshtime = new Date(Date.parse(window.localStorage.refreshtime));
+
               _this.$router.push({ path: "/home" }); //登录成功之后重定向到首页
 
               _this.$notify({
                 type: "success",
-                message: `登录成功 \n 欢迎管理员：${loginInfo.realName}！Token 将在 ${window.localStorage.expires_in / 60} 分钟后过期！`,
+                message: `登录成功 \n 欢迎管理员：${loginInfo.realName}！Token 将在 ${_this.$formatDate(refreshtime, true)}后过期！`,
                 duration: 3000
               });
             }, 1000);
@@ -239,32 +236,7 @@ export default {
       });
     },
     handleSelect(key, keyPath) {
-      this.$store.commit("SET_FREE_lOGIN", key == '1' ? false : true);
       this.activeIndex = key;
-    },
-    freeLogin() {
-      let _this = this;
-      this.loginStart();
-
-      //特别注意：json文件存放在public目录下，如/public/data/jsonData.json,那么在请求json数据的时候，地址千万千万千万不能写/public/data/jsonData.json，而是写/data/jsonData.json，否则会报404，因为静态资源在打包后，默认public内的文件放在项目根目录，
-      axios.get('/data/loginInfo.json').then(function (res) {
-        let loginInfo = res.data.response;
-        window.localStorage.loginInfo = JSON.stringify(loginInfo);
-
-        _this.loginEnd();
-        setTimeout(() => {
-          _this.$router.push({ path: "/home" });
-          _this.$notify({
-            type: "success",
-            message: `登录成功 \n 欢迎管理员：${loginInfo.realName}！`,
-            duration: 3000
-          });
-        }, 1000);
-
-      }).catch(err => {
-        _this.loginError();
-        console.log(err);
-      });
     },
   },
   mounted() {
@@ -333,4 +305,5 @@ export default {
     margin: 0px 0px 15px;
     text-align: left;
   }
-}</style>
+}
+</style>
