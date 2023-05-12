@@ -44,8 +44,8 @@
               </el-select>
             </el-form-item>
             <el-form-item label="Cron表达式" prop="cron" v-show="taskForm.triggerType == 'cron'">
-              <el-popover placement="bottom-start" trigger="click" style="width:60%;">
-                <cron ref="cronSelect" :isResult="false" v-model="taskForm.cron" />
+              <el-popover placement="bottom-start" trigger="click" width="620" style="">
+                <cron ref="cronSelect" :isResult="true" v-model="taskForm.cron" />
                 <el-input slot="reference" v-model="taskForm.cron" placeholder="Cron表达式" readonly></el-input>
               </el-popover>
             </el-form-item>
@@ -110,7 +110,7 @@
     </el-dialog>
 
     <!--执行记录-->
-    <el-dialog :title="logTitle" :visible.sync="logVisible" v-model="logVisible" width="1100px"
+    <el-dialog :title="logTitle" :visible.sync="logVisible" v-model="logVisible" width="940px"
       :close-on-click-modal="false">
       <div v-html="logData" style="text-align: left;"></div>
     </el-dialog>
@@ -157,7 +157,12 @@ export default {
         { label: '任务分组', param: 'jobGroup' },
         { label: '触发器类型', param: 'triggerType' },
         { label: 'Cron表达式', param: 'cron' },
-        { label: '执行间隔(秒)', param: 'intervalSecond' },
+        {
+          label: '执行间隔(秒)', param: 'intervalSecond',
+          render: (h, params) => {
+            return h('span', {}, params.row.intervalSecond == 0 ? '' : params.row.intervalSecond)
+          },
+        },
         { label: '执行次数', param: 'runTimes' },
         {
           label: '最后执行时间', param: 'performTime', sortable: true, width: '160',
@@ -170,7 +175,7 @@ export default {
           render: (h, params) => {
             return h('el-tag', {
               props: {
-                type: params.row.jobStatus == '未启动' ? 'primary':(params.row.jobStatus == '运行中' ? 'success':(params.row.jobStatus == '已停止' ? 'warning':'primary')),
+                type: params.row.jobStatus == '未启动' ? 'primary' : (params.row.jobStatus == '运行中' ? 'success' : (params.row.jobStatus == '已停止' ? 'warning' : 'primary')),
                 size: 'mini',
               },
               style: {
@@ -214,7 +219,7 @@ export default {
         jobGroup: [{ required: true, message: '任务分组必填', trigger: 'blur' }],
         cron: [{ required: true, message: 'Cron表达式必填', trigger: 'blur' }],
         intervalSecond: [{ required: true, message: '执行间隔时间必填', trigger: 'blur' }],
-        triggerType: [{ required: true, message: '触发器类型必填', trigger: 'blur' }],
+        triggerType: [{ required: true, message: '触发器类型必填', trigger: 'change' }],
         className: [{ required: true, message: '执行类名必填', trigger: 'blur' }],
         assemblyName: [{ required: true, message: '程序集必填', trigger: 'blur' }],
       },
@@ -233,7 +238,7 @@ export default {
         endTime: "",
         triggerType: 'cron', //触发器类型
         cron: "",
-        intervalSecond: "", //执行间隔时间
+        intervalSecond: 0, //执行间隔时间
         jobStatus: 1, // 1未启动, 2运行中, 3已停止
         isStart: false, //是否激活
         enabled: "",
@@ -326,7 +331,7 @@ export default {
       this.taskForm = JSON.parse(JSON.stringify(this.initForm));
     },
     handleSubmit: debounce(function () {
-      if (this.taskForm.triggerType == 'cron') this.taskForm.intervalSecond = '';
+      if (this.taskForm.triggerType == 'cron') this.taskForm.intervalSecond = 0;
       if (this.taskForm.triggerType == 'simple') this.taskForm.cron = '';
 
       let apiUrl = this.formTitle == '编辑' ? this.$apiSet.putTasksQz : this.$apiSet.postTasksQz;

@@ -52,7 +52,7 @@ export default {
       dialog: {
         show: false,
         title: {
-          text: "分析",
+          text: "计时",
           className: "xa-bg-blue" //标题样式类名
         },
         bodyshow: true

@@ -58,7 +58,7 @@ export default copy
 
 /**
 <template>
-  <button v-copy="copyText">复制</button>
+  <el-button v-copy="copyText">复制</el-button>
 </template>
 
 <script>

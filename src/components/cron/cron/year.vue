@@ -1,18 +1,20 @@
 <template lang="html">
-  <div :val="value_">
-    <div>
-      <el-radio v-model="type" label="1" size="mini" border>每年</el-radio>
-    </div>
+  <div class="cron_year" :val="value_">
     <div>
       <el-radio v-model="type" label="5" size="mini" border>不指定</el-radio>
+    </div>
+    <div>
+      <el-radio v-model="type" label="1" size="mini" border>每年</el-radio>
       <span style="margin-left: 10px; margin-right: 5px;">允许的通配符[, - * /] 非必填</span>
     </div>
     <div>
       <el-radio v-model="type" label="2" size="mini" border>周期</el-radio>
       <span style="margin-left: 10px; margin-right: 5px;">从</span>
-      <el-input-number @change="type = '2'" v-model="cycle.start" :min="2000" size="mini" style="width: 100px;"></el-input-number>
+      <el-input-number @change="type = '2'" v-model="cycle.start" :min="2000" size="mini"
+        style="width: 100px;"></el-input-number>
       <span style="margin-left: 5px; margin-right: 5px;">至</span>
-      <el-input-number @change="type = '2'" v-model="cycle.end" :min="2000"  size="mini" style="width: 100px;"></el-input-number>
+      <el-input-number @change="type = '2'" v-model="cycle.end" :min="2000" size="mini"
+        style="width: 100px;"></el-input-number>
       年
     </div>
   </div>
@@ -26,7 +28,7 @@ export default {
       default: '*'
     }
   },
-  data () {
+  data() {
     let year = new Date().getFullYear()
     return {
       type: '1', // 类型
@@ -37,7 +39,7 @@ export default {
     }
   },
   computed: {
-    value_ () {
+    value_() {
       let result = []
       switch (this.type) {
         case '1': // 每秒
@@ -55,12 +57,12 @@ export default {
     }
   },
   watch: {
-    'value' (a, b) {
+    'value'(a, b) {
       this.updateVal()
     }
   },
   methods: {
-    updateVal () {
+    updateVal() {
       if (!this.value) {
         return
       }
@@ -77,12 +79,12 @@ export default {
       }
     }
   },
-  created () {
+  created() {
     this.updateVal()
   }
 }
 </script>
 
 <style lang="css">
-
+.cron_year div {}
 </style>

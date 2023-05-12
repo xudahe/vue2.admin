@@ -62,6 +62,7 @@ import axios from 'axios'
 import Cookies from "js-cookie";
 import { encrypt, decrypt } from "@/utils/encrypt"; //密码加密
 
+var publicPath = process.env.BASE_URL;
 export default {
   data() {
     return {
@@ -211,7 +212,7 @@ export default {
           _this.loginError();
           _this.$errorMsg(res.data.message);
         } else {
-          loadScripts(['./AppSetting.js']).then((e) => {
+          loadScripts([`${publicPath}AppSetting.js`]).then((e) => {
             _this.loginEnd();
 
             let loginInfo = res.data.response;

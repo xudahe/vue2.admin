@@ -5,32 +5,33 @@
         <el-row>
           <el-col :span="4" :offset="1">
             <el-form-item label="试卷：">
-              <span>{{dataSource.paperName}}</span>
+              <span>{{ dataSource.paperName }}</span>
             </el-form-item>
           </el-col>
           <el-col :span="4">
             <el-form-item label="考生：">
-              {{dataSource.examineName}}
+              {{ dataSource.examineName }}
             </el-form-item>
           </el-col>
           <el-col :span="4">
-            <el-form-item label="分数：" v-if="this.type===2 || this.type===3">
-              <span style="color:red;">{{dataSource.score}}</span>
+            <el-form-item label="分数：" v-if="this.type === 2 || this.type === 3">
+              <span style="color:red;">{{ dataSource.score }}</span>
             </el-form-item>
           </el-col>
           <el-col :span="4">
             <el-form-item label="考试时长：">
-              {{dataSource.examDuration}}分钟
+              {{ dataSource.examDuration }}分钟
             </el-form-item>
           </el-col>
-          <el-col :span="4" v-if="this.type===1">
+          <el-col :span="4" v-if="this.type === 1">
             <el-form-item label="倒计时间：">
-              <span class="downTime">{{hour? hourString+':'+minuteString+':'+secondString : minuteString+':'+secondString}}</span>
+              <span class="downTime">{{ hour ? hourString + ':' + minuteString + ':' + secondString :
+                minuteString + ':' + secondString }}</span>
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="交卷时间：" v-if="this.type===2 || this.type===3">
-              {{dataSource.submissionTime}}
+            <el-form-item label="交卷时间：" v-if="this.type === 2 || this.type === 3">
+              {{ dataSource.submissionTime }}
             </el-form-item>
           </el-col>
         </el-row>
@@ -46,9 +47,11 @@
           <el-collapse v-model="answerCardActiveName">
             <el-collapse-item v-for="item in convertDatas" :key="item.code" :name="item.code">
               <template slot="title">
-                <h2>{{item.name}}</h2><span>（共{{item.count}}题）</span>
+                <h2>{{ item.name }}</h2><span>（共{{ item.count }}题）</span>
               </template>
-              <el-button style="margin-bottom: 5px;margin-left: 10px;" class="answer-button" circle size="small" v-for="index of item.count" :key="'answer'+item.code+index" :id="'answer'+item.code+index" @click.native="jump(item.code,index)">{{index}}</el-button>
+              <el-button style="margin-bottom: 5px;margin-left: 10px;" class="answer-button" circle size="small"
+                v-for="index of item.count" :key="'answer' + item.code + index" :id="'answer' + item.code + index"
+                @click.native="jump(item.code, index)">{{ index }}</el-button>
             </el-collapse-item>
           </el-collapse>
         </div>
@@ -57,59 +60,74 @@
         <div ref="paperContent" class="paper-content">
           <div class="subject" v-for="item in convertDatas">
             <div class="subject-title">
-              <h2>{{item.name}}</h2><span>（共 {{item.count}} 题，合计 {{item.totalScore}} 分）</span>
+              <h2>{{ item.name }}</h2><span>（共 {{ item.count }} 题，合计 {{ item.totalScore }} 分）</span>
             </div>
-            <el-card class="box-card" v-for="(sub,index) in item.childs" :key="item.code+(index+1)" :id="item.code+(index+1)">
+            <el-card class="box-card" v-for="(sub, index) in item.childs" :key="item.code + (index + 1)"
+              :id="item.code + (index + 1)">
               <div slot="header" class="clearfix">
-                <el-tag effect="dark" style="margin-right: 10px;height:26px;"> {{sub.no}} </el-tag>
-                <span>{{sub.subject}}</span>
-                <span>({{sub.totalScore}}分)</span>
-                <div v-if="type===2 || type===3" style="float: right;">
+                <el-tag effect="dark" style="margin-right: 10px;height:26px;"> {{ sub.no }} </el-tag>
+                <span>{{ sub.subject }}</span>
+                <span>({{ sub.totalScore }}分)</span>
+                <div v-if="type === 2 || type === 3" style="float: right;">
                   <el-radio-group v-model="sub.isHook" size="mini">
-                    <el-radio-button :disabled="disabledRead" :label="1" @change.native="isHookButtionCheck(sub)"><i class="el-icon-check" /></el-radio-button>
-                    <el-radio-button :disabled="disabledRead" :label="2" @change.native="isHookButtionCheck(sub)"><i class="el-icon-close" /></el-radio-button>
+                    <el-radio-button :disabled="disabledRead" :label="1" @change.native="isHookButtionCheck(sub)"><i
+                        class="el-icon-check" /></el-radio-button>
+                    <el-radio-button :disabled="disabledRead" :label="2" @change.native="isHookButtionCheck(sub)"><i
+                        class="el-icon-close" /></el-radio-button>
                   </el-radio-group>
-                  <div v-if="sub.type===1 ||sub.type===2||sub.type===3" style="display: inline;">
-                    <el-input :disabled="true" v-model="sub.score" style="width:40px" size="medium"></el-input><span>分</span>
+                  <div v-if="sub.type === 1 || sub.type === 2 || sub.type === 3" style="display: inline;padding-left: 5px;">
+                    <el-input :disabled="true" v-model="sub.score" style="width:40px"
+                      size="medium"></el-input><span>分</span>
                   </div>
-                  <div v-else style="display: inline;">
-                    <el-input :disabled="disabledRead" v-model="sub.score" style="width:40px" size="medium"></el-input><span>分</span>
+                  <div v-else style="display: inline;padding-left: 5px;">
+                    <el-input :disabled="disabledRead" v-model="sub.score" style="width:40px" size="medium"
+                      @blur="scoreCheck($event, sub)"></el-input><span>分</span>
                   </div>
                 </div>
               </div>
-              <el-radio-group v-if="sub.type===1" v-model="sub.examineAnswer">
-                <el-radio :disabled="disabledAnswer" v-for="o in sub.answers" :key="o.no" :label="o.no" class="answer-radio" @change="answerButtionCheck($event,item,sub)">{{o.no}}.{{o.answer}}</el-radio>
+              <el-radio-group v-if="sub.type === 1" v-model="sub.examineAnswer">
+                <el-radio :disabled="disabledAnswer" v-for="o in sub.answers" :key="o.no" :label="o.no"
+                  class="answer-radio" @change="answerButtionCheck($event, item, sub)">{{ o.no }}.{{ o.answer
+                  }}</el-radio>
               </el-radio-group>
-              <el-checkbox-group v-if="sub.type===2" v-model="sub.examineAnswer">
-                <el-checkbox :disabled="disabledAnswer" v-for="o in sub.answers" :key="o.no" :label="o.no" class="answer-checkbox" @change="answerButtionCheck($event,item,sub)">{{o.no}}.{{o.answer}}</el-checkbox>
+              <el-checkbox-group v-if="sub.type === 2" v-model="sub.examineAnswer">
+                <el-checkbox :disabled="disabledAnswer" v-for="o in sub.answers" :key="o.no" :label="o.no"
+                  class="answer-checkbox" @change="answerButtionCheck($event, item, sub)">{{ o.no }}.{{ o.answer
+                  }}</el-checkbox>
               </el-checkbox-group>
-              <el-radio-group v-if="sub.type===3" v-model="sub.examineAnswer">
-                <el-radio :disabled="disabledAnswer" label="对" class="answer-radio" @change="answerButtionCheck($event,item,sub)">对</el-radio>
-                <el-radio :disabled="disabledAnswer" label="错" class="answer-radio" @change="answerButtionCheck($event,item,sub)">错</el-radio>
+              <el-radio-group v-if="sub.type === 3" v-model="sub.examineAnswer">
+                <el-radio :disabled="disabledAnswer" label="对" class="answer-radio"
+                  @change="answerButtionCheck($event, item, sub)">对</el-radio>
+                <el-radio :disabled="disabledAnswer" label="错" class="answer-radio"
+                  @change="answerButtionCheck($event, item, sub)">错</el-radio>
               </el-radio-group>
-              <el-input :disabled="disabledAnswer" v-if="sub.type===4" type="textarea" :rows="2" v-model="sub.examineAnswer" resize="none" maxlength="150" @blur="answerButtionCheck($event,item,sub)"> </el-input>
-              <el-input :disabled="disabledAnswer" v-if="sub.type===5" type="textarea" :rows="10" v-model="sub.examineAnswer" resize="none" maxlength="2000" @blur="answerButtionCheck($event,item,sub)"> </el-input>
-              <div v-if="type!==1" class="subject-remark">
+              <el-input :disabled="disabledAnswer" v-if="sub.type === 4" type="textarea" :rows="2"
+                v-model="sub.examineAnswer" resize="none" maxlength="150" @blur="answerButtionCheck($event, item, sub)">
+              </el-input>
+              <el-input :disabled="disabledAnswer" v-if="sub.type === 5" type="textarea" :rows="10"
+                v-model="sub.examineAnswer" resize="none" maxlength="2000" @blur="answerButtionCheck($event, item, sub)">
+              </el-input>
+              <div v-if="type !== 1" class="subject-remark">
                 <div class="item">
                   <span class="title">考生答案：</span>
-                  <span>{{converAnswerStr(sub.examineAnswer)}}</span>
+                  <span>{{ converAnswerStr(sub.examineAnswer) }}</span>
                 </div>
                 <div class="item">
                   <span class="title">正确答案：</span>
-                  <span>{{converAnswerStr(sub.correctAnswer)}}</span>
+                  <span>{{ converAnswerStr(sub.correctAnswer) }}</span>
                 </div>
                 <div class="item">
                   <span class="title">答案解析：</span>
-                  <span>{{sub.answerAnalysis}}</span>
+                  <span>{{ sub.answerAnalysis }}</span>
                 </div>
               </div>
             </el-card>
           </div>
           <div class="paper-footer">
-            <el-button v-if="type===1" type="success" @click.native="btnClick('handPaper')">提交试卷</el-button>
-            <el-button v-if="type===2" type="success" @click.native="btnClick('readPaper')">阅卷完成</el-button>
-            <el-button v-if="type===3" type="success" @click.native="btnClick('readPaperUpper')">上一张</el-button>
-            <el-button v-if="type===3" type="success" @click.native="btnClick('readPaperNext')">下一张</el-button>
+            <el-button v-if="type === 1" type="success" @click.native="btnClick('handPaper')">提交试卷</el-button>
+            <el-button v-if="type === 2" type="success" @click.native="btnClick('readPaper')">阅卷完成</el-button>
+            <el-button v-if="type === 3" type="success" @click.native="btnClick('readPaperUpper')">上一张</el-button>
+            <el-button v-if="type === 3" type="success" @click.native="btnClick('readPaperNext')">下一张</el-button>
           </div>
         </div>
       </el-col>
@@ -119,6 +137,7 @@
 </template>
 
 <script>
+import { isNum } from "@/utils/validate"
 export default {
   name: 'examinationPaper',
   props: {
@@ -314,6 +333,13 @@ export default {
       }
     },
     /**
+     * 简答题 分数验证
+     */
+    scoreCheck(value, child) {
+      if (isNum(child.score)) return this.$errorMsg("得分只能为数字");
+      if (parseFloat(child.score) > parseFloat(child.totalScore)) return this.$errorMsg("得分不能大于总分数");
+    },
+    /**
      * 转换答案
      */
     converAnswerStr(answer) {
@@ -488,6 +514,7 @@ export default {
   .el-collapse-item__content {
     padding: 0 10px 5px !important;
   }
+
   .el-input__inner {
     text-align: center;
     padding: 0 5px !important;
@@ -553,6 +580,7 @@ export default {
   font-size: 16px;
   font-weight: bold;
 }
+
 /* 未做颜色 */
 .answer-button {
   padding: 0px;
@@ -562,11 +590,13 @@ export default {
   width: 30px;
   height: 30px;
 }
+
 .answer-button:hover {
   background: #ecf1ef;
   border-color: #e4e4e4;
   color: #0a0a0a;
 }
+
 /* 已做颜色 */
 .answer-button-check {
   background: #13ce66;
@@ -592,10 +622,12 @@ export default {
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
 }
+
 .subject-title h2 {
   font-size: 16px;
   display: inline-block;
 }
+
 .subject-title span {
   font-size: 13px;
   display: inline-block;
@@ -604,20 +636,22 @@ export default {
 .subject-remark {
   background: #f7f7f7;
 }
+
 .subject-remark .item {
   display: block;
   padding: 5px;
 }
+
 .subject-remark .title {
   font-weight: bold;
 }
 
-.el-radio >>> .el-radio__input.is-checked .el-radio__inner {
+.el-radio>>>.el-radio__input.is-checked .el-radio__inner {
   background-color: #13ce66;
   border-color: #13ce66;
 }
 
-.el-radio-button >>> .el-radio-button__inner {
+.el-radio-button>>>.el-radio-button__inner {
   padding: 10px;
 }
 
@@ -631,7 +665,7 @@ export default {
   margin-bottom: 0px !important;
 }
 
-.el-form--label-top >>> .el-form-item__label {
+.el-form--label-top>>>.el-form-item__label {
   float: none;
   display: inline-block;
   text-align: left;
@@ -642,13 +676,14 @@ export default {
   margin: 5px 0 5px 5px;
 }
 
-.el-card >>> .el-card__header {
+.el-card>>>.el-card__header {
   background-color: #ffffff;
   padding: 0px 10px;
   line-height: 35px;
   font-size: 16px;
 }
-.el-card >>> .el-card__body {
+
+.el-card>>>.el-card__body {
   padding: 5px 20px;
 }
 </style>

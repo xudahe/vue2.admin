@@ -1,43 +1,50 @@
 <template lang="html">
-  <div :val="value_">
+  <div class="cron_week" :val="value_">
+    <div>
+      <el-radio v-model="type" label="5" size="mini" border>不指定</el-radio>
+    </div>
     <div>
       <el-radio v-model="type" label="1" size="mini" border>每周</el-radio>
       <span style="margin-left: 10px; margin-right: 5px;">允许的通配符[, - * / L #]</span>
     </div>
     <div>
-      <el-radio v-model="type" label="5" size="mini" border>不指定</el-radio>
-    </div>
-    <div>
       <el-radio v-model="type" label="2" size="mini" border>周期</el-radio>
       <span style="margin-left: 10px; margin-right: 5px;">从星期</span>
-      <el-input-number @change="type = '2'" v-model="cycle.start" :min="1" :max="7" size="mini" style="width: 100px;"></el-input-number>
+      <el-input-number @change="type = '2'" v-model="cycle.start" :min="1" :max="7" size="mini"
+        style="width: 100px;"></el-input-number>
       <span style="margin-left: 5px; margin-right: 5px;">至星期</span>
-      <el-input-number @change="type = '2'" v-model="cycle.end" :min="2" :max="7" size="mini" style="width: 100px;"></el-input-number>
+      <el-input-number @change="type = '2'" v-model="cycle.end" :min="2" :max="7" size="mini"
+        style="width: 100px;"></el-input-number>
     </div>
     <div>
       <el-radio v-model="type" label="3" size="mini" border>循环</el-radio>
       <span style="margin-left: 10px; margin-right: 5px;">从星期</span>
-      <el-input-number @change="type = '3'" v-model="loop.start" :min="1" :max="7" size="mini" style="width: 100px;"></el-input-number>
+      <el-input-number @change="type = '3'" v-model="loop.start" :min="1" :max="7" size="mini"
+        style="width: 100px;"></el-input-number>
       <span style="margin-left: 5px; margin-right: 5px;">开始，每</span>
-      <el-input-number @change="type = '3'" v-model="loop.end" :min="1" :max="7" size="mini" style="width: 100px;"></el-input-number>
+      <el-input-number @change="type = '3'" v-model="loop.end" :min="1" :max="7" size="mini"
+        style="width: 100px;"></el-input-number>
       天执行一次
     </div>
     <div>
       <el-radio v-model="type" label="7" size="mini" border>指定周</el-radio>
       <span style="margin-left: 10px; margin-right: 5px;">本月第</span>
-      <el-input-number @change="type = '7'" v-model="week.start" :min="1" :max="4" size="mini" style="width: 100px;"></el-input-number>
+      <el-input-number @change="type = '7'" v-model="week.start" :min="1" :max="4" size="mini"
+        style="width: 100px;"></el-input-number>
       <span style="margin-left: 5px; margin-right: 5px;">周，星期</span>
-      <el-input-number @change="type = '7'" v-model="week.end" :min="1" :max="7" size="mini" style="width: 100px;"></el-input-number>
+      <el-input-number @change="type = '7'" v-model="week.end" :min="1" :max="7" size="mini"
+        style="width: 100px;"></el-input-number>
     </div>
     <div>
       <el-radio v-model="type" label="6" size="mini" border>本月最后一个</el-radio>
       <span style="margin-left: 10px; margin-right: 5px;">星期</span>
-      <el-input-number @change="type = '6'" v-model="last" :min="1" :max="7" size="mini" style="width: 100px;"></el-input-number>
+      <el-input-number @change="type = '6'" v-model="last" :min="1" :max="7" size="mini"
+        style="width: 100px;"></el-input-number>
     </div>
     <div>
       <el-radio v-model="type" label="4" size="mini" border>指定</el-radio>
       <el-checkbox-group v-model="appoint" style="margin-left: 10px;">
-          <el-checkbox @change="type = '4'"  v-for="i in 7" :key="i" :label="i.toString()"></el-checkbox>
+        <el-checkbox @change="type = '4'" v-for="i in 7" :key="i" :label="i.toString()"></el-checkbox>
       </el-checkbox-group>
     </div>
   </div>
@@ -51,7 +58,7 @@ export default {
       default: '*'
     }
   },
-  data () {
+  data() {
     return {
       type: '1', // 类型
       cycle: { // 周期
@@ -66,13 +73,13 @@ export default {
         start: 0,
         end: 0
       },
-    
+
       last: 0,
       appoint: [] // 指定
     }
   },
   computed: {
-    value_ () {
+    value_() {
       let result = []
       switch (this.type) {
         case '1': // 每秒
@@ -102,12 +109,12 @@ export default {
     }
   },
   watch: {
-    'value' (a, b) {
+    'value'(a, b) {
       this.updateVal()
     }
   },
   methods: {
-    updateVal () {
+    updateVal() {
       if (!this.value) {
         return
       }
@@ -142,12 +149,12 @@ export default {
       }
     }
   },
-  created () {
+  created() {
     this.updateVal()
   }
 }
 </script>
 
 <style lang="css">
-
+.cron_week div {}
 </style>

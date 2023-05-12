@@ -55,8 +55,8 @@
                     <el-col :span="24">
                         <el-form-item label="状态" prop="enabled">
                             <el-radio-group v-model="systemForm.enabled">
-                                <el-radio :label="false">正常</el-radio>
-                                <el-radio :label="true">禁用</el-radio>
+                                <el-radio :label="false" border>正常</el-radio>
+                                <el-radio :label="true" border>禁用</el-radio>
                             </el-radio-group>
                         </el-form-item>
                     </el-col>

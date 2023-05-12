@@ -126,12 +126,7 @@ export default {
         this.drawBlock()
         this.canvasCtx.drawImage(img, 0, 0, this.w, this.h) //向画布上绘制背景图片
         this.blockCtx.drawImage(img, 0, 0, this.w, this.h)  //向画布上绘制滑块
-        let {
-          block_x: x,
-          block_y: y,
-          r,
-          L
-        } = this
+        let { block_x: x, block_y: y, r, L } = this
         let _y = y - r * 2 - 1
         let ImageData = this.blockCtx.getImageData(x, _y, L, L);
         this.block.width = L;
@@ -491,4 +486,5 @@ export default {
 .container-success .slide-verify-slider-text,
 .container-fail .slide-verify-slider-text {
   display: none;
-}</style>
+}
+</style>

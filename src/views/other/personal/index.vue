@@ -1,87 +1,86 @@
 <template>
   <div class="personal card_css">
-		<el-row :gutter="10" style="height: 100%;width:100%;">
-			<el-col :sm="24" :md="6" style="height: 100%;">
-				<el-card class="box-card" shadow="hover">
-					<el-Divider>
-            <span >信息绑定</span>
+    <el-row :gutter="10" style="height: 100%;width:100%;">
+      <el-col :sm="24" :md="6" style="height: 100%;">
+        <el-card class="box-card" shadow="hover">
+          <el-Divider>
+            <span>信息绑定</span>
           </el-Divider>
-					<div class="avatar-box">
-						<div class="avatar">
-							<el-button icon="el-icon-upload" class="upload-button" circle @click="$refs.avatarForm.dialogVisible = true"></el-button>
-							<el-avatar :size="120" src="" fit="cover">
-                <img :src="require('@/assets/image/暂无图片.png')"/>
+          <div class="avatar-box">
+            <div class="avatar">
+              <el-button icon="el-icon-upload" class="upload-button" circle
+                @click="$refs.avatarForm.dialogVisible = true"></el-button>
+              <el-avatar :size="120" src="" fit="cover">
+                <img :src="require('@/assets/image/暂无图片.png')" />
               </el-avatar>
-							<div class="hover-plus" @click="isShow = true"><svg-icon icon-class="add" class="add-avatar"/></div>
-						</div>
-						<div class="avatar-detail">
-							<div class="role">{{userInfo.realName}}</div>
-							<div class="date">注册日期：{{$formatDate(userInfo.createTime, true)}}</div>
-						</div>
-					</div>
-				  <CellGroup style="margin: 20px;">
-            <Cell :title="'手机：'+(userInfo.phone||'未绑定')" style="padding: 19px 16px;">
-              <Button
-                type="success"
-                size="small"
-                icon="md-phone-portrait"
-                slot="extra"
-              >修改手机</Button>
+              <div class="hover-plus" @click="isShow = true"><svg-icon icon-class="add" class="add-avatar" /></div>
+            </div>
+            <div class="avatar-detail">
+              <div class="role">{{ userInfo.realName }}</div>
+              <div class="date">注册日期：{{ $formatDate(userInfo.createTime, true) }}</div>
+            </div>
+          </div>
+          <CellGroup style="margin: 20px;">
+            <Cell :title="'手机：' + (userInfo.phone || '未绑定')" style="padding: 19px 16px;">
+              <el-button type="success" size="mini" icon="md-phone-portrait" slot="extra"
+                @click="updateDialog('phone')">绑定手机</el-button>
             </Cell>
-            <Cell :title="'邮箱：'+(userInfo.email||'未绑定')" style="padding: 19px 16px;">
-              <Button
-                type="info"
-                size="small"
-                icon="ios-mail-outline"
-                slot="extra"
-              >绑定邮箱</Button>
+            <Cell :title="'邮箱：' + (userInfo.email || '未绑定')" style="padding: 19px 16px;">
+              <el-button type="info" size="mini" icon="ios-mail-outline" slot="extra"
+                @click="updateDialog('email')">绑定邮箱</el-button>
             </Cell>
           </CellGroup>
           <div style="padding: 0 17px 17px;">
-            <el-button type="danger" icon="el-icon-lock" style="width: 100%;">修改密码</el-button>
+            <el-button type="danger" icon="el-icon-lock" style="width: 100%;"
+              @click="updateDialog('pass')">修改密码</el-button>
           </div>
-				</el-card>
-			</el-col>
-			<el-col :sm="24" :md="8" style="height: 100%;">
-				<el-card class="box-card" shadow="hover" style="padding:0 10px 10px;">
+        </el-card>
+      </el-col>
+      <el-col :sm="24" :md="8" style="height: 100%;">
+        <el-card class="box-card" shadow="hover" style="padding:0 10px 10px;">
           <el-Divider>
-            <span >个人信息</span>
+            <span>个人信息</span>
           </el-Divider>
-					<el-form status-icon  label-position="right" label-width="80px">
-            <el-form-item  label="账号：">
-              <el-input type="text" v-model="userInfo.loginName" autocomplete="off" :disabled="true" clearable/>
+          <el-form status-icon label-position="right" label-width="80px">
+            <el-form-item label="账号：">
+              <el-input type="text" v-model="userInfo.loginName" autocomplete="off" :disabled="true" clearable />
             </el-form-item>
-            <el-form-item  label="角色：">
-              <el-input type="text" v-model="userInfo.username" autocomplete="off" :disabled="true" clearable/>
+            <el-form-item label="角色：">
+              <el-input type="text" v-model="userInfo.username" autocomplete="off" :disabled="true" clearable />
             </el-form-item>
-            <el-form-item  label="姓名：">
-              <el-input type="text" v-model="userInfo.realName" autocomplete="off" placeholder="请输入姓名" clearable/>
+            <el-form-item label="姓名：">
+              <el-input type="text" v-model="userInfo.realName" autocomplete="off" placeholder="请输入姓名" clearable />
             </el-form-item>
-            <el-form-item  label="地址：">
-              <el-input type="text" v-model="userInfo.address" autocomplete="off" placeholder="请输入地址" clearable/>
+            <el-form-item label="地址：">
+              <el-input type="text" v-model="userInfo.address" autocomplete="off" placeholder="请输入地址" clearable />
             </el-form-item>
-            <el-form-item  label="性别：">
-               <el-select v-model="userInfo.sex" placeholder="请选择性别" clearable style="width: 100%;">
+            <el-form-item label="性别：">
+              <el-select v-model="userInfo.sex" placeholder="请选择性别" clearable style="width: 100%;">
                 <el-option label="男" value="1"></el-option>
                 <el-option label="女" value="0"></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item  label="备注：">
-              <el-input type="textarea" v-model="userInfo.remark" :autosize="{ minRows: 2, maxRows: 4}" autocomplete="off" placeholder="请输入备注"/>
+            <el-form-item label="备注：">
+              <el-input type="textarea" v-model="userInfo.remark" :autosize="{ minRows: 2, maxRows: 4 }"
+                autocomplete="off" placeholder="请输入备注" />
             </el-form-item>
           </el-form>
           <div style="padding-bottom: 5px;">
             <el-button type="primary" icon="el-icon-check" style="width: 100%;" @click="updateInfo">保存</el-button>
           </div>
-				</el-card>
-			</el-col>
-      <el-col :sm="24" :md="10" style="height: 100%;">
-        	<el-card class="box-card" shadow="hover">
-           <logTable></logTable>
-          </el-card>
+        </el-card>
       </el-col>
-		</el-row>
-		<upload-avatar :is-show.sync="isShow" :upload-avatar="uploadAvatar" />
+      <el-col :sm="24" :md="10" style="height: 100%;">
+        <el-card class="box-card" shadow="hover">
+          <logTable></logTable>
+        </el-card>
+      </el-col>
+    </el-row>
+    <upload-avatar ref="avatarForm" :is-show.sync="isShow" :upload-avatar="uploadAvatar" />
+
+    <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" width="500px" append-to-body v-dialogDrag>
+      <component :is="comptNmae"></component>
+    </el-dialog>
   </div>
 </template>
 
@@ -92,26 +91,31 @@
 import basic from './components/basic'
 import editPassword from './components/edit_password';
 import editEmail from './components/edit_email';
+import editPhone from './components/edit_phone';
 import logTable from './components/log_table';
 
 export default {
-	name: 'personal',
-	components: { basic, editPassword, editEmail, logTable },
+  name: 'personal',
+  components: { basic, editPassword, editEmail, editPhone, logTable },
   data() {
     return {
+      dialogTitle: "",
+      dialogVisible: false,
+      comptNmae: "",
+
       activeName: "first",
-	    isShow: false,
+      isShow: false,
       userInfo: JSON.parse(JSON.stringify(this.$store.getters.loginInfo.userinfo))
     }
   },
-	methods: {
-    updateInfo(){},
+  methods: {
+    updateInfo() { },
     // 更新用户数据
     updateUserInfo() {
       // this.$emit("updateUserInfo");
     },
     uploadAvatar(result) {
-      let file = new window.File([result], "avatar.png", {type: result.type})
+      let file = new window.File([result], "avatar.png", { type: result.type })
       console.log(file)
       // this.$http_file({
       //   url: '/api/user/updateAvatar',
@@ -124,13 +128,28 @@ export default {
       //   this.updateUserInfo()
       //   this.$successMsg('更换头像成功，正在缓慢加载中~');
       // })
+    },
+    updateDialog(val) {
+      this.dialogVisible = true;
+      if (val == 'phone') {
+        this.dialogTitle = "绑定手机";
+        this.comptNmae = editPhone;
+      }
+      if (val == 'email') {
+        this.dialogTitle = "绑定邮箱";
+        this.comptNmae = editEmail;
+      }
+      if (val == 'pass') {
+        this.dialogTitle = "修改密码";
+        this.comptNmae = editPassword;
+      }
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.personal{
+.personal {
   height: 100%;
   width: 100%;
 }
@@ -140,10 +159,12 @@ export default {
   font-size: 0.18rem;
   color: #2f3032;
 }
+
 .avatar-box {
   position: relative;
   text-align: center;
 }
+
 .avatar {
   position: relative;
   margin: auto;
@@ -151,9 +172,11 @@ export default {
   height: 120px;
   border-radius: 50%;
 }
+
 .avatar:hover .hover-plus {
   opacity: 1;
 }
+
 .hover-plus {
   position: absolute;
   width: 120px;
@@ -166,6 +189,7 @@ export default {
   background: rgba(0, 0, 0, .5);
   transition: .3s;
 }
+
 .add-avatar {
   position: relative;
   font-size: 0.18rem;
@@ -173,62 +197,74 @@ export default {
   top: 45%;
   // margin-top: -1rem;
 }
+
 .upload-button {
-  position: absolute; 
+  position: absolute;
   right: 30px;
   // top: -10px; 
-  z-index: 100; 
+  z-index: 100;
   opacity: .8
 }
+
 .image-box {
   position: relative;
 }
+
 .image {
   position: relative;
   width: 100%;
   height: 100%;
 }
+
 .role {
   margin-top: 10px;
   position: relative;
   font-size: 0.18rem;
   font-weight: bold;
 }
+
 .date {
   margin-top: 10px;
   font-size: 0.14rem;
   color: #7d7d7d;
 }
+
 .title {
   position: relative;
   margin: 0.1rem 0;
 }
+
 .word {
   position: relative;
   font-size: 0.15rem;
 }
+
 .content {
   position: relative;
   font-size: 0.18rem;
 }
+
 .timeline-title {
   color: #7d7d7d;
 }
+
 .timeline-content {
   font-size: 0.18rem;
 }
+
 .el-button--text {
   font-size: 0.18rem;
   padding: 0;
 }
+
 .el-avatar {
-	img {
-		width: 100%;
-	}
-}
-.divTitle {
-    margin: 0.05rem 0.2rem;
-    font-size: 0.14rem;
+  img {
+    width: 100%;
+  }
 }
 
+.divTitle {
+  margin: 0.05rem 0.2rem;
+  font-size: 0.14rem;
+}
 </style>

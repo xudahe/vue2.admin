@@ -28,6 +28,8 @@
  *瀑布流区域，无限滚动
  */
 
+var publicPath = process.env.BASE_URL;
+
 export default {
   name: "v-waterfall",
   data() {
@@ -116,7 +118,9 @@ export default {
       const vm = this;
       let numbers = [25, 35, 45, 55, 65];
 
-      var data = require.context("../../assets/image/weather", false, /\.(jpeg|png|jpg)$/).keys(), arr = [];
+      var arr = [];
+      // var data = require.context("../../assets/image/file", false, /\.(jpeg|png|jpg)$/).keys(); //读取assets下的图片
+      var data = require.context("/public/image/weather", false, /\.(jpeg|png|jpg)$/).keys();   //读取public下的图片
       for (let i in data) {
         arr.push(data[i].replace(/\.\//g, '').replace(/\.svg/g, ''));
       }
@@ -125,7 +129,8 @@ export default {
 
       let moreList = [];
       for (let i = 0; i < arr.length; i++) {
-        let imgUrl = require("@/assets/image/weather/" + arr[i]);
+        // let imgUrl = require("@/assets/image/file/" + arr[i]); //读取assets下的图片
+        let imgUrl = publicPath + "image/weather/" + arr[i];   //读取public下的图片
 
         moreList.push({
           id: i + 1,

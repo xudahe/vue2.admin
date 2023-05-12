@@ -13,7 +13,7 @@ export default {
         paperName: "测试试卷", //试卷名称
         examineId: "201402171233", //考生ID
         examineName: "张三", //考生名称
-        score: 0, //分数
+        score: 0, //考试分数
         examDuration: 90, //考试时长
         submissionTime: "", //交卷时间
         readPaperTime: "", //阅卷时间

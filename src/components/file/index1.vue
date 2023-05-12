@@ -106,7 +106,7 @@ export default {
     },
     importFile: function () { // 导入excel
       let _this = this;
-
+debugger
       //-------------------------------------附件上传到服务端------------------------------------------
       // let formData = new FormData();
       // for (let i = 0; i < e.target.files.length; i++) {

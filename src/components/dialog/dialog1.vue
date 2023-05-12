@@ -71,13 +71,13 @@
     <div class="dialog_title handle">
       <font>{{ menuname }}</font>
       <div class="dialog_btn">
-        <Button size="small" style="margin:5px;" shape="circle" @click="resize()">
+        <el-button size="small" circle style="margin:5px;" shape="circle" @click="resize()">
           <i class="fa fa-window-minimize" v-if="!MaxSize"></i>
           <i class="fa fa-window-maximize" v-else></i>
-        </Button>
-        <Button size="small" style="margin:5px;" shape="circle" @click="close()">
+        </el-button>
+        <el-button size="small" circle style="margin:5px;" shape="circle" @click="close()">
           <i class="fa fa-times"></i>
-        </Button>
+        </el-button>
       </div>
     </div>
     <div class="diaglogpanel gx-scrollbar">

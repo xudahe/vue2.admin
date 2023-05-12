@@ -65,7 +65,7 @@ export default longpress
 
 /* 
 <template>
-  <button v-longpress="longpress">长按</button>
+  <el-button v-longpress="longpress">长按</el-button>
 </template>
 
 <script>

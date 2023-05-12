@@ -224,7 +224,7 @@ module.exports = defineConfig({
   pluginOptions: {
      // 安装 style-resources-loader 与 vue-cli-plugin-style-resources-loader
      "style-resources-loader": {
-      preProcessor: "less",
+      preProcessor: "less", //sass, scss, stylus, less中的一种
       patterns: [
         // 两种路径写法都可以，这里的路径不能使用 @ 符号，否则会报错
         // path.resolve(__dirname, './src/assets/theme.less')

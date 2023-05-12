@@ -1,13 +1,13 @@
 export default {
   state: {
     loginInfo: "", // 每次刷新都要通过token请求个人信息来筛选动态路由
-    
-    accessToken: '', //访问token
-    refreshToken: '', //刷新token
-    tokenExpire: '', //token过期时间
+
+    accessToken: localStorage.getItem("accessToken") || '', //访问token
+    refreshToken: localStorage.getItem("refreshToken") || '', //刷新token
+    tokenExpire: localStorage.getItem("tokenExpire") || '', //token过期时间
   },
   mutations: {
-    SET_LOGIN_INFO (state, data) {
+    SET_LOGIN_INFO(state, data) {
       state.loginInfo = data
       window.localStorage.setItem("loginInfo", JSON.stringify(data));
     },
@@ -25,7 +25,9 @@ export default {
     },
   },
   actions: {
-    SET_LOGIN_INFO ({commit}, data) {
+    SET_LOGIN_INFO({
+      commit
+    }, data) {
       commit("SET_LOGIN_INFO", data)
     },
   }

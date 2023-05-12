@@ -2,7 +2,7 @@
  * @description 禁止输入表情和特殊字符
  * 需求：根据正则表达式，设计自定义处理表单输入规则的指令，下面以禁止输入表情和特殊字符为例。
  * 
- * 使用：将需要校验的输入框加上 v-emoji 即可 <input type="text" v-model="note" v-emoji />
+ * 使用：将需要校验的输入框加上 v-emoji 即可 <el-input type="text" v-model="note" v-emoji />
  */
 let findEle = (parent, type) => {
   return parent.tagName.toLowerCase() === type ? parent : parent.querySelector(type)

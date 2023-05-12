@@ -1,32 +1,37 @@
 <template lang="html">
-  <div :val="value_">
+  <div class="cron_day" :val="value_">
+    <div>
+      <el-radio v-model="type" label="5" size="mini" border>不指定</el-radio>
+    </div>
     <div>
       <el-radio v-model="type" label="1" size="mini" border>每日</el-radio>
       <span style="margin-left: 10px; margin-right: 5px;">允许的通配符[, - * / L W]</span>
     </div>
     <div>
-      <el-radio v-model="type" label="5" size="mini" border>不指定</el-radio>
-    </div>
-    <div>
       <el-radio v-model="type" label="2" size="mini" border>周期</el-radio>
       <span style="margin-left: 10px; margin-right: 5px;">从</span>
-      <el-input-number @change="type = '2'" v-model="cycle.start" :min="1" :max="31" size="mini" style="width: 100px;"></el-input-number>
+      <el-input-number @change="type = '2'" v-model="cycle.start" :min="1" :max="31" size="mini"
+        style="width: 100px;"></el-input-number>
       <span style="margin-left: 5px; margin-right: 5px;">至</span>
-      <el-input-number @change="type = '2'" v-model="cycle.end" :min="2" :max="31" size="mini" style="width: 100px;"></el-input-number>
+      <el-input-number @change="type = '2'" v-model="cycle.end" :min="2" :max="31" size="mini"
+        style="width: 100px;"></el-input-number>
       日
     </div>
     <div>
       <el-radio v-model="type" label="3" size="mini" border>循环</el-radio>
       <span style="margin-left: 10px; margin-right: 5px;">从</span>
-      <el-input-number @change="type = '3'" v-model="loop.start" :min="1" :max="31" size="mini" style="width: 100px;"></el-input-number>
+      <el-input-number @change="type = '3'" v-model="loop.start" :min="1" :max="31" size="mini"
+        style="width: 100px;"></el-input-number>
       <span style="margin-left: 5px; margin-right: 5px;">日开始，每</span>
-      <el-input-number @change="type = '3'" v-model="loop.end" :min="1" :max="31" size="mini" style="width: 100px;"></el-input-number>
+      <el-input-number @change="type = '3'" v-model="loop.end" :min="1" :max="31" size="mini"
+        style="width: 100px;"></el-input-number>
       日执行一次
     </div>
     <div>
       <el-radio v-model="type" label="8" size="mini" border>工作日</el-radio>
       <span style="margin-left: 10px; margin-right: 5px;">本月</span>
-      <el-input-number @change="type = '8'" v-model="work" :min="1" :max="7" size="mini" style="width: 100px;"></el-input-number>
+      <el-input-number @change="type = '8'" v-model="work" :min="1" :max="7" size="mini"
+        style="width: 100px;"></el-input-number>
       号，最近的工作日
     </div>
     <div>
@@ -34,10 +39,8 @@
     </div>
     <div>
       <el-radio v-model="type" label="4" size="mini" border>指定</el-radio>
-      <el-checkbox-group v-model="appoint">
-        <div  v-for="i in 4" :key="i" style="margin-left: 10px;">
-          <el-checkbox @change="type = '4'"  v-for="j in 10" v-if="parseInt((i - 1) + '' + (j - 1)) < 31 " :key="j" :label="(i == 1 && j < 10 ? '0':'') + (parseInt((i - 1) + '' + (j - 1)) + 1)"></el-checkbox>
-        </div>
+      <el-checkbox-group v-model="appoint" style="margin-left: 10px;">
+        <el-checkbox @change="type = '4'" v-for="j in 31" :key="j" :label="'' + j"></el-checkbox>
       </el-checkbox-group>
     </div>
   </div>
@@ -51,7 +54,7 @@ export default {
       default: '?'
     }
   },
-  data () {
+  data() {
     return {
       type: '5', // 类型
       cycle: { // 周期
@@ -69,7 +72,7 @@ export default {
     }
   },
   computed: {
-    value_ () {
+    value_() {
       let result = []
       switch (this.type) {
         case '1': // 每秒
@@ -99,12 +102,12 @@ export default {
     }
   },
   watch: {
-    'value' (a, b) {
+    'value'(a, b) {
       this.updateVal()
     }
   },
   methods: {
-    updateVal () {
+    updateVal() {
       if (!this.value) {
         return
       }
@@ -136,12 +139,12 @@ export default {
       }
     }
   },
-  created () {
+  created() {
     this.updateVal()
   }
 }
 </script>
 
 <style lang="css">
-
+.cron_day div {}
 </style>

@@ -5,7 +5,7 @@
         <input type="file" @change="handleFileChange" />
         <el-button @click="handleUpload"> 上传 </el-button>
 
-        <div style="width: 300px">
+        <div style="width: 350px">
           总进度：
           <el-progress :percentage="tempPercent"></el-progress>
           切片进度：

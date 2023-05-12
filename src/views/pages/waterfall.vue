@@ -10,15 +10,14 @@ export default {
   data() {
     return {
       imgArr: [
-        // require("../../../../static/二供设备/泵站模型/空1.png"),
-        // require("../../../../static/二供设备/泵站模型/空2.png"),
-        // require("../../../../static/二供设备/泵站模型/液位仪红.png")
+        // require("@/assets/image/slide/img.jpg"),
+        // require("@/assets/image/slide/img1.jpg"),
       ],
       imgCount: 0
     };
   },
   mounted() {
-    this.loading();
+    // this.loading();
   },
   methods: {
     //预加载图片

@@ -1,0 +1,8 @@
+
+ // 特别注意：json文件存放在public目录下，如/public/data/jsonData.json,那么在请求json数据的时候，
+ // 地址千万千万千万不能写/public/data/jsonData.json，而是写/data/jsonData.json，否则会报404，
+ // 因为静态资源在打包后，默认public内的文件放在项目根目录
+      axios.get('/data/loginInfo.json').then(function (res) {
+      }).catch(err => {
+        console.log(err);
+      });

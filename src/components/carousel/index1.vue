@@ -18,8 +18,8 @@
       <i class="el-icon-arrow-right" />
     </div>
     <div class="swiper-dots" v-show="dots">
-      <button v-for="(item, index) in imgList.length" :key="index" :class="{ actives: index == dotsIndex }"
-        @click="toDots(index)">{{ item }}</button>
+      <el-button circle size="mini" v-for="(item, index) in imgList.length" :key="index" :class="{ actives: index == dotsIndex }"
+        @click="toDots(index)">{{ item }}</el-button>
     </div>
   </div>
 </template>
@@ -213,12 +213,12 @@ export default {
   }
 
   .swiper-dots button {
-    width: 20px;
-    height: 20px;
+    // width: 20px;
+    // height: 20px;
     background: rgba(127, 124, 124, 0.5);
     display: inline-block;
-    margin: 0 10px;
-    border-radius: 50%;
+    // margin: 0 10px;
+    // border-radius: 50%;
     color: #000;
     font-weight: normal;
     border: none;

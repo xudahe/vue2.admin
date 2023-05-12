@@ -10,7 +10,7 @@
 import slideVerify from "./slideVerify.vue"
 
 export default {
-  components: { slideVerify},
+  components: { slideVerify },
   data() {
     return {
       msg: "",
@@ -21,8 +21,8 @@ export default {
         require("@/assets/image/slide/img3.jpg"),
         require("@/assets/image/slide/img4.jpg"),
         require("@/assets/image/slide/img5.jpg")
-      ],
-      accuracy: 2 // 精确度小，可允许的误差范围小；为1时，则表示滑块要与凹槽完全重叠，才能验证成功。默认值为5
+      ], //自定义背景图
+      accuracy: 3 // 精确度小，可允许的误差范围小；为1时，则表示滑块要与凹槽完全重叠，才能验证成功。默认值为5
     };
   },
   methods: {
@@ -55,6 +55,4 @@ export default {
 };
 </script>
 
-<style>
-
-</style>
+<style></style>

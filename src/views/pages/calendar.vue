@@ -8,8 +8,8 @@
 						<!-- <h2>{{ data.day.split('-')[2] }} {{ data.isSelected ? '✔️' : ''}}</h2> -->
 						<div v-if="getData(data.day) && data.type == 'current-month'" class="calendar-item-info">
 							<p><el-progress :percentage="getData(data.day).plan" :show-text="false"></el-progress></p>
-							<p><el-progress :percentage="getData(data.day).complete" status="success"
-									:show-text="false"></el-progress></p>
+							<p><el-progress :percentage="getData(data.day).complete" :show-text="false"
+									status="success"></el-progress></p>
 						</div>
 					</div>
 				</template>
@@ -17,7 +17,7 @@
 		</el-main>
 		<el-aside style="width: 400px;border-left: 1px solid #e6e6e6;">
 			<el-container>
-				<el-header style="line-height: 60px;border-bottom: 1px solid #e6e6e6;">
+				<el-header style="height: 54px;line-height: 54px;border-bottom: 1px solid #e6e6e6;">
 					<h2 class="dayTitle"><i class="el-icon-date"></i>{{ day }}</h2>
 				</el-header>
 				<el-main>
@@ -29,11 +29,12 @@
 								<div class="task-bottom">
 									<div class="tags">
 										<el-tag type="info" size="mini">#{{ task.id }}</el-tag>
-										<el-tag v-if="task.state == 'open'" type="info" size="mini">{{ task.state }}</el-tag>
-										<el-tag v-if="task.state == 'complete'" type="success"
-											size="mini">{{ task.state }}</el-tag>
-										<el-tag v-if="task.state == 'timeout'" type="danger"
-											size="mini">{{ task.state }}</el-tag>
+										<el-tag v-if="task.state == 'open'" type="info" size="mini">{{ task.state
+										}}</el-tag>
+										<el-tag v-if="task.state == 'complete'" type="success" size="mini">{{ task.state
+										}}</el-tag>
+										<el-tag v-if="task.state == 'timeout'" type="danger" size="mini">{{ task.state
+										}}</el-tag>
 									</div>
 									<el-avatar :size="20" :src="task.avatar"></el-avatar>
 								</div>
@@ -192,10 +193,12 @@ export default {
 }
 
 .dayTitle {
+	padding-left: 10px;
 	font-size: 14px;
 }
 
 .dayTitle i {
 	color: #999;
 	margin-right: 10px;
-}</style>
+}
+</style>

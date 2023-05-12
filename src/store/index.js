@@ -12,11 +12,23 @@ import workflow from './modules/workflow';
 const store = new Vuex.Store({
   state: {
     //缓存组件，该值是组件中定义的name值，include 名称匹配的组件会被缓存，exclude 名称匹配的组件不被缓存。
-    cachedViews: ["t-gdmap", "t-arcgisMap", "t-echartMap", "paper"],
+    cachedViews: ["t-gdmap", "t-echartMap", "paper"],
 
     drag_com: "",
     drag_ref: "",
-    weather: JSON.parse(localStorage.getItem("weather")) || [], //天气数据
+    weather: JSON.parse(localStorage.getItem("weather")) || [{
+      "province": "江苏",
+      "city": "南京市",
+      "adcode": "320100",
+      "weather": "多云",
+      "temperature": 27,
+      "windDirection": "西",
+      "windPower": "≤3",
+      "humidity": "74",
+      "reportTime": "2023-05-04 15:35:28",
+      "info": "OK",
+      "imgUrl": "/image/weather/weather04.png"
+    }], //天气数据
   },
   mounted() {
 
@@ -43,9 +55,9 @@ const store = new Vuex.Store({
       commit
     }) {
       return new Promise((resolve, reject) => {
-        commit('SET_LOGIN_INFO','');
+        commit('SET_LOGIN_INFO', '');
         commit('SET_ACCESS_TOKEN', '');
-        commit('SET_REFRESH_TOKEN','');
+        commit('SET_REFRESH_TOKEN', '');
         commit('SET_TOKEN_EXPIRE', '');
 
         resolve();

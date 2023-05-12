@@ -1,45 +1,19 @@
 <template>
-  <div>
-    <el-form
-      status-icon
-      ref="userForm"
-      :model="userForm"
-      :rules="rules"
-      size="small"
-      label-width="80px"
-    >
-      <el-form-item label="旧密码" prop="oldPass">
-        <el-input
-          v-model="userForm.oldPass"
-          type="password"
-          style="width: 360px;"
-          clearable
-        />
-      </el-form-item>
-      <el-form-item label="新密码" prop="newPass">
-        <el-input
-          v-model="userForm.newPass"
-          type="password"
-          style="width: 360px;"
-          clearable
-        />
-      </el-form-item>
-      <el-form-item label="确认密码" prop="checkPass">
-        <el-input
-          v-model="userForm.checkPass"
-          type="password"
-          style="width: 360px;"
-          clearable
-        />
-      </el-form-item>
-      <el-form-item>
-        <el-button @click.native="resetForm" size="small">重置</el-button>
-        <el-button type="primary" @click.native="doSubmit" size="small"
-          >确认</el-button
-        >
-      </el-form-item>
-    </el-form>
-  </div>
+  <el-form status-icon ref="userForm" :model="userForm" :rules="rules" size="small" label-width="80px">
+    <el-form-item label="旧密码" prop="oldPass">
+      <el-input v-model="userForm.oldPass" type="password" style="width: 95%;" clearable />
+    </el-form-item>
+    <el-form-item label="新密码" prop="newPass">
+      <el-input v-model="userForm.newPass" type="password" style="width: 95%;" clearable />
+    </el-form-item>
+    <el-form-item label="确认密码" prop="checkPass">
+      <el-input v-model="userForm.checkPass" type="password" style="width: 95%;" clearable />
+    </el-form-item>
+    <el-form-item style="text-align: right;">
+      <el-button @click.native="resetForm" size="small">重置</el-button>
+      <el-button type="primary" @click.native="doSubmit" size="small">确认</el-button>
+    </el-form-item>
+  </el-form>
 </template>
 
 <script>
@@ -86,7 +60,7 @@ export default {
       try {
         this.userForm = { oldPass: "", newPass: "", checkPass: "" };
         this.$refs.userForm.resetFields();
-      } catch (e) {}
+      } catch (e) { }
     },
     doSubmit() {
       // this.$refs.userForm.validate(valid => {

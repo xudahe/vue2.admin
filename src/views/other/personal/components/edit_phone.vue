@@ -1,7 +1,7 @@
 <template>
   <el-form status-icon ref="userForm" :model="userForm" :rules="rules" size="small" label-width="80px">
-    <el-form-item label="邮箱" prop="email">
-      <el-input v-model="userForm.email" style="width: 95%;" clearable />
+    <el-form-item label="手机" prop="phone">
+      <el-input v-model="userForm.phone" style="width: 95%;" clearable />
     </el-form-item>
     <el-form-item label="密码" prop="password">
       <el-input type="password" v-model="userForm.password" style="width: 95%;" clearable />
@@ -19,11 +19,11 @@ import { mapState } from 'vuex'
 export default {
   data() {
     return {
-      userForm: { email: "", password: "" },
+      userForm: { phone: "", password: "" },
       rules: {
-        email: [
-          { required: true, message: "请输入邮箱地址", trigger: "change" },
-          { type: "email", message: "请输入正确的邮箱地址", trigger: "change" }
+        phone: [
+          { required: true, message: "请输入手机号码", trigger: "change" },
+          { type: "phone", message: "请输入正确的手机号码", trigger: "change" }
         ],
         password: [
           { required: true, message: "请输入密码", trigger: "change" },
@@ -38,9 +38,9 @@ export default {
     })
   },
   watch: {
-    'user.email': {
+    'user.phone': {
       handler() {
-        this.userForm.email = this.user.email
+        this.userForm.phone = this.user.phone
       },
       immediate: true
     }
@@ -49,7 +49,7 @@ export default {
     // 重置表单
     resetForm() {
       try {
-        this.userForm = { email: "", password: "" };
+        this.userForm = { phone: "", password: "" };
         this.$refs.userForm.resetFields();
       } catch (e) { }
     },
@@ -57,10 +57,10 @@ export default {
       // this.$refs.userForm.validate(valid => {
       //   if (valid) {
       //     this.$http_json({
-      //       url: "/api/user/updateMail",
+      //       url: "/api/user/updatePhone",
       //       method: "post",
       //       data: {
-      // 				email: this.userForm.email,
+      // 				phone: this.userForm.phone,
       // 				password: encrypt(this.userForm.password)
       // 			}
       //     }).then(() => {
