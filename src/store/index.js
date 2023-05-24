@@ -68,6 +68,9 @@ const store = new Vuex.Store({
   // Getters可以用于监听，state中的值的变化，返回计算后的结果。
   getters: {
     accessToken: state => state.login.accessToken,
+    refreshToken: state => state.login.refreshToken,
+    tokenExpire: state => state.login.tokenExpire,
+    
     loginInfo: state => state.login.loginInfo,
 
     weather: state => state.weather,

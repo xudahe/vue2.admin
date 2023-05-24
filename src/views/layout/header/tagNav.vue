@@ -19,7 +19,7 @@
         </transition-group>
       </div>
       <div v-show="rightMenuShow" :style="{ left: contextMenuLeft + 'px', top: contextMenuTop + 'px' }" class="menuBox">
-        <div @click="removeTab($store.getters.openNav)">关闭</div>
+        <div @click="removeTab($store.getters.openNav)">关闭当前</div>
         <div @click="removeLeftTab($store.getters.openNav)">关闭左侧</div>
         <div @click="removeRightTab($store.getters.openNav)">关闭右侧</div>
         <div @click="removeOtherTab($store.getters.openNav)">关闭其他</div>

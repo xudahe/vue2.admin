@@ -31,7 +31,7 @@
       <el-col :sm="24" :md="5" style="height:100%;">
         <el-card class="box-card" shadow="hover">
           <v-header text="角色分配">
-            <div slot="content" style="color:#67c23a;">{{ sels.loginName }}</div>
+            <div slot="content" style="color:#67c23a;margin-top: 5%;font-size: 0.16rem;">{{ sels.loginName }}</div>
             <div style="text-align: right;">
               <el-tooltip content="保存">
                 <el-button type="primary" icon="el-icon-check" circle :disabled="!showButton" @click.native="saveRole">
@@ -310,13 +310,20 @@ export default {
     },
     //角色绑定
     saveRole() {
+      let _this = this;
       let ids = this.$refs.roletree.getCheckedNodes(false, true).map(item => item.guid)
 
-      this.userForm = this.sels
-      this.userForm.roleIds = ids.join(',')
-
-      this.formTitle = "编辑"
-      this.handleSubmit()
+      this.$ajax(this.$apiSet.UserByRoleId, {
+        userId: this.sels.guid,
+        roleIds: ids.join(','),
+      }).then(res => {
+        if (!res.data.success) {
+          _this.$errorMsg(res.data.message)
+        } else {
+          _this.searchData()
+          _this.$successMsg(res.data.message)
+        }
+      }).catch(err => { })
     },
     //显示编辑界面
     handleEdit(index, row) {
@@ -384,5 +391,6 @@ export default {
 .user_manager .tree-box {
   height: calc(100% - 32px);
   overflow: auto;
+  padding: 5px;
 }
 </style>

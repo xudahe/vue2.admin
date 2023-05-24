@@ -24,7 +24,7 @@ const UserModule = {
   },
   postUser: { //添加用户
     url: '/api/User/PostUser',
-    method: 'other'
+    method: 'post_json'
   },
   putUser: { //更新用户
     url: '/api/User/PutUser',
@@ -38,6 +38,14 @@ const UserModule = {
     url: '/api/User/DeleteUser',
     method: 'delete'
   },
+  UserByRoleId: { //绑定角色
+    url: '/api/User/UserByRoleId',
+    method: 'post_form'
+  },
+  UpdatePassword: { //修改用户密码
+    url: '/api/User/UpdatePassword',
+    method: 'post_form'
+  },
 }
 
 const DeptModule = {
@@ -47,7 +55,7 @@ const DeptModule = {
   },
   postDept: { //添加部门
     url: '/api/Dept/PostDept',
-    method: 'other'
+    method: 'post_json'
   },
   putDept: { //更新部门
     url: '/api/Dept/PutDept',
@@ -70,7 +78,7 @@ const RoleModule = {
   },
   postRole: { //添加角色
     url: '/api/Role/PostRole',
-    method: 'other'
+    method: 'post_json'
   },
   putRole: { //更新角色
     url: '/api/Role/PutRole',
@@ -109,7 +117,7 @@ const MenuModule = {
   },
   postMenu: { //添加菜单
     url: '/api/Menu/PostMenu',
-    method: 'other'
+    method: 'post_json'
   },
   putMenu: { //更新菜单
     url: '/api/Menu/PutMenu',
@@ -132,7 +140,7 @@ const SystemModule = {
   },
   postSystem: { //添加系统
     url: '/api/System/PostSystem',
-    method: 'other'
+    method: 'post_json'
   },
   putSystem: { //更新系统
     url: '/api/System/PutSystem',
@@ -148,30 +156,6 @@ const SystemModule = {
   },
 }
 
-const PlatformModule = {
-  getPlatformInfo: { //获取平台数据
-    url: '/api/Platform/GetPlatform',
-    method: 'get'
-  },
-  postPlatform: { //添加平台
-    url: '/api/Platform/PostPlatform',
-    method: 'other'
-  },
-  putPlatform: { //更新平台
-    url: '/api/Platform/PutPlatform',
-    method: 'put'
-  },
-  disablePlatform: { //禁用平台
-    url: '/api/Platform/DisablePlatform',
-    method: 'delete'
-  },
-  deletePlatform: { //删除平台
-    url: '/api/Platform/DeletePlatform',
-    method: 'delete'
-  },
-}
-
-
 const TasksQzModule = {
   getTasksQzInfo: { //获取全部定时任务数据
     url: '/api/TasksQz/GetTasksQz',
@@ -179,7 +163,7 @@ const TasksQzModule = {
   },
   postTasksQz: { //添加定时任务
     url: '/api/TasksQz/PostTasksQz',
-    method: 'other'
+    method: 'post_json'
   },
   putTasksQz: { //更新定时任务
     url: '/api/TasksQz/PutTasksQz',
@@ -201,7 +185,7 @@ const TasksQzModule = {
     url: '/api/TasksQz/DeleteTasksQz',
     method: 'delete'
   },
-  getTaskNameSpace: {//获取任务命名空间
+  getTaskNameSpace: { //获取任务命名空间
     url: '/api/TasksQz/GetTaskNameSpace',
     method: 'get'
   },
@@ -216,7 +200,7 @@ const LogModule = {
 const FileModule = {
   imgUpload: { //上传图片到服务器
     url: '/api/File/imgUpload',
-    method: 'file'
+    method: 'post_file'
   },
   imgDelete: {
     url: '/api/File/imgDelete',
@@ -224,7 +208,7 @@ const FileModule = {
   },
   fileUpload: {
     url: '/api/File/fileUpload',
-    method: 'file'
+    method: 'post_file'
   },
   fileMerge: { //分片文件合并
     url: '/api/Uploader/FileMerge',
@@ -235,7 +219,6 @@ const FileModule = {
 const ApiSetting = {
   ...LoginModule,
   ...SystemModule,
-  ...PlatformModule,
   ...UserModule,
   ...DeptModule,
   ...RoleModule,

@@ -19,7 +19,7 @@
         <img :src="require('@/assets/image/file/txt.png')" style="width:0.20rem;margin-right: 0.05rem;" />
         <p class="item-title" :title="item.title">{{ item.title }}</p>
         <p class="item-time" v-if="!item.showTool">
-          {{ item.time | formatDate("yyyy-mm-dd") }}
+          {{ $formatDate(item.time) }}
         </p>
         <p class="item-tool" v-else>
           <i class="el-icon-delete icon" style="font-size:17px" @click.stop="clickDel(item)" />
@@ -99,6 +99,7 @@ export default {
     display: flex;
     align-items: center;
     height: 50px;
+    line-height: 50px;
     border-bottom: 1px solid #eaeefb;
     padding: 0 10px;
     cursor: pointer;

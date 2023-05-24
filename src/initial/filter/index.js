@@ -1,5 +1,3 @@
-import formatDate from './formatDate'
-
 // 根据身份证号码判断男女
 const sexIdcard = value => {
   return !value ? '' : value.substr(16, 1) % 2 === 1 ? '男' : '女';
@@ -26,10 +24,9 @@ const nameHide = name => {
   }
 }
 
-// 注册过滤器,出口文件，所有全局过滤器都在该文件里导出。
-// 使用方式：{{ dateStr | formatDate }} 
+// 全局注册过滤器,出口文件，所有全局过滤器都在该文件里导出。
+// 使用方式：{{ str | sexIdcard }} 
 export default {
-  formatDate,
   sexIdcard,
   IDcardHide,
   telHide,

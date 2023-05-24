@@ -33,16 +33,19 @@ export default {
 
       let navTitle = function (path, routerARR) {
         for (let i = 0; i < routerARR.length; i++) {
-          if (routerARR[i].children.length > 0 || routerARR[i].path === path) {
-            if (routerARR[i].path === path && routerARR[i].children.length < 1) {
-              name = routerARR[i].name;
-              break;
+          if (routerARR[i].path === path) {
+            name = routerARR[i].name;
+            break;
+          } else {
+            if (routerARR[i].children && routerARR[i].children.length > 1) {
+              navTitle(path, routerARR[i].children);
             }
-            navTitle(path, routerARR[i].children);
           }
         }
+
         return name;
       };
+
       this.$store.dispatch("addTab", {
         title: navTitle(key, router),
         path: key

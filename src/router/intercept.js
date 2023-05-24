@@ -2,9 +2,6 @@ import Vue from 'vue'
 import router from "./index"
 import store from "@/store"
 import {
-  saveRefreshtime
-} from '@/api/axios/index';
-import {
   isNull
 } from '@/utils/validate'
 
@@ -31,10 +28,6 @@ router.beforeEach((to, from, next) => {
     return NProgress.done();
   }
 
-  if (!validataToken()) {
-    next()
-  }
-
   if (!isNull(store.getters.accessToken)) {
     if (to.path === "/login") {
       next()
@@ -57,7 +50,6 @@ router.beforeEach((to, from, next) => {
       })
     }
   }
-
 })
 
 // 全局后置钩子-常用于结束动画等
@@ -65,33 +57,16 @@ router.afterEach(() => {
   NProgress.done() //完成进度(进度条消失)
 })
 
-//验证Token
-function validataToken() {
-  var curTime = new Date()
-  var refreshtime = new Date(Date.parse(window.localStorage.refreshtime))
-  console.log(`Token 将在 ${window.localStorage.refreshtime}后过期！`)
-
-  // 如果在用户操作的活跃期内，刷新Token过期时间
-  if (window.localStorage.refreshtime && (curTime <= refreshtime)) {
-    saveRefreshtime(); //刷新Token过期时间
-
-    return true
-  } else {
-    return false
-  }
-}
-
 function getAddRouters() {
   // 省略 axios 请求代码 通过 token 向后台请求用户权限等信息
   let loginInfo = JSON.parse(window.localStorage.loginInfo ? window.localStorage.loginInfo : null);
-  console.log(!isNull(loginInfo.userinfo))
   store.dispatch("SET_LOGIN_INFO", {
     userinfo: !isNull(loginInfo.userinfo) ? loginInfo.userinfo : loginInfo,
     roleinfo: !isNull(loginInfo.roleinfo) ? loginInfo.roleinfo : loginInfo.roleInfoList,
     menuinfo: !isNull(loginInfo.menuinfo) ? loginInfo.menuinfo : loginInfo.menuInfoList,
     deptInfo: !isNull(loginInfo.deptInfo) ? loginInfo.deptInfo : loginInfo.deptInfoList,
   })
-  console.log(store.getters.loginInfo)
+  console.log("登录信息：", store.getters.loginInfo)
 
   store.dispatch("newRoutes", store.getters.loginInfo.roleinfo)
 }

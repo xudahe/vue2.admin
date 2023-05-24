@@ -369,18 +369,18 @@ export const location = {
       geolocation.getCurrentPosition();
 
       AMap.event.addListener(geolocation, "complete", function (result) {
-        console.log("定位成功信息：", result);
+        // console.log("定位成功信息：", result);
         getWeather(result.addressComponent.adcode)
       });
       AMap.event.addListener(geolocation, "error", function (result) {
-        console.log("定位失败错误：", result);
+        // console.log("定位失败错误：", result);
 
         //使用CitySearch插件获取当前所在城市信息
         AMap.plugin("AMap.CitySearch", function () {
           var citySearch = new AMap.CitySearch();
           citySearch.getLocalCity(function (status, result) {
             if (status === "complete" && result.info === "OK") {
-              console.log("通过ip获取当前城市：", result);
+              // console.log("通过ip获取当前城市：", result);
               getWeather(result.adcode)
             }
           });

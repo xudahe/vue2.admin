@@ -60,11 +60,11 @@
             <div v-for="(item, key) in imglist" style="margin:10px" :id="'scroll_' + key" :name="item.title">
                 <template>
                     <h2>{{ item.title }}</h2>
-                    <div class="demo-upload-list" v-for="child in item.cadastrals">
+                    <div class="demo-upload-list" v-for="(child, index) in item.cadastrals">
                         <template>
                             <img :src="child.thumb" v-if="child.extension == '.jpg' && child.src !== ''">
                             <div class="demo-upload-list-cover">
-                                <Icon type="ios-eye-outline" @click.native="handleView(item.cadastrals)"></Icon>
+                                <Icon type="ios-eye-outline" @click.native="handleView(item.cadastrals, index)"></Icon>
                             </div>
                             <div style="position: absolute;margin-top: -45px;width: 100%;height: 40px;">{{ child.title }}
                             </div>
@@ -80,7 +80,7 @@
 import PhotoViewer from "photoviewer";
 import "photoviewer/dist/photoviewer.css";
 export default {
-    name:"cadastralViewer",
+    name: "cadastralViewer",
     data() {
         return {
             imglist: [],
@@ -1210,9 +1210,9 @@ export default {
                 }
             ]
         },
-        handleView(child) {
+        handleView(child, index) {
             var options = {
-                index: 0
+                index: index
             };
             var viewer = new PhotoViewer(child, options);
         },

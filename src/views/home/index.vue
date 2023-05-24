@@ -10,7 +10,6 @@
         <el-card class="box-card" shadow="hover">
           <el-button @click.native="showdialog1">弹出框</el-button>
           <el-button @click.native="showdialog2">弹出框</el-button>
-          <!-- <el-button @click.native="button1">打印</el-button> -->
           <slide></slide>
         </el-card>
       </el-col>
@@ -71,9 +70,6 @@ export default {
       this.$store.state.drag_com = "markdown";
       this.$store.state.drag_ref = "markdown";
       this.$refs.dragdialog.retresize();
-    },
-    button1() {
-      this.$print(this.$refs.home);
     },
   }
 };

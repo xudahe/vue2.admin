@@ -1,6 +1,6 @@
 <template>
   <div class="pagination">
-    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-sizes.sync="defaultPageSizes" :pager-count="5" :small="$defaultConfig.paginationSize" :layout="$defaultConfig.paginationLayout" :current-page.sync="currentPage" :total="total"></el-pagination>
+    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-sizes.sync="defaultPageSizes" :pager-count="5" :small="$defaultConfig.paginationSize" :layout="$defaultConfig.paginationLayout" :page-size.sync="pageSize" :current-page.sync="currentPage" :total="total"></el-pagination>
   </div>
 </template>
 <script>

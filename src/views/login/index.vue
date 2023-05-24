@@ -101,7 +101,7 @@ export default {
         this.identifyCode += this.identifyCodes[this.randomNum(0, this.identifyCodes.length)];
       }
       this.loginCode = JSON.parse(JSON.stringify(this.identifyCode))
-      console.log(this.loginCode);
+      console.log("验证码："+this.loginCode);
     },
     //自动重置验证码
     setRefreshCode() {
@@ -188,7 +188,6 @@ export default {
 
             _this.$store.commit("SET_TOKEN_EXPIRE", expiredate); // 保存token过期时间
             _this.$store.commit("SET_ACCESS_TOKEN", source.token); // 保存token
-            window.localStorage.refreshtime = expiredate; //保存刷新时间，这里的和过期时间一致，但每次操作都会进一步刷新改时间
 
             _this.$notify({
               type: "success",
@@ -219,13 +218,11 @@ export default {
             window.localStorage.loginInfo = JSON.stringify(loginInfo);
 
             setTimeout(() => {
-              let refreshtime = new Date(Date.parse(window.localStorage.refreshtime));
-
               _this.$router.push({ path: "/home" }); //登录成功之后重定向到首页
 
               _this.$notify({
                 type: "success",
-                message: `登录成功 \n 欢迎管理员：${loginInfo.realName}！Token 将在 ${_this.$formatDate(refreshtime, true)}后过期！`,
+                message: `登录成功 \n 欢迎管理员：${loginInfo.realName}！Token 将在 ${_this.$formatDate(_this.$store.getters.tokenExpire, true)}后过期！`,
                 duration: 3000
               });
             }, 1000);
@@ -245,10 +242,10 @@ export default {
     window.localStorage.clear()
     window.sessionStorage.clear();
     // 状态保持清除后刷新页面(只刷新当前页面一次)
-    if (window.location.href.indexOf("#reloaded") == -1) {
-      window.location.href = window.location.href + "#reloaded";
-      window.location.reload();
-    }
+    // if (window.location.href.indexOf("#reloaded") == -1) {
+    //   window.location.href = window.location.href + "#reloaded";
+    //   window.location.reload();
+    // }
 
     this.cookies();
     this.setRefreshCode();

@@ -59,6 +59,7 @@ export default {
       float: left;
     }
     span {
+      margin-left: 3px;
       display: inline-block;
       width: 70%;
       vertical-align: -0.15em;

@@ -33,8 +33,8 @@
             <el-form :model="systemForm" label-width="80px" :rules="formRules" ref="systemForm">
                 <el-row>
                     <el-col :span="24">
-                        <el-form-item label="系统简码" prop="systemCode">
-                            <el-input v-model="systemForm.systemCode" autocomplete="off" placeholder="请输入系统简码"
+                        <el-form-item label="系统编码" prop="systemCode">
+                            <el-input v-model="systemForm.systemCode" autocomplete="off" placeholder="请输入系统编码"
                                 clearable>
                             </el-input>
                         </el-form-item>
@@ -92,8 +92,9 @@ export default {
             tableData: [],
             tableLabel: [
                 // { label: '标识', param: 'id', width: '60', },
-                { label: '系统名称', param: 'systemName' },
                 { label: '排序', param: 'index', width: '60' },
+                { label: '系统编码', param: 'systemCode' },
+                { label: '系统名称', param: 'systemName' },
                 {
                     label: '更新时间', param: 'createTime', sortable: true, width: '160',
                     formatter: row => {
@@ -163,7 +164,7 @@ export default {
             //表单数据
             initForm: {
                 id: 0,
-                SystemCode: '',
+                systemCode: '',
                 systemName: '',
                 index: '',
                 enabled: false,

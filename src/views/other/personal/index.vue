@@ -22,11 +22,11 @@
           </div>
           <CellGroup style="margin: 20px;">
             <Cell :title="'手机：' + (userInfo.phone || '未绑定')" style="padding: 19px 16px;">
-              <el-button type="success" size="mini" icon="md-phone-portrait" slot="extra"
+              <el-button type="success" size="mini" icon="el-icon-phone" slot="extra"
                 @click="updateDialog('phone')">绑定手机</el-button>
             </Cell>
             <Cell :title="'邮箱：' + (userInfo.email || '未绑定')" style="padding: 19px 16px;">
-              <el-button type="info" size="mini" icon="ios-mail-outline" slot="extra"
+              <el-button type="info" size="mini" icon="el-icon-message" slot="extra"
                 @click="updateDialog('email')">绑定邮箱</el-button>
             </Cell>
           </CellGroup>
@@ -79,7 +79,7 @@
     <upload-avatar ref="avatarForm" :is-show.sync="isShow" :upload-avatar="uploadAvatar" />
 
     <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" width="500px" append-to-body v-dialogDrag>
-      <component :is="comptNmae"></component>
+      <component :is="comptNmae" @close_dialog="close_dialog"></component>
     </el-dialog>
   </div>
 </template>
@@ -143,7 +143,22 @@ export default {
         this.dialogTitle = "修改密码";
         this.comptNmae = editPassword;
       }
-    }
+    },
+    close_dialog(type) {
+      this.dialogVisible = false;
+
+      if (type == 'pwd') {
+        this.$confirm("密码修改成功，确定重新登录吗?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        }).then(() => {
+          this.$store.dispatch("LogOut").then(() => {
+            this.$router.push({ path: "/login" });
+          });
+        });
+      }
+    },
   }
 };
 </script>

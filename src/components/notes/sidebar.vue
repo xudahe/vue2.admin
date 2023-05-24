@@ -24,7 +24,8 @@
           <!-- 非编辑状态 -->
           <template v-else>
             <span class="tree-lable" :title="node.label">
-              <img :src="require('@/assets/image/file/folder.png')" style="width:0.20rem;margin-right: 0.05rem;top: 0.02rem;position: relative;" />
+              <img :src="require('@/assets/image/file/folder.png')"
+                style="width:0.20rem;margin-right: 0.05rem;top: 0.02rem;position: relative;" />
               {{ node.label }}
             </span>
           </template>
@@ -34,7 +35,7 @@
     <!-- 鼠标右键产生的选项 -->
     <div v-show="menuVisible" id="menu" class="rightMenu">
       <el-menu class="el-menu-vertical rightClickMenu" @select="handleRightSelect" text-color="#303133"
-        active-text-color="#303133">
+        active-text-color="#303133" style="padding: 5px;border-right: none;">
         <el-menu-item index="1" class="menuItem">
           <i class="el-icon-folder-add" style="font-size: 15px;"></i>
           <span slot="title">新建文件夹</span>
@@ -77,6 +78,11 @@ export default {
       // 所有文件名Data
       fileData: [
         {
+          // level: 1, //当前文件名显示等级
+          // parentName: "", //当前文件父级文件夹名称
+          // isDirectory: true, //当前文件是否为文件夹
+          // entityPath: "", //实体路径
+
           id: "1",
           fileName: "1 WA",
           icon: "el-icon-success",
@@ -307,6 +313,7 @@ export default {
     this.subscript = 1;
   },
   methods: {
+    //双击重命名
     handleNodeClick(data, node) {
       let _self = this;
       //记录点击次数
@@ -335,6 +342,7 @@ export default {
         this.$refs.tree.setCurrentKey(node.id);
       });
     },
+    //通过关键字过滤树节点
     filterNode(value, data) {
       if (!value) return true;
       return data.label.indexOf(value) !== -1;
@@ -436,10 +444,11 @@ export default {
       obj.level = node.level + 1; //当前节点显示等级
 
       // 新增数据
-      data.children.push(obj);
+      data.children.unshift(obj);
       // 展开节点
       data.isDirectory ? node.parent.expand() : node.expand();
     },
+    // 新建最外层 文件夹
     createFile() {
       this.checkLoadlRepeat(this.fileData);
       this.fileData.push({
@@ -468,40 +477,6 @@ export default {
       if (_dobData.length < 1) return (_self.folderName = _folderName);
 
       _self.checkLoadlRepeat(data);
-    },
-
-    //删除文件节点
-    handleDelete(node, data) {
-      var _self = this;
-      if (data.children && data.children.length !== 0) {
-        this.$message.error("此文件夹内含有其他文件夹，不可删除！");
-        return;
-      }
-
-      // 删除操作
-      let DeletOprate = () => {
-        let _list = node.parent.data.children || node.parent.data; //节点同级数据
-        let _index = _list.map(c => c.id).indexOf(data.id);
-        _list.splice(_index, 1);
-        node.parent.expand();
-        _self.$message.success("删除成功！");
-      };
-
-      //二次确认
-      let ConfirmFun = () => {
-        this.$confirm(`是否删除${node.label}？`, "提示", {
-          confirmButtonText: "确认",
-          cancelButtonText: "取消",
-          type: "warning"
-        })
-          .then(() => {
-            DeletOprate();
-          })
-          .catch(() => { });
-      };
-
-      // 判断是否新增： 新增节点直接删除，已存在的节点要二次确认
-      parseFloat(data.id) < this.NODE_ID_START ? DeletOprate() : ConfirmFun();
     },
 
     //鼠标右击事件出现菜单栏

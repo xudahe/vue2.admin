@@ -33,7 +33,6 @@
             </template>
           </el-table-column>
           <div class="empty" slot="empty">
-            <svg-icon class="not-interesting" icon-class="不感兴趣_44" />
             <div class="empty-content">
               May heaven never have bug
             </div>

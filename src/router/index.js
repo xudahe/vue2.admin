@@ -50,7 +50,6 @@ function getRoutes(req) {
       path: '/' + name,
       name: name,
       component,
-      children: []
     })
   });
 }
@@ -64,7 +63,6 @@ let defaultRouter = [{
     },
     hidden: true,
     component: Login,
-    children: []
   },
   {
     path: "/",
@@ -73,7 +71,6 @@ let defaultRouter = [{
     },
     redirect: "/login", //默认重定向到登录
     hidden: true,
-    children: []
   },
   {
     path: "/layout",
@@ -90,7 +87,6 @@ let defaultRouter = [{
           title: "首页"
         },
         component: Home,
-        children: []
       },
       {
         path: "/personal",
@@ -99,33 +95,28 @@ let defaultRouter = [{
           title: "个人中心"
         },
         component: personal,
-        children: [],
         // keepAlive: true,  //缓存页面，也可使用<keep-alive></keep-alive>
       },
-      
+
       {
         path: "/workflow",
         name: "workflow",
         component: () => import("@/views/workflow/index.vue"),
-        children: [],
       },
       {
         path: "/workSpace",
         name: "workSpace",
         component: () => import("@/views/workflow/WorkSpace/index.vue"),
-        children: [],
       },
       {
         path: "/formsPanel",
         name: "formsPanel",
         component: () => import("@/views/workflow/admin/FormsPanel.vue"),
-        children: [],
       },
       {
         path: "/formProcess",
         name: "formProcess",
         component: () => import("@/views/workflow/admin/FormProcess.vue"),
-        children: [],
       },
     ]
   },
@@ -133,58 +124,36 @@ let defaultRouter = [{
     path: "/403",
     name: "403",
     component: Error_403,
-    children: []
   },
   {
     path: "/404",
     name: "404",
     component: Error_404,
-    children: []
   },
   {
     path: "/500",
     name: "500",
     component: Error_500,
-    children: []
   },
 ]
 
-/**
- * 重写路由的push和replace方法
- * 解决，相同路由跳转时，报错
- * 添加，相同路由跳转时，触发watch (针对el-menu，仅限string方式传参，形如"view?id=5")
- */
-// const originalPush = VueRouter.prototype.push
-// VueRouter.prototype.push = function push(location) {
-//   // 这个if语句在跳转相同路径的时候，在路径末尾添加新参数（一些随机数字）
-//   // 用来触发watch
-//   if (typeof (location) == "string") {
-//     var Separator = "&";
-//     if (location.indexOf('?') == -1) {
-//       Separator = '?';
-//     }
-//     location = location //+ Separator + "random=" + Math.random();
-//   }
-//   // 这个语句用来解决报错
-//   // 调用原来的push函数，并捕获异常
-//   return originalPush.call(this, location).catch(err => err)
-// }
 
-// const originalReplace = VueRouter.prototype.replace;
-// VueRouter.prototype.replace = function replace(location) {
-//   if (typeof (location) == "string") {
-//     var Separator = "&";
-//     if (location.indexOf('?') == -1) {
-//       Separator = '?';
-//     }
-//     location = location //+ Separator + "random=" + Math.random();
-//   }
-//   return originalReplace.call(this, location).catch(err => err)
-// };
+// 防止连续点击多次路由报错
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+const originalReplace = VueRouter.prototype.replace;
+VueRouter.prototype.replace = function replace(location) {
+  return originalReplace.call(this, location).catch(err => err)
+};
 
 //创建路由
 export const createRouter = () => new VueRouter({
-  // mode: 'history', //注意 打包时需要将该处注释 否则将出现静态文件找不到
+  // mode: 'history', //去掉url中的#
+  scrollBehavior: () => ({
+    y: 0
+  }), //作用是将页面滚动位置重置为顶部（y 坐标为 0）
   routes: defaultRouter
 })
 const Router = createRouter() // 获得 route 实例

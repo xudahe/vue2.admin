@@ -174,6 +174,25 @@ module.exports = defineConfig({
 
   // webpack 配置
   chainWebpack: (config) => {
+    // 给svg规则增加⼀个排除选项
+    config.module
+      .rule('svg')
+      .exclude.add(resolve('src/icons'))
+      .end()
+
+    // 新增icons规则，设置svg-sprite-loader处理icons⽬录中的svg
+    config.module
+      .rule('icons')
+      .test(/\.svg$/)
+      .include.add(resolve('src/icons'))
+      .end()
+      .use('svg-sprite-loader')
+      .loader('svg-sprite-loader')
+      .options({
+        symbolId: 'icon-[name]'
+      })
+      .end()
+
     if (process.env.NODE_ENV === 'production') {
 
       // 通过 html-webpack-plugin 将 cdn 注入到 index.html 之中
@@ -222,13 +241,12 @@ module.exports = defineConfig({
 
   // 可以用来传递任何第三方插件选项
   pluginOptions: {
-     // 安装 style-resources-loader 与 vue-cli-plugin-style-resources-loader
-     "style-resources-loader": {
+    // 安装 style-resources-loader 与 vue-cli-plugin-style-resources-loader
+    "style-resources-loader": {
       preProcessor: "less", //sass, scss, stylus, less中的一种
       patterns: [
         // 两种路径写法都可以，这里的路径不能使用 @ 符号，否则会报错
-        // path.resolve(__dirname, './src/assets/theme.less')
-        path.resolve(__dirname, 'src/assets/theme.less')
+        resolve('src/assets/theme.less')
       ],
     },
   }

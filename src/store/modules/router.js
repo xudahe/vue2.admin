@@ -18,7 +18,7 @@ const routerData = {
       state.defaultRouter = defaultRouter;
       state.routers = state.defaultRouter.concat(state.addRouters);
       eachSelect(state.routers);
-      console.log(state)
+      console.log("路由信息：",state)
 
       //vue-router使用addRoute动态添加layout主界面的子路由
       for (const key in state.addRouters) {
@@ -43,8 +43,11 @@ const routerData = {
       //  通过递归路由表，删除掉没有权限的路由
       function eachSelect(routers, userRole) {
         for (let j = 0; j < routers.length; j++) {
-          routers[j].name = dataList[routers[j].name] || routers[j].name;
-          if (routers[j].meta && routers[j].meta.role.length && routers[j].meta.role.indexOf(userRole) === -1) {
+          routers[j].meta = {
+            title: dataList[routers[j].name] || routers[j].name
+          };
+
+          if (routers[j].meta && routers[j].meta.role && routers[j].meta.role.length && routers[j].meta.role.indexOf(userRole) === -1) {
             routers.splice(j, 1)
             j = j !== 0 ? j - 1 : j;
           }
@@ -69,6 +72,8 @@ var dataList = {
   "picture_manager": "图片管理",
   "task_manager": "定时任务",
   "card": "卡片",
+  "print": "打印",
+
 }
 
 export default routerData

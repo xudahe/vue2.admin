@@ -57,8 +57,6 @@ import Copy from '@/api/dom/copy'
 import FullScreen from '@/api/other/full_screen'
 // 引入文件下载模块
 import Download from '@/api/file/download'
-// 引入打印功能
-import Print from '@/api/file/print'
 // 引入图片读取模块
 import ReadImg from '@/api/file/get_file_image'
 // 引入文件读取模块
@@ -286,12 +284,6 @@ Vue.prototype.$searchResult = ArrayMethod.searchResult
  * @returns {Array} 返回新的数组
  */
 Vue.prototype.$removeRepeat = ArrayMethod.removeRepeat
-
-/**
- * @description 打印功能
- * @param {String}
- */
-Vue.prototype.$print = Print
 
 /**
  * @description 导出excel

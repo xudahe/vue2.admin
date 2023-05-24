@@ -7,7 +7,7 @@
 
 <script>
 
-// doc: https://panjiachen.github.io/vue-element-admin-site/feature/component/svg-icon.html#usage
+// 检查是否是外部链接
 function isExternal(path) {
   return /^(https?:|mailto:|tel:)/.test(path)
 }

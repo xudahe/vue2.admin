@@ -1,6 +1,6 @@
 <template>
   <section>
-    <el-table ref="table" v-loading="loading" element-loading-text="" :data="dataList" :height="tableHeight" border fit highlight-current-row tooltip-effect="dark" style="width:100%;margin-top: 3px;" :header-cell-style="{background:'#f2f2f2',color:'#606266'}" @row-click="handleRowClick" @sort-change="handleSortChange" @selection-change="handleSelectionChange">
+    <el-table ref="table" v-loading="loading" element-loading-text="" row-key="id" :tree-props="{ children: 'children', hasChildren: 'hasChildren' }" :data="dataList" :height="tableHeight" border fit highlight-current-row tooltip-effect="dark" style="width:100%;margin-top: 3px;" :header-cell-style="{background:'#f2f2f2',color:'#606266'}" @row-click="handleRowClick" @sort-change="handleSortChange" @selection-change="handleSelectionChange">
       <template v-for="(item,index) in tableLabel">
         <el-table-column v-if="item.type" :type="item.type" :key="index"></el-table-column>
         <el-table-column v-else :width="item.width ? item.width : ''" :key="index + 1" :align="item.align ? item.align : 'center'" :label="item.label" :prop="item.param" :sortable="item.sortable ? true : false">

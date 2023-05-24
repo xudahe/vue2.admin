@@ -12,11 +12,11 @@ export default {
   data() {
     return {
       nowPage: 1,
-      nowSize: 7,
+      nowSize: 10,
 
       tableData: [],
       tableLabel: [
-        { label: '操作人', param: 'user' },
+        { label: '操作人', param: 'user', width: "100" },
         { label: '请求地址', param: 'url' },
         { label: '客户端IP', param: 'clientIP' },
         // { label: 'IP来源', param: 'address' },

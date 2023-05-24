@@ -20,10 +20,9 @@
       </li>
       <li>
         <el-tooltip class="item" effect="dark" :content="tooltipContent" placement="bottom">
-          <el-badge :max="99" :value="$store.getters.errorLogList.length" style="cursor: pointer;"
-            @click.native="$emit('showErrorLogBox')">
-            <!-- <svg-icon :class="$store.getters.errorLogList.length == 0 ? 'bug-f' : 'bug-t'" icon-class="bug" /> -->
-            <el-button icon="el-icon-bell" circle size="mini"></el-button>
+          <el-badge :max="9" :hidden="$store.getters.errorLogList.length == 0" :value="$store.getters.errorLogList.length"
+            style="cursor: pointer;" @click.native="$emit('showErrorLogBox')">
+            <svg-icon :class="$store.getters.errorLogList.length == 0 ? 'bug-f' : 'bug-t'" icon-class="bug" />
           </el-badge>
         </el-tooltip>
       </li>
@@ -81,8 +80,7 @@ export default {
     logout() {
       window.sessionStorage.clear();
       window.localStorage.clear();
-      // window.location.reload(); //会降低性能
-      
+
       this.$confirm("是否退出系统, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",

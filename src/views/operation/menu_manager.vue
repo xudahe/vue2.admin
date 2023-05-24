@@ -6,13 +6,13 @@
         <div slot="content"></div>
         <div style="text-align: right;">
           <!--快速查询字段-->
-          <el-input v-model="filters.name" style="width:160px;padding-right: 5px;" placeholder="菜单名称"></el-input>
+          <!-- <el-input v-model="filters.name" style="width:160px;padding-right: 5px;" placeholder="菜单名称"></el-input> -->
           <!--快速查询字段-->
-          <el-select v-model="filters.parentId" style="width:160px !important;padding-right: 5px;" placeholder="父级菜单"
+          <!-- <el-select v-model="filters.parentId" style="width:160px !important;padding-right: 5px;" placeholder="父级菜单"
             filterable clearable @change="searchData">
             <el-option v-for="(item, index) in parentData" :key="index" :label="item.menuName" :value="item.guid">
             </el-option>
-          </el-select>
+          </el-select> -->
           <!--操作按钮组-->
           <el-tooltip content="查询">
             <el-button type="primary" icon="el-icon-search" circle @click.native="searchData"></el-button>
@@ -43,7 +43,7 @@
             <el-form-item label="系统名称" prop="systemId">
               <el-select v-model="menuForm.systemId" placeholder="请选择系统名称" filterable clearable style="width: 100%;">
                 <el-option :label="item.systemName" :value="item.guid" :key="index"
-                  v-for="(item, index) in platformData"></el-option>
+                  v-for="(item, index) in systemData"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="加载方式" prop="loadWay">
@@ -126,8 +126,8 @@ export default {
       tableLabel: [
         // { label: '标识', param: 'id', width: '60', },
         // { label: '系统名称', param: 'systemName'},
+        { label: '菜单名称', param: 'menuName', align: "left" },
         { label: '路由地址', param: 'className' },
-        { label: '菜单名称', param: 'menuName' },
         { label: '父级菜单', param: 'parentName' },
         { label: '备注', param: 'remark' },
         { label: '排序', param: 'index', width: '60' },
@@ -214,16 +214,17 @@ export default {
       },
       menuForm: {},
 
-      platformData: [],
+      systemData: [],
     }
   },
   methods: {
     //获取菜单列表
     searchData() {
       let _this = this;
-      this.$ajax(this.$apiSet.getMenuInfo, {
-        menuName: this.filters.name,
-        parentId: this.filters.parentId,
+      // this.$ajax(this.$apiSet.getMenuInfo, {
+      this.$ajax(this.$apiSet.getMenuByIds, {
+        // menuName: this.filters.name,
+        // parentId: this.filters.parentId,
       })
         .then(res => {
           _this.loading = false;
@@ -243,7 +244,7 @@ export default {
           if (!res.data.success) {
             _this.$errorMsg(res.data.message)
           } else {
-           _this.parentData = res.data.response;
+            _this.parentData = res.data.response;
           }
         }).catch(err => { })
     },
@@ -313,7 +314,7 @@ export default {
         if (!res.data.success) {
           _this.$errorMsg(res.data.message)
         } else {
-          _this.platformData = res.data.response;
+          _this.systemData = res.data.response;
         }
       }).catch(err => { })
     },

@@ -14,7 +14,7 @@
 <template>
   <div class="role_manager card_css">
     <el-row :gutter="5" style="height:100%;">
-      <el-col :sm="24" :md="16" style="height:100%;">
+      <el-col :sm="24" :md="19" style="height:100%;">
         <el-card class="box-card" shadow="hover">
           <!--工具条-->
           <v-header icon="md-podium" text="角色列表">
@@ -40,10 +40,10 @@
             @handleSelectionChange="handleSelectionChange" @searchData="searchData"></e-table>
         </el-card>
       </el-col>
-      <el-col :sm="24" :md="8" style="height:100%;">
+      <el-col :sm="24" :md="5" style="height:100%;">
         <el-card class="box-card" shadow="hover">
           <v-header text="菜单分配">
-            <div slot="content" style="color:#67c23a;">{{ sels.roleName }}</div>
+            <div slot="content" style="color:#67c23a;margin-top: 5%;font-size: 0.16rem;">{{ sels.roleName }}</div>
             <div style="text-align: right;">
               <el-tooltip content="保存">
                 <el-button type="primary" icon="el-icon-check" circle :disabled="!showButton" @click.native="saveMenu">
@@ -52,36 +52,23 @@
             </div>
           </v-header>
           <div class="tree-box">
-
-            <Select v-model="sel_platformId" style="margin: 5px 0;" placeholder="请选择平台" @on-change="platFunction">
-              <Option v-for="item in platList" :value="item.guid" :key="item.guid">{{ item.platformName }}</Option>
-            </Select>
-            <div style="border: 1px #eee solid;height: calc(100% - 42px);">
-              <div v-if="systemList.length > 0"
-                style="float: left;width: 1.7rem;border-right: 1px #C5D9E8 solid;height: 100%;background-color: #f6fbff;overflow-y: auto;overflow-x: hidden;">
-                <el-button :type="sle_systemId == item.guid ? 'primary' : ''" :key='index'
-                  @click="systemFunction(item, index)" v-for="(item, index) in systemList"
-                  style="display: block;width: 100%;margin-left:0px;height: 45px;">
-                  {{ item.systemName }}
-                </el-button>
-              </div>
-              <div v-else
-                style="float: left;width: 1.7rem;padding-top: 5%;border-right: 1px #C5D9E8 solid;height: 100%;background-color: #f6fbff;overflow-y: auto;overflow-x: hidden;text-align: center;">
-                暂无数据
-              </div>
-              <div style="width:calc(100% - 1.7rem);height: 100%;overflow: auto;">
-                <el-tree ref="menutree" :data="menuData" :check-strictly="checkStrictly" :props="defaultProps"
-                  @node-click="nodeclick" default-expand-all show-checkbox node-key="guid" />
-              </div>
+            <el-select v-model="sle_systemId" style="padding: 5px 0;width: 100%;" placeholder="请选择平台"
+              @change="getMenuBySystem">
+              <el-option v-for="item in systemList" :value="item.guid" :label="item.systemName"
+                :key="item.guid"></el-option>
+            </el-select>
+            <div style="border: 1px #eee solid;height: calc(100% - 42px);overflow: auto;padding: 5px;">
+              <el-tree ref="menutree" :data="menuData" :check-strictly="checkStrictly" :props="defaultProps"
+                @node-click="nodeclick" default-expand-all show-checkbox node-key="guid" />
             </div>
-
           </div>
         </el-card>
       </el-col>
     </el-row>
 
     <!--弹出界面-->
-    <el-dialog :title="formTitle" :visible.sync="formVisible" v-model="formVisible" width="500px" :close-on-click-modal="false">
+    <el-dialog :title="formTitle" :visible.sync="formVisible" v-model="formVisible" width="500px"
+      :close-on-click-modal="false">
       <el-form :model="roleForm" label-width="80px" :rules="formRules" ref="roleForm">
         <el-form-item label="角色名称" prop="roleName">
           <el-input v-model="roleForm.roleName" autocomplete="off"></el-input>
@@ -126,7 +113,6 @@ export default {
       tableLabel: [
         { label: '角色编码', param: 'roleCode' },
         { label: '角色名称', param: 'roleName' },
-        // { label: '备注', param: 'remark' },
         {
           label: '更新时间', param: 'createTime', sortable: true, width: '160',
           formatter: row => {
@@ -172,6 +158,7 @@ export default {
             }
           },
         },
+        { label: '备注', param: 'remark' },
       ],
       tableOption: {
         label: '操作',
@@ -212,10 +199,7 @@ export default {
       },
 
 
-      platList: [],
       systemList: [],
-
-      sel_platformId: "",
       sle_systemId: "",
     }
   },
@@ -303,14 +287,14 @@ export default {
 
       this.$ajax(this.$apiSet.RoleByMenuId, {
         roleId: this.sels.guid,
-        platId: this.sel_platformId,
         systemId: this.sle_systemId,
         menuIds: ids.join(','),
       }).then(res => {
         if (!res.data.success) {
           _this.$errorMsg(res.data.message)
         } else {
-          _this.$success(res.data.message)
+          _this.searchData()
+          _this.$successMsg(res.data.message)
         }
       }).catch(err => { })
     },
@@ -337,16 +321,12 @@ export default {
       this.$ajax(apiUrl, this.roleForm)
         .then(res => {
           this.logining = false;
-
           if (!res.data.success) {
             _this.$errorMsg(res.data.message)
           } else {
             _this.formVisible = false;
             _this.searchData();
-            if (_this.formTitle == "菜单绑定")
-              _this.$successMsg("菜单绑定成功，请重新登录！")
-            else
-              _this.$successMsg(res.data.message)
+            _this.$successMsg(res.data.message)
           }
         }).catch(err => {
           this.logining = false;
@@ -364,45 +344,30 @@ export default {
         _this.$refs.menutree.setCheckedNodes([])
       })
     },
-
-    //获取平台列表
-    getPlatformData() {
+    //获取系统
+    getSystemInfo() {
       let _this = this;
-      this.$ajax(this.$apiSet.getPlatformInfo, {}).then(res => {
-        if (!res.data.success) {
-          _this.$errorMsg(res.data.message)
-        } else {
-          _this.platList = res.data.response;
-          if (_this.platList.length > 0) {
-            _this.sel_platformId = _this.platList[0].guid
-            _this.platFunction(_this.platList[0].guid)
-          }
-        }
-      }).catch(err => { })
-    },
-    //根据平台刷选 系统
-    platFunction(value) {
-      let _this = this;
-      let item = _this.platList.filter(item => item.guid == value)
 
       this.$ajax(this.$apiSet.getSystemInfo, {
-        ids: item[0].systemIds
+        ids: ""
       }).then(res => {
         if (!res.data.success) {
           _this.$errorMsg(res.data.message)
         } else {
           _this.systemList = res.data.response;
-          if (_this.systemList.length > 0) _this.systemFunction(_this.systemList[0]);
+          if (_this.systemList.length > 0) {
+            _this.sle_systemId = _this.systemList[0].guid;
+            _this.getMenuBySystem(_this.sle_systemId);
+          }
         }
       }).catch(err => { })
     },
     //根据系统刷选 菜单
-    systemFunction(item, index) {
+    getMenuBySystem(value) {
       let _this = this;
-      _this.sle_systemId = item.guid;
 
       this.$ajax(this.$apiSet.GetMenuBySystemId, {
-        systemId: item.guid
+        systemId: value
       }).then(res => {
         if (!res.data.success) {
           _this.$errorMsg(res.data.message)
@@ -414,8 +379,7 @@ export default {
   },
   mounted() {
     this.refreshData();
-
-    this.getPlatformData();
+    this.getSystemInfo();
   }
 };
 </script>
@@ -428,6 +392,5 @@ export default {
 
 .role_manager .tree-box {
   height: calc(100% - 32px);
-  overflow: auto;
 }
 </style>
