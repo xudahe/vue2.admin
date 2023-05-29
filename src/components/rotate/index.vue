@@ -115,6 +115,9 @@ export default {
       // 移除 container_dom 元素的 mousemove（鼠标在当前元素内移动的事件）
       _this.container_dom.removeEventListener('mousemove', this.handleMouseMove.bind(this));
 
+      if (!this.$isNull(_this.play)) {
+        clearInterval(_this.play);
+      }
       //开始周期性计时器，每30毫秒触发一次
       _this.play = setInterval(function () {
 

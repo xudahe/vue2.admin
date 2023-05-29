@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import notes from "../../components/notes/index1.vue";
+import notes from "@/components/notes/index1.vue";
 
 export default {
   name: "t-markdown",

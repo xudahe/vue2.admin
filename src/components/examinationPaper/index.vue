@@ -471,7 +471,9 @@ export default {
      */
     countDowm() {
       let self = this
-      clearInterval(this.promiseTimer)
+      if (!this.$isNull(this.promiseTimer)) {
+        clearInterval(this.promiseTimer);
+      }
       this.promiseTimer = setInterval(function () {
         if (self.hour === 0 && self.minute === 0 && self.second === 0) {
           self.disabledAnswer = true;

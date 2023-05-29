@@ -105,7 +105,10 @@ export default {
     },
     //自动重置验证码
     setRefreshCode() {
-      window.clearInterval(this.timeCode);
+      if (!this.$isNull(this.timeCode)) {
+        clearInterval(this.timeCode);
+      }
+
       this.refreshCode();
 
       let _this = this;

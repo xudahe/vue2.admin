@@ -229,8 +229,8 @@ export default {
       }
     },
     stopTimer() {
-      if (this.timer) {
-        clearInterval(this.timer)
+      if (!this.$isNull(this.timer)) {
+        clearInterval(this.timer);
       }
     },
     preview() {
@@ -309,5 +309,4 @@ export default {
     margin: 0 5px;
   }
 }
-
 </style>

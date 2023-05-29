@@ -18,8 +18,8 @@
       <i class="el-icon-arrow-right" />
     </div>
     <div class="swiper-dots" v-show="dots">
-      <el-button circle size="mini" v-for="(item, index) in imgList.length" :key="index" :class="{ actives: index == dotsIndex }"
-        @click="toDots(index)">{{ item }}</el-button>
+      <el-button circle size="mini" v-for="(item, index) in imgList.length" :key="index"
+        :class="{ actives: index == dotsIndex }" @click="toDots(index)">{{ item }}</el-button>
     </div>
   </div>
 </template>
@@ -135,8 +135,10 @@ export default {
       this.dotsIndex = this.imgIndex = index;
     },
     autoPlay() {
-      if (this.auto) {
+      if (!this.$isNull(this.autoer)) {
         clearInterval(this.autoer);
+      }
+      if (this.auto) {
         this.autoer = setInterval(() => {
           this.toRight();
         }, this.autoTime)

@@ -7,7 +7,7 @@ export default {
         /**
          * @desc 数组对象 根据关键字排序
          * sort会改变原数据，无需return
-         * @param {arr:数据源，column:参与排序字段，order：asc正序，desc倒叙}  
+         * @param {arrObj:数据源，column:参与排序字段，order：asc正序，desc倒叙}  
          * @return {} 
          */
         arrObjSort(arrObj, column, order) {

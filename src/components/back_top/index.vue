@@ -1,6 +1,7 @@
 <template>
   <div class="back-top" ref="backtop">
-    <el-button :type="backTopOptions.type" :icon="backTopOptions.icon" :circle="backTopOptions.isCircle" class="to-top" @click.native="backTop">
+    <el-button :type="backTopOptions.type" :icon="backTopOptions.icon" :circle="backTopOptions.isCircle" class="to-top"
+      @click.native="backTop">
       <slot />
     </el-button>
   </div>
@@ -57,6 +58,10 @@ export default {
   mounted() {
     let _this = this;
     this.initialStyle();
+
+    if (!this.$isNull(this.timer)) {
+      clearInterval(this.timeout);
+    }
     this.timeout = setInterval(() => {
       if (document.querySelector(_this.backTopOptions.target)) {
         _this.initialListener();
@@ -121,6 +126,7 @@ export default {
   bottom: 60px;
   transition: 0.3s;
 }
+
 .to-top {
   position: relative;
   transform: scale(0);

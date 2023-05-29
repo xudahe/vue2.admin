@@ -20,8 +20,7 @@ export default {
   created() { },
   mounted() {
     // 创建定时器更新最新的时间
-    var _this = this;
-    const timer = setInterval(function () {
+    let timer = setInterval(function () {
       let dt = new Date();
       var y = dt.getFullYear();
       var mt = padaDate(dt.getMonth() + 1);
