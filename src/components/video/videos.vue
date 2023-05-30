@@ -9,11 +9,11 @@
 				</div>
 				<div class="video-trees">
 					<el-tree ref="trees" :data="treeData" :props="defaultProps" highlight-current node-key="id"
-						@node-click="handleNodeClickS" :default-expanded-keys="[1]">
+						@node-click="handleNodeClickS" :default-expanded-keys="[treeData[0].id]">
 						<template #default="{ node, data }">
 							<span class="custom-tree-node">
 								<span v-if="data.videos && data.videos.length">{{ node.label }}</span>
-								<span v-else :class="{ 'video-choose-active': playUrlList.indexOf(data.vurl) > -1 }">
+								<span v-else :class="{ 'video-choose-active': playCodeList.indexOf(data.vcode) > -1 }">
 									{{ node.label }}
 								</span>
 							</span>
@@ -91,19 +91,19 @@ export default {
 							id: 14,
 							vcode: '1414',
 							vname: '视频1-4',
-							vurl: '',
+							vurl: 'https://media.w3.org/2010/05/sintel/trailer.mp4',
 						},
 						{
 							id: 15,
 							vcode: '1515',
 							vname: '视频1-5',
-							vurl: '',
+							vurl: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
 						},
 						{
 							id: 16,
 							vcode: '1616',
 							vname: '视频1-6',
-							vurl: '',
+							vurl: 'http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8',
 						},
 					],
 				},
@@ -121,6 +121,14 @@ export default {
 				{
 					name: '2×2',
 					nums: 4,
+				},
+				{
+					name: '3×3',
+					nums: 9,
+				},
+				{
+					name: '4×4',
+					nums: 16,
 				},
 				{
 					name: '1+5',
@@ -161,6 +169,7 @@ export default {
 				this.isShowVideos = true
 
 				this.$nextTick(() => {
+					console.log(this.playCodeList)
 					// 视频已选中播放
 					if (this.playCodeList.indexOf(vcode) > -1) {
 						this.$message('该视频已选中播放', 'error')
@@ -236,11 +245,10 @@ export default {
 		},
 		// 分栏管理选中改变
 		changeLayout({ name, nums }) {
-			debugger
 			// 当前分栏重复选择
 			if (this.layoutName == name) return
 			// 没有选中视频的时候，不允许切换分栏
-			if (!this.playCodeList.length) return
+			if (!this.playCodeList.length) return this.$message('请先选择视频', 'error')
 			// 赋值上一个分栏窗口数，用作对比
 			this.oldLayoutNum = this.layoutNum
 			// 赋值页面的窗口数
@@ -321,7 +329,7 @@ export default {
 	padding-bottom: 10px;
 	text-align: left;
 	background-color: #ecf1f4;
-	padding-top: 10px;
+	padding: 5px;
 
 	.titles {
 		padding: 0.25rem 0.28rem;
@@ -336,6 +344,7 @@ export default {
 	}
 
 	.lefts {
+		margin-right: 5px;
 		float: left;
 		width: 20%;
 		height: 100%;
@@ -353,7 +362,7 @@ export default {
 
 	.centers {
 		float: left;
-		width: 60%;
+		width: calc(60% - 10px);
 		height: 100%;
 		background: #ffffff;
 		border-radius: 15px;
@@ -378,6 +387,7 @@ export default {
 	}
 
 	.rights {
+		margin-left: 5px;
 		float: left;
 		width: 20%;
 		height: 100%;

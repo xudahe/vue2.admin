@@ -40,8 +40,10 @@ import 'videojs-contrib-hls'
 import videojs from 'video.js'
 import 'video.js/dist/video-js.css'
 export default {
+	components: {},
 	data() {
 		return {
+			drag: false,
 			// layoutNum: 1,
 			playerList: [], //  视频播放控件合集
 			chooseIndex: -1, // 选中值   从 0 开始
@@ -71,8 +73,7 @@ export default {
 				language: 'zh-CN', // 设置语言
 				// aspectRatio: '3:1',
 				inactivityTimeout: false,
-				controlBar: {
-					// 设置控制条组件
+				controlBar: {// 设置控制条组件
 					/* 设置控制条里面组件的相关属性及显示与否
 					'currentTimeDisplay':true,
 					'timeDivider':true,
@@ -95,13 +96,13 @@ export default {
 						},
 						{
 							name: 'volumePanel', // 音量控制
-							inline: false, // 不使用水平方式
+							inline: false, // 不使用水平方式 将音量横向改为纵向
 						},
 						{ name: 'FullscreenToggle' }, // 全屏
 					],
 				},
 				language: 'zh-CN',
-				poster: '', //播放前显示的视频画面，播放开始之后自动移除
+				poster: 'http://vjs.zencdn.net/v/oceans.png', //播放前显示的视频画面，播放开始之后自动移除
 				preload: 'auto', //预加载
 				// width: 650,
 				// height: 330,
@@ -685,12 +686,16 @@ export default {
 		width: 33.33%;
 		height: 33.33% !important;
 		box-sizing: border-box;
+		border-bottom: 1px solid #fff;
+		border-left: 1px solid #fff;
 	}
 
 	.cell-player-16 {
 		width: 25%;
 		height: 25% !important;
 		box-sizing: border-box;
+		border-bottom: 1px solid #fff;
+		border-left: 1px solid #fff;
 	}
 
 	.cell {

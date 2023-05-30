@@ -88,27 +88,6 @@ export default {
           showTool: false,
           content: "内容9"
         },
-        {
-          id: 1,
-          title: "文件名 1",
-          time: new Date(),
-          showTool: false,
-          content: "内容1"
-        },
-        {
-          id: 2,
-          title: "文件名 2",
-          time: new Date(),
-          showTool: false,
-          content: "内容2"
-        },
-        {
-          id: 3,
-          title: "文件名 3",
-          time: new Date(),
-          showTool: false,
-          content: "内容3"
-        }
       ],
       fileItem: {
         title: "",
