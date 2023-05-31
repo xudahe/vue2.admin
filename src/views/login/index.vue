@@ -1,64 +1,75 @@
 <!-- 应用系统登录 -->
 <template>
-  <div class="login-container">
-    <el-form :model="loginForm" status-icon ref="loginForm" label-position="left" label-width="0px"
-      class="demo-ruleForm login-page">
-      <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-        <el-menu-item index="1">帐号登陆</el-menu-item>
-        <el-menu-item index="2">短信登陆</el-menu-item>
-      </el-menu>
-      <el-row :span="24" style="margin-top: 22px;">
-        <el-form-item prop="username" style="border-bottom: 1px solid #eeeeee;">
-          <el-col :span="6">
-            <Icon type="ios-people" :size="20" />&nbsp;用户名：
-          </el-col>
-          <el-col :span="18">
-            <el-input type="text" v-model="loginForm.username" autocomplete="off" placeholder="请输入用户民" clearable
-              @keydown.enter.native="nextFocus(0)" />
-          </el-col>
-        </el-form-item>
-        <el-form-item prop="username" style="border-bottom: 1px solid #eeeeee;">
-          <el-col :span="6">
-            <Icon type="ios-lock" :size="20" />&nbsp;密&nbsp;&nbsp;&nbsp;码：
-          </el-col>
-          <el-col :span="18">
-            <el-input type="text" v-model="loginForm.password" autocomplete="off" placeholder="请输入密码" show-password
-              @keydown.enter.native="nextFocus(1)" />
-          </el-col>
-        </el-form-item>
-        <el-form-item prop="code" style="border-bottom: 1px solid #eeeeee;">
-          <el-col :span="6">
-            <Icon type="md-images" :size="20" />&nbsp;验证码：
-          </el-col>
-          <el-col :span="12">
-            <el-input type="text" v-model="loginCode" autocomplete="off" placeholder="请输入验证码" clearable
-              @keydown.enter.native="nextFocus(2)" />
-          </el-col>
-          <el-col :span="6">
-            <div class="login-code" @click="setRefreshCode">
-              <s-identify :identifyCode="identifyCode" :fontSizeMax="25" :contentWidth="80"></s-identify>
-            </div>
-          </el-col>
-        </el-form-item>
-        <el-form-item style="width:100%;">
-          <el-col :span="24">
-            <el-button type="primary" style="width:100%;" @click.native.prevent="loginSubmit" :loading="logining">{{
-              loadName }}</el-button>
-          </el-col>
-        </el-form-item>
-        <el-col :span="12">
-          <el-checkbox v-model="checkboxValue" class="rememberme">记住密码</el-checkbox>
-        </el-col>
-        <el-col :span="12" style="text-align: right;">
-          <a>忘记密码</a>
-        </el-col>
-      </el-row>
-    </el-form>
+  <div class="login-page">
+    <div class="login-container">
+      <div class="container-left">
+
+      </div>
+      <div class="container-right">
+        <el-form :model="loginForm" status-icon ref="loginForm" label-position="left" label-width="0px"
+          class="login-form">
+          <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+            <el-menu-item index="1">帐号登陆</el-menu-item>
+            <el-menu-item index="2">账号注册</el-menu-item>
+          </el-menu>
+          <el-row :span="24" style="margin-top: 22px;" v-if="activeIndex == '1'">
+            <el-form-item prop="username" style="border-bottom: 1px solid #eeeeee;">
+              <el-col :span="6">
+                <Icon type="ios-people" :size="20" />&nbsp;用户名：
+              </el-col>
+              <el-col :span="18">
+                <el-input type="text" v-model="loginForm.username" autocomplete="off" placeholder="请输入账号" clearable
+                  @keydown.enter.native="nextFocus(0)" />
+              </el-col>
+            </el-form-item>
+            <el-form-item prop="username" style="border-bottom: 1px solid #eeeeee;">
+              <el-col :span="6">
+                <Icon type="ios-lock" :size="20" />&nbsp;密&nbsp;&nbsp;&nbsp;码：
+              </el-col>
+              <el-col :span="18">
+                <el-input type="text" v-model="loginForm.password" autocomplete="off" placeholder="请输入密码" show-password
+                  @keydown.enter.native="nextFocus(1)" />
+              </el-col>
+            </el-form-item>
+            <el-form-item prop="code" style="border-bottom: 1px solid #eeeeee;">
+              <el-col :span="6">
+                <Icon type="md-images" :size="20" />&nbsp;验证码：
+              </el-col>
+              <el-col :span="12">
+                <el-input type="text" v-model="loginCode" autocomplete="off" placeholder="请输入验证码" clearable
+                  @keydown.enter.native="nextFocus(2)" />
+              </el-col>
+              <el-col :span="6">
+                <div class="login-code" @click="setRefreshCode">
+                  <s-identify :identifyCode="identifyCode" :fontSizeMax="25" :contentWidth="80"></s-identify>
+                </div>
+              </el-col>
+            </el-form-item>
+            <el-form-item style="width:100%;">
+              <el-col :span="24">
+                <el-button type="primary" style="width:100%;" @click.native.prevent="loginSubmit" :loading="logining">
+                  {{ loadName }}
+                </el-button>
+              </el-col>
+            </el-form-item>
+            <el-col :span="12" style="text-align: left;">
+              <el-checkbox v-model="checkboxValue" class="rememberme">记住密码</el-checkbox>
+            </el-col>
+            <el-col :span="12" style="text-align: right;">
+              <a>忘记密码</a>
+            </el-col>
+          </el-row>
+          <el-row :span="24" style="margin-top: 22px;" v-else>
+
+          </el-row>
+        </el-form>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+
 import Cookies from "js-cookie";
 import { encrypt, decrypt } from "@/utils/encrypt"; //密码加密
 
@@ -101,7 +112,7 @@ export default {
         this.identifyCode += this.identifyCodes[this.randomNum(0, this.identifyCodes.length)];
       }
       this.loginCode = JSON.parse(JSON.stringify(this.identifyCode))
-      console.log("验证码："+this.loginCode);
+      console.log("验证码：" + this.loginCode);
     },
     //自动重置验证码
     setRefreshCode() {
@@ -179,10 +190,8 @@ export default {
             _this.$errorMsg(res.data.message);
           } else {
             if (_this.checkboxValue == true) {
-              Cookies.set("UID", _this.loginForm.username, { expires: 3 });
-              Cookies.set("PSW", encrypt(_this.loginForm.password), {
-                expires: 3
-              });
+              Cookies.set("UID", _this.loginForm.username, { expires: 3 }); // 3天后失效
+              Cookies.set("PSW", encrypt(_this.loginForm.password), { expires: 3 });
             }
             var source = res.data.response;
 
@@ -278,33 +287,64 @@ export default {
 </script>
 
 <style lang="less">
-.login-container {
+.login-page {
   width: 100%;
   height: 100%;
-  padding: 8% 50%;
-  background-image: linear-gradient(120deg,
-      #00a7f5 45%,
-      #0cb3ff 40%); //渐变背景
+  background-image: linear-gradient(90deg, #00a7f5 50%, #0cb3ff 50%); //渐变背景
 
   .el-input__inner {
     border: none !important;
   }
+}
 
-  .login-page {
-    color: #868484;
-    font-weight: 400;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    width: 400px;
-    padding: 15px 35px;
-    background: #fff;
-    border: 1px solid #eaeaea;
-    box-shadow: 0 0 25px #cac6c6; //添加阴影
-  }
+.login-page .login-container {
+  width: 900px;
+  height: 400px;
+  color: #868484;
+  border-radius: 5px;
+  box-shadow: 0 0 25px #cac6c6; //添加阴影
 
-  label.el-checkbox.rememberme {
-    margin: 0px 0px 15px;
-    text-align: left;
-  }
+  /* 方法一：这个方法要知道div的宽度和高度。对div使用绝对布局position:absolute;并把top和left的值都设置为50%；50%就是指页面窗口的宽度和高度的50%；最后将div左移和上移，左移和上移的大小为div宽度和高度的一半。 */
+  // position: absolute;
+  // top: 50%;
+  // left: 50%;
+  // margin-left: -450px;
+  // margin-top: -200px;
+
+  /* 方法二：div使用绝对定位position：absolute，并且设置left和top的值都为50%。使用css3的transform属性。transform：translate（-50%，-50%）。 */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  /*  方法三：对div使用绝对布局position:absolute;并设置top，left，right，bottom的值相等，但不一定都等于0；并且设置margin:auto。*/
+  // position: absolute;
+  // top: 0;
+  // left: 0;
+  // right: 0;
+  // bottom: 0;
+  // margin: auto;
+}
+
+.login-page .login-container .container-left {
+  width: 50%;
+  height: 100%;
+  float: left;
+
+  border-radius: 5px;
+  background-image: url('@/assets/login/login-left.jpg');
+  background-size: 100% 100%;
+}
+
+
+.login-page .login-container .container-right {
+  width: 50%;
+  height: 100%;
+  float: left;
+  background: #fff;
+
+  color: #868484;
+  font-weight: 400;
+  padding: 15px 45px;
 }
 </style>

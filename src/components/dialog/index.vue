@@ -207,7 +207,6 @@ export default {
   overflow-x: hidden;
   max-height: 600px;
 
-  content: '';
   background-color: rgba(230, 230, 230, 0.5);
   backdrop-filter: blur(5px);
 }

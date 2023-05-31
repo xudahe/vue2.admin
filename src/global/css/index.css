@@ -83,16 +83,8 @@
      animation-timing-function: ease-out;
      animation-fill-mode: both;
    }
-
+  
    .fade-in-right1 {
-     -webkit-animation: fade-in-right 0.5s;
-     animation: fade-in-right 0.5s;
-     -webkit-animation-timing-function: ease-out;
-     animation-timing-function: ease-out;
-     animation-fill-mode: both;
-   }
-
-   .fade-in-right2 {
      -webkit-animation: fade-in-right 0.5s;
      animation: fade-in-right 0.5s;
      -webkit-animation-timing-function: ease-out;
@@ -103,31 +95,7 @@
      -webkit-animation-delay: 0.2s;
      animation-delay: 0.2s;
    }
-
-   .fade-in-right3 {
-     -webkit-animation: fade-in-right 0.5s;
-     animation: fade-in-right 0.5s;
-     -webkit-animation-timing-function: ease-out;
-     animation-timing-function: ease-out;
-     animation-fill-mode: both;
-
-     /**延迟动画**/
-     -webkit-animation-delay: 0.4s;
-     animation-delay: 0.4s;
-   }
-
-   .fade-in-right4 {
-     -webkit-animation: fade-in-right 0.5s;
-     animation: fade-in-right 0.5s;
-     -webkit-animation-timing-function: ease-out;
-     animation-timing-function: ease-out;
-     animation-fill-mode: both;
-
-     /**延迟动画**/
-     -webkit-animation-delay: 0.6s;
-     animation-delay: 0.6s;
-   }
-
+  
    @-webkit-keyframes fade-in-right {
      0% {
        -webkit-transform: translateX(-100%);
@@ -167,40 +135,10 @@
      -webkit-animation-timing-function: ease-out;
      animation-timing-function: ease-out;
      animation-fill-mode: both;
-   }
 
-   .fade-in-left2 {
-     -webkit-animation: fade-in-left 0.5s;
-     animation: fade-in-left 0.5s;
-     -webkit-animation-timing-function: ease-out;
-     animation-timing-function: ease-out;
-     animation-fill-mode: both;
-     /**动画开始之前先隐藏**/
+     /**延迟动画**/
      -webkit-animation-delay: 0.2s;
-     /**延迟动画**/
      animation-delay: 0.2s;
-   }
-
-   .fade-in-left3 {
-     -webkit-animation: fade-in-left 0.5s;
-     animation: fade-in-left 0.5s;
-     -webkit-animation-timing-function: ease-out;
-     animation-timing-function: ease-out;
-     animation-fill-mode: both;
-     -webkit-animation-delay: 0.4s;
-     /**延迟动画**/
-     animation-delay: 0.4s;
-   }
-
-   .fade-in-left4 {
-     -webkit-animation: fade-in-left 0.5s;
-     animation: fade-in-left 0.5s;
-     -webkit-animation-timing-function: ease-out;
-     animation-timing-function: ease-out;
-     animation-fill-mode: both;
-     -webkit-animation-delay: 0.6s;
-     /**延迟动画**/
-     animation-delay: 0.6s;
    }
 
    @-webkit-keyframes fade-in-left {
