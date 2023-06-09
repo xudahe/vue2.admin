@@ -5,9 +5,6 @@ Vue.use(VueRouter)
 import Login from "@/views/login/index"
 import Layout from "@/views/layout/index"
 
-const viewport = {
-  content: "width=device-width, initial-scale=1.0, user-scalable=no"
-}
 
 //路由懒加载：减少首次加载时从服务器请求的组件，当路由被访问时，再从服务器请求对应组件。
 //使用动态的import()语法,不是必须加载的组件使用懒加载

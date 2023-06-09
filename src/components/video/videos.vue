@@ -115,19 +115,19 @@ export default {
 			// 视频页面的分栏设置
 			setImgs: [
 				{
-					name: '1×1',
+					name: '1x1',
 					nums: 1,
 				},
 				{
-					name: '2×2',
+					name: '2x2',
 					nums: 4,
 				},
 				{
-					name: '3×3',
+					name: '3x3',
 					nums: 9,
 				},
 				{
-					name: '4×4',
+					name: '4x4',
 					nums: 16,
 				},
 				{
@@ -139,7 +139,7 @@ export default {
 					nums: 8,
 				},
 			],
-			layoutName: '1×1', // 分栏管理的选中值
+			layoutName: '1x1', // 分栏管理的选中值
 			layoutNum: 1, // 分栏窗口数
 			oldLayoutNum: 1, // 旧的分栏窗口数
 			isShowVideos: false,

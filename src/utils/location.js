@@ -387,6 +387,7 @@ export const location = {
         });
       });
 
+      //通过城市名称、区域编码（如『杭州市』、『330100』），查询目标城市/区域的实时天气状况。
       function getWeather(adcode) {
         //加载天气查询插件 https://lbs.amap.com/api/javascript-api/guide/services/weather/
         AMap.plugin('AMap.Weather', function () {

@@ -15,7 +15,7 @@
           <el-row :span="24" style="margin-top: 22px;" v-if="activeIndex == '1'">
             <el-form-item prop="username" style="border-bottom: 1px solid #eeeeee;">
               <el-col :span="6">
-                <Icon type="ios-people" :size="20" />&nbsp;用户名：
+                <Icon type="ios-people" :size="20" />&nbsp;账&nbsp;&nbsp;&nbsp;号：
               </el-col>
               <el-col :span="18">
                 <el-input type="text" v-model="loginForm.username" autocomplete="off" placeholder="请输入账号" clearable
@@ -330,8 +330,9 @@ export default {
   width: 50%;
   height: 100%;
   float: left;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
 
-  border-radius: 5px;
   background-image: url('@/assets/login/login-left.jpg');
   background-size: 100% 100%;
 }
@@ -342,6 +343,8 @@ export default {
   height: 100%;
   float: left;
   background: #fff;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
 
   color: #868484;
   font-weight: 400;

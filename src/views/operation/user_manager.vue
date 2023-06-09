@@ -60,7 +60,7 @@
               <el-input v-model="userForm.realName" autocomplete="off" clearable></el-input>
             </el-form-item>
             <el-form-item label="出生日期">
-              <el-date-picker type="date" placeholder="选择出生日期" v-model="userForm.birth"></el-date-picker>
+              <el-date-picker type="date" placeholder="选择出生日期" v-model="userForm.birth" :editable="false"></el-date-picker>
             </el-form-item>
             <el-form-item label="联系方式" prop="mobile">
               <el-input v-model="userForm.mobile" placeholder="请填写联系方式" autocomplete="off" clearable></el-input>

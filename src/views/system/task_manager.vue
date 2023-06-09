@@ -83,10 +83,10 @@
               </el-radio-group>
             </el-form-item>
             <el-form-item label="开始时间" prop="startTime">
-              <el-date-picker type="date" placeholder="执行开始时间" v-model="taskForm.startTime"></el-date-picker>
+              <el-date-picker type="date" placeholder="执行开始时间" v-model="taskForm.startTime" :editable="false"></el-date-picker>
             </el-form-item>
             <el-form-item label="结束时间" prop="endTime">
-              <el-date-picker type="date" placeholder="执行结束时间" v-model="taskForm.endTime"></el-date-picker>
+              <el-date-picker type="date" placeholder="执行结束时间" v-model="taskForm.endTime" :editable="false"></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="24">
