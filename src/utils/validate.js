@@ -22,6 +22,16 @@ export function isPhone(s) {
   return /^([0-9]{3,4}-)?[0-9]{7,8}$/.test(s)
 }
 
+// 校验是否为中国大陆手机号
+export function isTel(value) {
+  return /^1[3,4,5,6,7,8,9][0-9]{9}$/.test(value.toString());
+}
+
+// 校验是否为中国大陆传真或固定电话号码
+export function isFax(str) {
+  return /^([0-9]{3,4})?[0-9]{7,8}$|^([0-9]{3,4}-)?[0-9]{7,8}$/.test(str);
+}
+
 /**
  * @description 验证是否为网络地址
  * 校验规则：
@@ -33,11 +43,18 @@ export function isURL(str) {
   return /^(https:\/\/|http:\/\/|ftp:\/\/|rtsp:\/\/|mms:\/\/)?[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*$/.test(str);
 }
 
+/**
+ * 获取顶部地址栏地址
+ */
+export const getTopUrl = () => {
+  return window.location.href.split("/#/")[0];
+}
+
 // 获取URL中的某参数值,不区分大小写,
 // 默认是取'hash'里的参数，
 // 如果传其他参数支持取‘search’中的参数
 // @param {String} name 参数名称
-export function getUrlParam(name, type = "hash") {
+export function getTopUrlParam(name, type = "hash") {
   let newName = name,
     reg = new RegExp("(^|&)" + newName + "=([^&]*)(&|$)", "i"),
     paramHash = window.location.hash.split("?")[1] || "",
@@ -86,7 +103,7 @@ export function getUrl() {
 
 // 获得URL中GET参数值
 // 用法：如果地址是 test.htm?t1=1&t2=2&t3=3, 那么能取得：GET["t1"], GET["t2"], GET["t3"]
-export function getGet() {
+export function getTopUrlGet() {
   querystr = window.location.href.split("?");
   if (querystr[1]) {
     GETs = querystr[1].split("&");
@@ -148,31 +165,21 @@ export function isDigit(value) {
   }
 }
 
-// 校验是否为中国大陆手机号
-export function isTel(value) {
-  return /^1[3,4,5,6,7,8,9][0-9]{9}$/.test(value.toString());
-}
-
-// 校验是否为中国大陆传真或固定电话号码
-export function isFax(str) {
-  return /^([0-9]{3,4})?[0-9]{7,8}$|^([0-9]{3,4}-)?[0-9]{7,8}$/.test(str);
-}
-
 // 校验是否为QQ号码
 // 校验规则： 非0开头的5位-13位整数
 export function isQQ(value) {
   return /^[1-9][0-9]{4,12}$/.test(value.toString());
 }
 
-// 校验是否为 数字
-export function isNum(value, floats = null) {
+// 校验是否为 数字(正数，负数，小数)
+export function isNumber(value, floats = null) {
   let regexp = new RegExp(`^[1-9][0-9]*.[0-9]{${floats}}$|^0.[0-9]{${floats}}$`);
   return typeof value === 'number' && floats ? regexp.test(String(value)) : true;
 }
 
 // 校验是否为非零的正整数
 export function isInt(value, minLength = null, maxLength = undefined) {
-  if (!isNum(value)) return false;
+  if (!isNumber(value)) return false;
 
   let regexp = new RegExp(`^-?[1-9][0-9]${anysicIntLength(minLength,maxLength)}$`);
   return regexp.test(value.toString());
@@ -180,7 +187,7 @@ export function isInt(value, minLength = null, maxLength = undefined) {
 
 // 校验是否为非零的正整数
 export function isPInt(value, minLength = null, maxLength = undefined) {
-  if (!isNum(value)) return false;
+  if (!isNumber(value)) return false;
 
   let regexp = new RegExp(`^[1-9][0-9]${anysicIntLength(minLength,maxLength)}$`);
   return regexp.test(value.toString());
@@ -188,7 +195,7 @@ export function isPInt(value, minLength = null, maxLength = undefined) {
 
 // 校验是否为非零的负整数
 export function isNInt(value, minLength = null, maxLength = undefined) {
-  if (!isNum(value)) return false;
+  if (!isNumber(value)) return false;
   let regexp = new RegExp(`^-[1-9][0-9]${anysicIntLength(minLength,maxLength)}$`);
   return regexp.test(value.toString());
 }

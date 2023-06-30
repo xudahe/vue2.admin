@@ -5,10 +5,11 @@ export default {
     data() {},
     methods: {
         /**
-         * @desc 数组对象 根据关键字排序
-         * sort会改变原数据，无需return
-         * @param {arrObj:数据源，column:参与排序字段，order：asc正序，desc倒叙}  
-         * @return {} 
+         * @description 数组对象 根据关键字排序 sort会改变原数据，无需return
+         * @param {Array} arrObj 数据源
+         * @param {String} column 参与排序字段
+         * @param {String} order asc正序，desc倒叙
+         * @return {Array} 
          */
         arrObjSort(arrObj, column, order) {
             //转换大写
@@ -27,9 +28,9 @@ export default {
             }
         },
         /**
-         * @desc 数组对象 根据去除重复元素
-         * @param {arrObj:数据源，name:根据去重的字段名}  
-         * @return []
+         * @description 数组对象 根据去除重复元素
+         * @param {Array} arrObj 数据源
+         * @param {String} name 根据去重的字段名}  
          */
         unique(arrObj, name) {
             var hash = {};

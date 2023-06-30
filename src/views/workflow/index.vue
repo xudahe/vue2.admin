@@ -28,23 +28,18 @@
 </template>
   
 <script>
-
 export default {
     name: "Index",
     components: {},
     data() {
         return {
             select: [],
-            loginUser: ''
-        }
+            loginUser: "",
+        };
     },
-    mounted() {
-
-    },
-    methods: {
-
-    }
-}
+    mounted() { },
+    methods: {},
+};
 </script>
   
 <style lang="less" scoped>
@@ -114,7 +109,6 @@ h4 {
             }
         }
     }
-
 }
 </style>
   

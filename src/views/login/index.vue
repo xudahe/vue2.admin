@@ -72,6 +72,10 @@
 
 import Cookies from "js-cookie";
 import { encrypt, decrypt } from "@/utils/encrypt"; //密码加密
+import {
+  setStore,
+  getStore,
+} from '@/utils/storage'
 
 var publicPath = process.env.BASE_URL;
 export default {
@@ -134,8 +138,8 @@ export default {
       }, 1000);
     },
     cookies() {
-      let name = Cookies.get("UID");
-      let psw = Cookies.get("PSW");
+      let name = Cookies.get("XUDH-UID");
+      let psw = Cookies.get("XUDH-PSW");
       if (name && name != undefined) {
         this.loginForm.username = name;
       }
@@ -190,8 +194,8 @@ export default {
             _this.$errorMsg(res.data.message);
           } else {
             if (_this.checkboxValue == true) {
-              Cookies.set("UID", _this.loginForm.username, { expires: 3 }); // 3天后失效
-              Cookies.set("PSW", encrypt(_this.loginForm.password), { expires: 3 });
+              Cookies.set("XUDH-UID", _this.loginForm.username, { expires: 3 }); // 3天后失效
+              Cookies.set("XUDH-PSW", encrypt(_this.loginForm.password), { expires: 3 });
             }
             var source = res.data.response;
 
@@ -227,7 +231,11 @@ export default {
             _this.loginEnd();
 
             let loginInfo = res.data.response;
-            window.localStorage.loginInfo = JSON.stringify(loginInfo);
+
+            setStore({
+              name: 'loginInfo',
+              content: loginInfo
+            });
 
             setTimeout(() => {
               _this.$router.push({ path: "/home" }); //登录成功之后重定向到首页
@@ -250,9 +258,6 @@ export default {
     },
   },
   mounted() {
-    // 清除状态保持
-    window.localStorage.clear()
-    window.sessionStorage.clear();
     // 状态保持清除后刷新页面(只刷新当前页面一次)
     // if (window.location.href.indexOf("#reloaded") == -1) {
     //   window.location.href = window.location.href + "#reloaded";

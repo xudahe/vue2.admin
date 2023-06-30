@@ -4,20 +4,18 @@ export default {
     isEdit: null,
     selectedNode: {},
     selectFormItem: null,
-    design:{},
+    design: {},
   },
   mutations: {
     selectedNode(state, val) {
-      state.selectedNode = val
+      state.selectedNode = val;
     },
-    loadForm(state, val){
-      state.design = val
+    loadForm(state, val) {
+      state.design = val;
     },
-    setIsEdit(state, val){
-      state.isEdit = val
-    }
+    setIsEdit(state, val) {
+      state.isEdit = val;
+    },
   },
-  actions: {
-
-  }
-}
+  actions: {},
+};

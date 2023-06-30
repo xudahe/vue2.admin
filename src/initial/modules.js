@@ -49,8 +49,6 @@ import SetStyle from '@/api/dom/set_style'
 import SetPage from '@/api/dom/page_class'
 // 引入设置元素类模块
 import SetClass from '@/api/dom/set_class'
-// 引入插入元素模块
-import InsertAfter from '@/api/dom/insert_after'
 // 引入文本复制模块
 import Copy from '@/api/dom/copy'
 // 引入全屏函数
@@ -65,8 +63,6 @@ import ReadFile from '@/api/file/get_file'
 import getTxt from '@/api/file/get_txt'
 // 引入文件预览模块
 import PreviewFile from '@/api/file/preview_file'
-// 引入图片加载动画模块
-import ImageLoad from '@/api/other/image_load'
 // 引入数组模块
 import ArrayMethod from '@/api/array'
 // 引入导出excel模块
@@ -78,7 +74,7 @@ import defaultConfig from '@/global/js/config'
 
 import {
   isNull,
-  isNum
+  isNumber
 } from '@/utils/validate'
 
 /**
@@ -188,7 +184,7 @@ Vue.prototype.$createStyle = SetStyle.createStyle
  * @description 设置全屏函数与取消全屏函数
  * @param {DOM Object} element DOM元素
  */
-Vue.prototype.$setFullScreen = FullScreen.requestFullScreen
+Vue.prototype.$requestFullScreen = FullScreen.requestFullScreen
 Vue.prototype.$cancelFullScreen = FullScreen.cancelFullScreen
 
 /**
@@ -247,19 +243,6 @@ Vue.prototype.$download = Download
 Vue.prototype.$copyText = Copy
 
 /**
- * @description 插入元素
- * @param {DOM Object} newEle 新元素
- * @param {DOM Object} nowEle 旧元素
- */
-Vue.prototype.$insertAfter = InsertAfter
-
-/**
- * @description 图片加载动画模块
- * @param {String} url
- */
-Vue.prototype.$imageLoad = ImageLoad
-
-/**
  * @description 排序（只排字段值为数字和日期）
  * @param {Array} list 需要排序的数组
  * @param {Boolean} isDes 是否倒序
@@ -308,7 +291,7 @@ Vue.prototype.$defaultConfig = defaultConfig
  * @description 检验
  */
 Vue.prototype.$isNull = isNull //非空验证
-Vue.prototype.$isNum = isNum //数字验证
+Vue.prototype.$isNumber = isNumber //数字验证
 
 /**
  * @description 全局element-resize-detector监听DOM元素宽度变化
@@ -328,8 +311,8 @@ Vue.prototype.$erd = ElementResizeDetectorMaker()
 Vue.config.productionTip = false
 
 
-Vue.prototype.$isNotEmpty = function(obj){
+Vue.prototype.$isNotEmpty = function (obj) {
   return (obj !== undefined && obj !== null && obj !== '' && obj !== 'null')
 }
 
-Vue.prototype.$deepCopy = function (obj){return JSON.parse(JSON.stringify(obj))}
+Vue.prototype.$deepCopy = function (obj) { return JSON.parse(JSON.stringify(obj)) }

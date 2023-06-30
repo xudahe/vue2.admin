@@ -147,11 +147,16 @@ export default {
     stopAuto() {
       if (this.auto) return clearInterval(this.autoer);
     },
+
+    initial() {
+      let docm1 = document.getElementById("swiper")
+      this.imgWidth = docm1 != undefined ? docm1.offsetWidth : 600;
+      this.imgHeight = docm1 != undefined ? docm1.offsetHeight : 300;
+    }
   },
   mounted() {
-    let docm1 = document.getElementById("swiper")
-    this.imgWidth = docm1 != undefined ? docm1.offsetWidth : 600;
-    this.imgHeight = docm1 != undefined ? docm1.offsetHeight : 300;
+    this.initial();
+    window.addEventListener("resize", this.initial);
   },
   created() {
     this.imgIndex = this.dotsIndex = this.initIndex;
@@ -165,6 +170,7 @@ export default {
   },
   beforeDestroy() {
     clearInterval(this.autoer);
+    window.removeEventListener("resize", this.initial);
   },
 
 }

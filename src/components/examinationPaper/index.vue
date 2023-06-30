@@ -137,7 +137,7 @@
 </template>
 
 <script>
-import { isNum } from "@/utils/validate"
+import { isNumber } from "@/utils/validate"
 export default {
   name: 'examinationPaper',
   props: {
@@ -336,7 +336,7 @@ export default {
      * 简答题 分数验证
      */
     scoreCheck(value, child) {
-      if (isNum(child.score)) return this.$errorMsg("得分只能为数字");
+      if (isNumber(child.score)) return this.$errorMsg("得分只能为数字");
       if (parseFloat(child.score) > parseFloat(child.totalScore)) return this.$errorMsg("得分不能大于总分数");
     },
     /**

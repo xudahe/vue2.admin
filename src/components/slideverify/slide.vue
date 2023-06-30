@@ -1,19 +1,26 @@
 <template>
   <div id="slide" style="margin-top:10px;">
-    <slide-verify ref="slideblock" @success="onSuccess" @again="onAgain" @fulfilled="onFulfilled" @fail="onFail"
-      @refresh="onRefresh" :imgs="imgs" :accuracy="accuracy"></slide-verify>
-    <div>{{ msg }}</div>
+    <el-button @click.native="showCilck">弹出框</el-button>
+    <Vcode :show="isShow" :canvasWidth="400" :canvasHeight="250" :puzzleScale="1" :sliderSize="40" :range="10"
+      :imgs="imgs" successText="验证成功！" failText="验证失败，请重试！" sliderText="拖动滑块验证" @success="onSuccess" @fail="onFail"
+      @close="onClose" />
   </div>
 </template>
 
 <script>
-import slideVerify from "./slideVerify.vue"
 
+/**
+ * https://blog.csdn.net/qq_45268602/article/details/123783004
+ * 
+ * https://gitcode.net/mirrors/javaLuo/vue-puzzle-vcode
+ */
+
+import Vcode from "vue-puzzle-vcode";
 export default {
-  components: { slideVerify },
+  components: { Vcode },
   data() {
     return {
-      msg: "",
+      isShow: false,
       imgs: [
         require("@/assets/image/slide/img.jpg"),
         require("@/assets/image/slide/img1.jpg"),
@@ -22,35 +29,22 @@ export default {
         require("@/assets/image/slide/img4.jpg"),
         require("@/assets/image/slide/img5.jpg")
       ], //自定义背景图
-      accuracy: 3 // 精确度小，可允许的误差范围小；为1时，则表示滑块要与凹槽完全重叠，才能验证成功。默认值为5
     };
   },
   methods: {
-    onSuccess(times) {
-      console.log("验证通过");
-      this.msg = `验证通过, 耗时${(times / 1000).toFixed(1)}s`;
+    showCilck() {
+      this.isShow = true;
     },
-    onFail() {
-      console.log("验证不通过");
-      this.msg = "";
+    onSuccess(value) {
+      this.isShow = false;
     },
-    onRefresh() {
-      console.log("点击了刷新小图标");
-      this.msg = "";
+    onFail(value) {
+      this.isShow = true;
     },
-    onFulfilled() {
-      console.log("刷新成功啦！");
+    onClose(value) {
+      this.isShow = false;
     },
-    onAgain() {
-      console.log("检测到非人为操作的哦！");
-      this.msg = "try again";
-      // 刷新
-      this.handleClick();
-    },
-    handleClick() {
-      this.$refs.slideblock.reset(); //重置
-      this.msg = "";
-    }
+
   }
 };
 </script>

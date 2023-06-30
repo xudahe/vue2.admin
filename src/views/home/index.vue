@@ -14,7 +14,6 @@
         </el-card>
       </el-col>
     </el-row>
-<event-timeline></event-timeline>
     <v-dialog ref="dialog" v-model="dialog.show" :title="dialog.title" :buttons="dialog.buttons"
       :bodyshow="dialog.bodyshow">
       <div style="height: 300px;">
@@ -23,7 +22,7 @@
     </v-dialog>
     <dialog1 ref="dragdialog" v-show="showDialog"></dialog1>
   </div>
-</template>
+</template> 
 
 <script>
 import dialog1 from "@/components/dialog/dialog1";

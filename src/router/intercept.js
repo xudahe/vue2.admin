@@ -4,6 +4,10 @@ import store from "@/store"
 import {
   isNull
 } from '@/utils/validate'
+import {
+  setStore,
+  getStore,
+} from '@/utils/storage'
 
 //导入进度条插件 -- npm install --save nprogress
 import 'nprogress/nprogress.css'
@@ -57,9 +61,12 @@ router.afterEach(() => {
   NProgress.done() //完成进度(进度条消失)
 })
 
+// 注册系统菜单
 function getAddRouters() {
   // 省略 axios 请求代码 通过 token 向后台请求用户权限等信息
-  let loginInfo = JSON.parse(window.localStorage.loginInfo ? window.localStorage.loginInfo : null);
+  let loginInfo = getStore({
+    name: 'loginInfo'
+  });
   store.dispatch("SET_LOGIN_INFO", {
     userinfo: !isNull(loginInfo.userinfo) ? loginInfo.userinfo : loginInfo,
     roleinfo: !isNull(loginInfo.roleinfo) ? loginInfo.roleinfo : loginInfo.roleInfoList,

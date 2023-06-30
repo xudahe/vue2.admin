@@ -78,9 +78,6 @@ export default {
     },
     // 退出登录
     logout() {
-      window.sessionStorage.clear();
-      window.localStorage.clear();
-
       this.$confirm("是否退出系统, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -93,27 +90,10 @@ export default {
     },
     fullScreen() {
       if (this.isfullScreen) {
-        var docElm = document.documentElement
-        if (docElm.requestFullscreen) {
-          docElm.requestFullscreen()
-        } else if (docElm.mozRequestFullScreen) {
-          docElm.mozRequestFullScreen()
-        } else if (docElm.webkitRequestFullScreen) {
-          docElm.webkitRequestFullScreen()
-        } else if (elem.msRequestFullscreen) {
-          elem.msRequestFullscreen()
-        }
+        this.$requestFullScreen()
         this.isfullScreen = false
       } else {
-        if (document.exitFullscreen) {
-          document.exitFullscreen()
-        } else if (document.mozCancelFullScreen) {
-          document.mozCancelFullScreen()
-        } else if (document.webkitCancelFullScreen) {
-          document.webkitCancelFullScreen()
-        } else if (document.msExitFullscreen) {
-          document.msExitFullscreen()
-        }
+        this.$cancelFullScreen()
         this.isfullScreen = true
       }
     },

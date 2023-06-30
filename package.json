@@ -33,6 +33,7 @@
     "view-design": "^4.7.0",
     "vue": "^2.7.0",
     "vue-cropper": "^0.5.8",
+    "vue-puzzle-vcode": "^1.1.10",
     "vue-router": "^3.5.1",
     "vue-simple-uploader": "^0.7.6",
     "vuedraggable": "^2.24.3",

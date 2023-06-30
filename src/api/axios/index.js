@@ -32,10 +32,14 @@ import axios from 'axios' //ajax请求
 import qs from 'qs'
 import Vue from 'vue'
 
-import store from "../../store"
-import router from '../../router/index'
+import store from "@/store"
+import router from '@/router/index'
 import apiSetting from "@/api/axios/apiSetting.js"
 import modate from '@/api/date'
+import {
+  setStore,
+  getStore,
+} from '@/utils/storage'
 
 axios.defaults.withCredentials = true; //跨域请求，允许保存cookie
 axios.defaults.timeout = 30000; //请求延时
@@ -49,13 +53,17 @@ if (process.env.NODE_ENV === 'production') {
 
 //添加request请求拦截器
 axios.interceptors.request.use(config => {
-  if (window.localStorage.tokenExpire) {
+  var tokenExpire = getStore({
+    name: 'tokenExpire'
+  });
+
+  if (tokenExpire) {
     var curTime = new Date()
-    var tokenExpire = new Date(Date.parse(window.localStorage.tokenExpire))
-    if (curTime > tokenExpire)
+    var tokenExpire_in = new Date(Date.parse(tokenExpire))
+    if (curTime > tokenExpire_in)
       console.log(`accessToken 令牌已过期！`)
     else
-      console.log(`accessToken 令牌将在 ${modate.formatDate(tokenExpire,true)} 过期！`)
+      console.log(`accessToken 令牌将在 ${modate.formatDate(tokenExpire_in,true)} 过期！`)
   }
 
   // 判断是否存在token，如果存在的话，则每个http header都加上token
@@ -103,7 +111,9 @@ axios.interceptors.response.use(response => {
             method: apiSetting.refreshToken.method,
             url: apiSetting.refreshToken.url,
             params: {
-              token: window.localStorage.accessToken
+              token: getStore({
+                name: "accessToken"
+              })
             },
           }).then(res => {
             if (res.data.success) {

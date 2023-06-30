@@ -18,27 +18,43 @@ import menuTree from "./menuTree";
 export default {
   name: "asideNav",
   components: {
-    menuTree
+    menuTree,
   },
   watch: {
     // 监听浏览器直接输入路由，将此路由添加到tabnavBox
     "$route.path": function (val) {
       this.selectmenu(val);
-    }
+    },
   },
   methods: {
     selectmenu(key) {
-      let router = this.$store.getters.routers;
-      let name = "";
+      let title = '', name = '';
 
+      let menus = this.$store.getters.loginInfo.menuinfo;
       let navTitle = function (path, routerARR) {
+        for (let i = 0; i < routerARR.length; i++) {
+          if (routerARR[i].className === path) {
+            title = routerARR[i].menuName;
+            break;
+          } else {
+            if (routerARR[i].children && routerARR[i].children.length > 0) {
+              navTitle(path, routerARR[i].children);
+            }
+          }
+        }
+
+        return title;
+      };
+
+      let routers = this.$store.getters.routers;
+      let navName = function (path, routerARR) {
         for (let i = 0; i < routerARR.length; i++) {
           if (routerARR[i].path === path) {
             name = routerARR[i].name;
             break;
           } else {
-            if (routerARR[i].children && routerARR[i].children.length > 1) {
-              navTitle(path, routerARR[i].children);
+            if (routerARR[i].children && routerARR[i].children.length > 0) {
+              navName(path, routerARR[i].children);
             }
           }
         }
@@ -47,11 +63,12 @@ export default {
       };
 
       this.$store.dispatch("addTab", {
-        title: navTitle(key, router),
-        path: key
+        title: navTitle(key, menus),
+        name: navName(key, routers),
+        path: key,
       });
     },
-  }
+  },
 };
 </script>
 

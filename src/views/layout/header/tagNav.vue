@@ -9,10 +9,10 @@
     <div class="scroll-outer" ref="scrollOuter" @DOMMouseScroll="handlescroll" @mousewheel="handlescroll"
       :style="{ left: arrowVisible ? '20px' : '0', right: arrowVisible ? '20px' : '0', width: arrowVisible ? 'calc(100% - 45px)' : '100%' }">
       <div ref="scrollBody" class="scroll-body" :style="{ left: tagBodyLeft + 'px' }">
-        <transition-group name="taglist-moving-animation">
-          <el-tag v-for="(item, index) in $store.getters.tabnavBox" ref="tagsPageOpened" :key="`tag-nav-${index}`"
-            :name="item.title" :data-route-item="item" :closable="item.title !== 'home'"
-            :effect="$route.name === item.title ? 'dark' : 'plain'" @close="removeTab(item)"
+        <transition-group name="taglist">
+          <el-tag v-for="(item, index) in $store.getters.tabnavBox" ref="tagsPageOpened" :key="`tag-nav-${item.name}`"
+            :name="item.name" :data-route-item="item" :closable="item.name !== 'home'"
+            :effect="$route.name === item.name ? 'dark' : 'plain'" @close="removeTab(item)"
             @click="$router.push({ path: item.path })" @contextmenu.native.prevent="openMenu(item, $event, index)"
             style="margin:0 3px; cursor: pointer;display: inline-block;">{{ item.title }}
           </el-tag>
@@ -220,5 +220,22 @@ export default {
       }
     }
   }
+}
+
+
+
+// name为taglist的transiton会使用这个类名
+
+/* transition-group 效果过程 */
+.taglist-enter-active,
+.taglist-leave-active {
+  transition: all 0.5s linear;
+}
+
+/* transition-group 进场的瞬间与离场的效果添加 */
+.taglist-enter,
+.taglist-leave-to {
+  opacity: 0; /*透明度*/
+  transform: translateY(50px);
 }
 </style>
