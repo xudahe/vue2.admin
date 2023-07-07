@@ -516,24 +516,6 @@ export default {
 		}
 	}
 
-	.cell-player {
-		border: 1px solid #fff;
-	}
-
-	.cell-player-4 {
-		width: 50%;
-		height: 50% !important;
-		box-sizing: border-box;
-		border-bottom: 1px solid #fff;
-		border-left: 1px solid #fff;
-	}
-
-	.cell-player-1 {
-		width: 100%;
-		box-sizing: border-box;
-		border: 1px solid #fff;
-	}
-
 	.cell-player-6-1 {
 		width: 66.66%;
 		height: 66.66% !important;
@@ -571,18 +553,6 @@ export default {
 		.error-word {
 			font-size: 0.17rem;
 		}
-	}
-
-	.cell-player-6-none {
-		display: none;
-	}
-
-	.cell-player-6-2-cell {
-		width: 100%;
-		height: 50% !important;
-		box-sizing: border-box;
-		border-bottom: 1px solid #fff;
-		border-left: 1px solid #fff;
 	}
 
 	.cell-player-6 {
@@ -654,18 +624,6 @@ export default {
 		border-left: 1px solid #fff;
 	}
 
-	.cell-player-8-none {
-		display: none;
-	}
-
-	.cell-player-8-2-cell {
-		width: 100%;
-		height: 33.3% !important;
-		box-sizing: border-box;
-		border-bottom: 1px solid #fff;
-		border-left: 1px solid #fff;
-	}
-
 	.cell-player-8 {
 		width: 25%;
 		height: 25% !important;
@@ -682,6 +640,21 @@ export default {
 		}
 	}
 
+
+	.cell-player-1 {
+		width: 100%;
+		box-sizing: border-box;
+		border: 1px solid #fff;
+	}
+
+	.cell-player-4 {
+		width: 50%;
+		height: 50% !important;
+		box-sizing: border-box;
+		border-bottom: 1px solid #fff;
+		border-left: 1px solid #fff;
+	}
+
 	.cell-player-9 {
 		width: 33.33%;
 		height: 33.33% !important;
@@ -696,12 +669,6 @@ export default {
 		box-sizing: border-box;
 		border-bottom: 1px solid #fff;
 		border-left: 1px solid #fff;
-	}
-
-	.cell {
-		display: flex;
-		flex-direction: column;
-		height: 100%;
 	}
 }
 </style>

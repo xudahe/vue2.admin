@@ -60,9 +60,3 @@
    .icon:hover {
      color: #38B2FF !important;
    }
-
-   /*一些重要特殊的日子，为了表示哀悼，需要将网页显示为灰色*/
-   .theme-gray {
-     filter: progid:DXImageTransform.Microsoft.BasicImage(graysale=1);
-     -webkit-filter: grayscale(100%);
-   }

@@ -77,19 +77,19 @@ var Browser = Browser || (function (window) {
     //浏览器类型(IE、Opera、Chrome、Safari、Firefox)
     System.type = System.isIE ? "IE" :
       window.opera || (agent.indexOf("opr") > 0) ? "Opera" :
-      (agent.indexOf("chrome") > 0) ? "Chrome" :
-      //safari也提供了专门的判定方式
-      window.openDatabase ? "Safari" :
-      (agent.indexOf("firefox") > 0) ? "Firefox" :
-      'unknow';
+        (agent.indexOf("chrome") > 0) ? "Chrome" :
+          //safari也提供了专门的判定方式
+          window.openDatabase ? "Safari" :
+            (agent.indexOf("firefox") > 0) ? "Firefox" :
+              'unknow';
 
     //版本号
     System.version = (System.type === "IE") ? System.ieVersion() :
       (System.type === "Firefox") ? agent.match(/firefox\/([\d.]+)/)[1] :
-      (System.type === "Chrome") ? agent.match(/chrome\/([\d.]+)/)[1] :
-      (System.type === "Opera") ? System.operaVersion() :
-      (System.type === "Safari") ? agent.match(/version\/([\d.]+)/)[1] :
-      "0";
+        (System.type === "Chrome") ? agent.match(/chrome\/([\d.]+)/)[1] :
+          (System.type === "Opera") ? System.operaVersion() :
+            (System.type === "Safari") ? agent.match(/version\/([\d.]+)/)[1] :
+              "0";
 
     //浏览器外壳
     System.shell = function () {

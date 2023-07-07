@@ -82,6 +82,18 @@ export function setTheme(name) {
   document.body.className = name;
 }
 
+
+/**
+ * 设置灰色
+ */
+export function toggleGrayMode(status) {
+  if (status) {
+    document.body.className = document.body.className + ' grayMode';
+  } else {
+    document.body.className = document.body.className.replace(' grayMode', '');
+  }
+};
+
 /**
  * 打开小窗口
  */

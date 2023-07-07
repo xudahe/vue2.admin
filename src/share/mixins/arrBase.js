@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 //对象数组基本操作
 export default {
-    data() {},
+    data() { },
     methods: {
         /**
          * @description 数组对象 根据关键字排序 sort会改变原数据，无需return

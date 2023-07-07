@@ -22,6 +22,7 @@ import '@/global/css/IviewUI.less'
 import '@/global/css/index.css'
 import '@/global/css/animation.css'
 import '@/global/css/button.css'
+import '@/global/css/theme.css'
 // 引入css样式初始化
 import 'normalize.css/normalize.css'
 // 引入第三方图标库：https://www.thinkcmf.com/font/search.html，例如：<i class="fa fa-minus"></i>

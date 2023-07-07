@@ -14,7 +14,8 @@
 </template>
 
 <script>
-import { location } from "./utils/location.js";
+import { toggleGrayMode, setTheme } from "@/utils/index";
+import { location } from "@/utils/location.js";
 
 export default {
   name: "app",
@@ -28,8 +29,8 @@ export default {
     },
   },
   mounted() {
-    //网页设置成灰色
-    // this.$store.commit("SET_THEME_NAME", "theme-gray");
+    // toggleGrayMode(true); //网页设置成灰色
+    this.$store.commit("SET_THEME_NAME", this.$store.state.theme.themeName);
 
     function checkIE() {
       return (

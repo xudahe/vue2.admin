@@ -15,6 +15,11 @@
     margin-right: 4px;
 }
 
+
+.demo-upload-list:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
 .demo-upload-list img {
     width: 100%;
     height: 80%;
@@ -51,21 +56,23 @@
         <Col span="4" style="height: 100%;">
         <Anchor show-ink container="#imgbox" @on-select="scroll">
             <template v-for="(item, key) in imglist">
-                <AnchorLink :href="'#scroll_' + key" :title="item.title" />
+                <AnchorLink :href="'#scroll_' + key" :title="item.title" :key="key" />
             </template>
         </Anchor>
         </Col>
         <Col span="20" style="height: 100%;overflow-y:auto;">
         <div id="imgbox">
-            <div v-for="(item, key) in imglist" style="margin:10px" :id="'scroll_' + key" :name="item.title">
+            <div v-for="(item, key) in imglist" style="margin:10px" :id="'scroll_' + key" :name="item.title" :key="key">
                 <template>
                     <h2>{{ item.title }}</h2>
-                    <div class="demo-upload-list" v-for="(child, index) in item.cadastrals">
+                    <div class="demo-upload-list" v-for="(child, index) in item.cadastrals" :key="index">
                         <template>
-                            <img :src="child.thumb" v-if="child.extension == '.jpg' && child.src !== ''">
+                            <el-image :src="child.thumb" lazy style="width: 100%;height: 118px;" :initial-index="child.key"
+                                :preview-src-list="getSrcList(child.key)" z-index="99999999"></el-image>
+                            <!-- <img :src="child.thumb" v-if="child.extension == '.jpg' && child.src !== ''">
                             <div class="demo-upload-list-cover">
                                 <Icon type="ios-eye-outline" @click.native="handleView(item.cadastrals, index)"></Icon>
-                            </div>
+                            </div> -->
                             <div style="position: absolute;margin-top: -45px;width: 100%;height: 40px;">{{ child.title }}
                             </div>
                         </template>
@@ -84,12 +91,15 @@ export default {
     data() {
         return {
             imglist: [],
-            list: []
+            urlList: []
         };
     },
     methods: {
+        getSrcList(index) {
+            return this.urlList.slice(index).concat(this.urlList.slice(0, index))
+        },
         getImage() {
-            this.imglist = [
+            let imglist = [
                 {
                     "title": "01城市规划",
                     "extension": null,
@@ -1208,7 +1218,22 @@ export default {
                         }
                     ]
                 }
-            ]
+            ];
+
+            /**
+             * src 原生图片
+             * thumb 缩略图
+             */
+
+            let i = 0
+            imglist.forEach(element => {
+                element.cadastrals.forEach(element1 => {
+                    element1.key = i++; //图片序号
+                    _this.urlList.push(element1.src);
+                });
+            });
+
+            this.imglist = result;
         },
         handleView(child, index) {
             var options = {

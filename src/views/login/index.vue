@@ -237,6 +237,9 @@ export default {
               content: loginInfo
             });
 
+            //后期从接口获取theme值
+            _this.$store.commit("SET_THEME_NAME",_this.$store.state.theme.themeName);
+
             setTimeout(() => {
               _this.$router.push({ path: "/home" }); //登录成功之后重定向到首页
 
