@@ -25,11 +25,17 @@ router.beforeEach((to, from, next) => {
 
   let arrStr = store.getters.regRouters;
   if (arrStr != "|" && arrStr.indexOf(to.path) == -1) {
+    NProgress.done();
+
     Vue.prototype.$message({
       message: `路由【${to.path}】没有注册，请核实！`,
       type: 'error'
     });
-    return NProgress.done();
+
+    next({
+      path: "/home"
+    });
+    return;
   }
 
   if (!isNull(store.getters.accessToken)) {

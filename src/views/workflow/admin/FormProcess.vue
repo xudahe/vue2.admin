@@ -257,6 +257,7 @@ export default {
           remark: this.setup.remark
         }
         if (this.isNew || !this.$isNotEmpty(this.setup.formId)) {
+          console.info("创建表单成功:", template);
           // createForm(template).then(rsp => {
           //   this.$message.success("创建表单成功")
           //   this.$router.push("/formsPanel")
@@ -264,6 +265,7 @@ export default {
           //   this.$message.error(err)
           // })
         } else {
+          console.info("更新表单成功:", template);
           // updateFormDetail(template).then(rsp => {
           //   this.$message.success("更新表单成功")
           //   this.$router.push("/formsPanel")

@@ -18,6 +18,7 @@
 import Sidebar from "./sidebar";
 import FileList from "./fileList";
 import FileEdit from "./fileEdit";
+import apiSetting from "@/api/apiSetting.js"
 
 export default {
   name: "notice",
@@ -130,7 +131,7 @@ export default {
       // 第一步.将图片上传到服务器.
       var formdata = new FormData();
       formdata.append("file", file);
-      this.$ajax(this.$apiSet.imgUpload, formdata)
+      this.$ajax(apiSetting.imgUpload, formdata)
         .then(res => {
           if (!res.data.success) {
             this.$errorMsg(res.data.message);

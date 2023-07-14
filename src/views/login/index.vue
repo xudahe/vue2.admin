@@ -69,6 +69,7 @@
 </template>
 
 <script>
+import apiSetting from "@/api/apiSetting.js"
 
 import Cookies from "js-cookie";
 import { encrypt, decrypt } from "@/utils/encrypt"; //密码加密
@@ -184,7 +185,7 @@ export default {
       this.loginStart();
 
       //获取Token
-      this.$ajax(this.$apiSet.requestToken, {
+      this.$ajax(apiSetting.requestToken, {
         name: this.loginForm.username,
         pass: encrypt(this.loginForm.password)
       })
@@ -220,14 +221,14 @@ export default {
     },
     getLoginByToken(token) {
       var _this = this;
-      this.$ajax(this.$apiSet.getLoginByToken, {
+      this.$ajax(apiSetting.getLoginByToken, {
         token: token
       }).then(res => {
         if (!res.data.success) {
           _this.loginError();
           _this.$errorMsg(res.data.message);
         } else {
-          loadScripts([`${publicPath}AppSetting.js`]).then((e) => {
+          loadScripts([`${publicPath}config/loading.js`]).then((e) => {
             _this.loginEnd();
 
             let loginInfo = res.data.response;
@@ -238,7 +239,7 @@ export default {
             });
 
             //后期从接口获取theme值
-            _this.$store.commit("SET_THEME_NAME",_this.$store.state.theme.themeName);
+            _this.$store.commit("SET_THEME_NAME", _this.$store.state.theme.themeName);
 
             setTimeout(() => {
               _this.$router.push({ path: "/home" }); //登录成功之后重定向到首页
@@ -267,6 +268,9 @@ export default {
     //   window.location.reload();
     // }
 
+    this.$store.commit("SET_THEME_NAME", "");
+    this.$store.commit("SET_THEME_GRAY", "");
+
     this.cookies();
     this.setRefreshCode();
 
@@ -275,14 +279,7 @@ export default {
     })
   },
   created() {
-    var _self = this;
-    // document.onkeydown = function (e) {
-    //   var key = window.event.keyCode;
-    //   if (key == 13 || key == 100) {
-    //     //对主键盘和小键盘的Enter都管用
-    //     _self.loginSubmit();
-    //   }
-    // };
+
   },
   beforeDestroy() {
     document.onkeydown = undefined;
@@ -307,7 +304,7 @@ export default {
 
 .login-page .login-container {
   width: 900px;
-  height: 400px;
+  height: 450px;
   color: #868484;
   border-radius: 5px;
   box-shadow: 0 0 25px #cac6c6; //添加阴影

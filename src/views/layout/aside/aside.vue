@@ -43,7 +43,7 @@ export default {
           }
         }
 
-        return title;
+        return title || path;
       };
 
       let routers = this.$store.getters.routers;
@@ -59,7 +59,7 @@ export default {
           }
         }
 
-        return name;
+        return name || path;
       };
 
       this.$store.dispatch("addTab", {

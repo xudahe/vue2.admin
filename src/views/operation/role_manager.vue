@@ -97,6 +97,7 @@
 
 <script>
 import { debounce } from '@/api/control/index.js'
+import apiSetting from "@/api/apiSetting.js"
 
 export default {
   name: 'role_manager',
@@ -207,7 +208,7 @@ export default {
     //获取角色列表
     searchData() {
       let _this = this;
-      this.$ajax(this.$apiSet.getRoleInfo, {
+      this.$ajax(apiSetting.getRoleInfo, {
         key: this.filters.name
       }).then(res => {
         _this.loading = false;
@@ -239,7 +240,7 @@ export default {
         type: 'warning',
         isHTML: true
       }).then(() => {
-        this.$ajax(this.$apiSet.disableRole, {
+        this.$ajax(apiSetting.disableRole, {
           id: row.id,
           falg: !row.enabled
         }).then(res => {
@@ -260,7 +261,7 @@ export default {
         type: 'warning',
         isHTML: true
       }).then(() => {
-        this.$ajax(this.$apiSet.deleteRole, {
+        this.$ajax(apiSetting.deleteRole, {
           id: row.id
         }).then(res => {
           if (!res.data.success) {
@@ -285,7 +286,7 @@ export default {
       let _this = this;
       let ids = this.$refs.menutree.getCheckedNodes(false, true).map(item => item.guid)
 
-      this.$ajax(this.$apiSet.RoleByMenuId, {
+      this.$ajax(apiSetting.RoleByMenuId, {
         roleId: this.sels.guid,
         systemId: this.sle_systemId,
         menuIds: ids.join(','),
@@ -315,7 +316,7 @@ export default {
         return this.$warnMsg("角色名称不能为空！")
 
       let _this = this;
-      let apiUrl = this.formTitle == '编辑' ? this.$apiSet.putRole : this.$apiSet.postRole;
+      let apiUrl = this.formTitle == '编辑' ? apiSetting.putRole : apiSetting.postRole;
 
       this.logining = true;
       this.$ajax(apiUrl, this.roleForm)
@@ -348,7 +349,7 @@ export default {
     getSystemInfo() {
       let _this = this;
 
-      this.$ajax(this.$apiSet.getSystemInfo, {
+      this.$ajax(apiSetting.getSystemInfo, {
         ids: ""
       }).then(res => {
         if (!res.data.success) {
@@ -366,7 +367,7 @@ export default {
     getMenuBySystem(value) {
       let _this = this;
 
-      this.$ajax(this.$apiSet.GetMenuBySystemId, {
+      this.$ajax(apiSetting.GetMenuBySystemId, {
         systemId: value
       }).then(res => {
         if (!res.data.success) {

@@ -19,6 +19,8 @@
 <script>
 import { mapState } from 'vuex'
 import { encrypt } from "@/utils/encrypt";
+import apiSetting from "@/api/apiSetting.js"
+
 export default {
   data() {
     var checkPassword = (rule, value, callback) => {
@@ -73,7 +75,7 @@ export default {
 
       this.$refs.userForm.validate(valid => {
         if (valid) {
-          this.$ajax(this.$apiSet.UpdatePassword, {
+          this.$ajax(apiSetting.UpdatePassword, {
             userId: this.userinfo.guid,
             oldPwd: encrypt(this.userForm.oldPwd),
             newPwd: encrypt(this.userForm.newPwd)

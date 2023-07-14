@@ -37,28 +37,28 @@ export default {
   data() {
     return {}
   },
-  computed:{
-    selectedNode(){
+  computed: {
+    selectedNode() {
       this.$store.state.workflow.selectedNode
     }
   },
   methods: {
-    addApprovalNode(){
+    addApprovalNode() {
       this.$emit('insertNode', "APPROVAL")
     },
-    addCcNode(){
+    addCcNode() {
       this.$emit('insertNode', "CC")
     },
-    addDelayNode(){
+    addDelayNode() {
       this.$emit('insertNode', "DELAY")
     },
-    addConditionsNode(){
+    addConditionsNode() {
       this.$emit('insertNode', "CONDITIONS")
     },
-    addConcurrentsNode(){
+    addConcurrentsNode() {
       this.$emit('insertNode', "CONCURRENTS")
     },
-    addTriggerNode(){
+    addTriggerNode() {
       this.$emit('insertNode', "TRIGGER")
     }
   }
@@ -66,8 +66,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.node-select{
-  div{
+.node-select {
+  div {
     display: inline-block;
     margin: 5px 5px;
     cursor: pointer;
@@ -75,18 +75,21 @@ export default {
     border: 1px solid #F8F9F9;
     background-color: #F8F9F9;
     border-radius: 10px;
-    width: 130px;
+    width: calc(~"50% - 10px");
     position: relative;
-    span{
+
+    span {
       position: absolute;
       left: 65px;
       top: 18px;
     }
-    &:hover{
+
+    &:hover {
       background-color: #fff;
       box-shadow: 0 0 8px 2px #d6d6d6;
     }
-    i{
+
+    i {
       font-size: 25px;
       padding: 5px;
       border: 1px solid #dedfdf;

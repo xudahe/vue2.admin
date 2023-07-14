@@ -22,7 +22,7 @@ import '@/global/css/IviewUI.less'
 import '@/global/css/index.css'
 import '@/global/css/animation.css'
 import '@/global/css/button.css'
-import '@/global/css/theme.css'
+import '@/global/css/theme.less'
 // 引入css样式初始化
 import 'normalize.css/normalize.css'
 // 引入第三方图标库：https://www.thinkcmf.com/font/search.html，例如：<i class="fa fa-minus"></i>
@@ -32,9 +32,8 @@ import uploader from 'vue-simple-uploader'
 Vue.use(uploader)
 // 引入全局提示模块
 import Message from '@/api/message'
-// 引入二次封装的axios模块d
+// 引入二次封装的axios模块
 import axios from '@/api/axios/index'
-import apiSet from "@/api/axios/apiSetting" //请求接口
 // 结合 promise 封装原生ajax
 import http from '@/api/axios/http'
 Vue.use(http)
@@ -83,7 +82,6 @@ import {
  * 数据请求
  */
 Vue.prototype.$ajax = axios
-Vue.prototype.$apiSet = apiSet;
 
 /**
  * @description 创建websocket实例

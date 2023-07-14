@@ -46,6 +46,7 @@
  */
 import bus from '../../eventBus.js';
 import SparkMD5 from 'spark-md5'; //加密工具
+import apiSetting from "@/api/apiSetting.js"
 
 var ACCEPT_CONFIG = {
   image: ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.svg'], //图片
@@ -69,7 +70,7 @@ export default {
       uploader_key: new Date().getTime(),
       // 组件实例化时传入的配置项
       options: {
-        // target: AppConfig.baseUrl_Pro + '/api/Uploader/SimpleUploader',
+        // target: website.baseUrl_Pro + '/api/Uploader/SimpleUploader',
         target: '/api/Uploader/SimpleUploader',
         chunkSize: '2048000', //分块大小
         fileParameterName: 'file', //上传文件时文件的参数名，默认 file
@@ -162,7 +163,7 @@ export default {
         // 文件状态设为“合并中”
         this.statusSet(file.id, 'merging');
 
-        this.$ajax(this.$apiSet.fileMerge, {
+        this.$ajax(apiSetting.fileMerge, {
           tempPath: res.response.tempPath,
           fileName: file.name,
           ...this.params,

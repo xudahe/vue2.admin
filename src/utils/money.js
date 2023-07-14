@@ -91,3 +91,12 @@ export function splits(tranvalue) {
   }
   return value;
 }
+
+
+/**
+ * @description 验证金额
+ */
+export function validateMoney(obj) {
+  let reg = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
+  return reg.test(obj);
+}

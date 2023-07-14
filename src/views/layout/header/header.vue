@@ -30,7 +30,7 @@
         <colorPicker></colorPicker>
       </li>
       <li>
-        <el-dropdown trigger="click" class="avatar-dropdown">
+        <el-dropdown trigger="hover" class="avatar-dropdown">
           <span class="el-dropdown-link"> {{ loginInfo.userinfo.loginName }}</span>
           <el-dropdown-menu slot="dropdown" style="top: 38px;">
             <el-dropdown-item @click.native="$router.push('/home')">

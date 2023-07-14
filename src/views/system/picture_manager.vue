@@ -28,7 +28,7 @@ export default {
   name: 'picture_manager',
   data() {
     return {
-      photourl: AppConfig.baseUrl_Pro,
+      photourl: website.baseUrl_Pro,
       loading: false, //加载中
       filters: {
         name: ""

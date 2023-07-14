@@ -77,7 +77,7 @@ export function getUrlState(URL) {
   xmlhttp.Open("GET", URL, false);
   try {
     xmlhttp.Send();
-  } catch (e) {} finally {
+  } catch (e) { } finally {
     var result = xmlhttp.responseText;
     if (result) {
       if (xmlhttp.Status == 200) {
@@ -146,6 +146,14 @@ export function isUpperCase(s) {
   return /^[A-Z]+$/.test(s)
 }
 /**
+ * @description 大小写字母
+ * @param {String} s 
+ */
+export function isAlphabets(s) {
+  return /^[A-Za-z]+$/.test(s);
+}
+
+/**
  * @description 验证是否为颜色值
  * @param {String} s
  */
@@ -181,7 +189,7 @@ export function isNumber(value, floats = null) {
 export function isInt(value, minLength = null, maxLength = undefined) {
   if (!isNumber(value)) return false;
 
-  let regexp = new RegExp(`^-?[1-9][0-9]${anysicIntLength(minLength,maxLength)}$`);
+  let regexp = new RegExp(`^-?[1-9][0-9]${anysicIntLength(minLength, maxLength)}$`);
   return regexp.test(value.toString());
 }
 
@@ -189,14 +197,14 @@ export function isInt(value, minLength = null, maxLength = undefined) {
 export function isPInt(value, minLength = null, maxLength = undefined) {
   if (!isNumber(value)) return false;
 
-  let regexp = new RegExp(`^[1-9][0-9]${anysicIntLength(minLength,maxLength)}$`);
+  let regexp = new RegExp(`^[1-9][0-9]${anysicIntLength(minLength, maxLength)}$`);
   return regexp.test(value.toString());
 }
 
 // 校验是否为非零的负整数
 export function isNInt(value, minLength = null, maxLength = undefined) {
   if (!isNumber(value)) return false;
-  let regexp = new RegExp(`^-[1-9][0-9]${anysicIntLength(minLength,maxLength)}$`);
+  let regexp = new RegExp(`^-[1-9][0-9]${anysicIntLength(minLength, maxLength)}$`);
   return regexp.test(value.toString());
 }
 
@@ -204,15 +212,6 @@ export function isNInt(value, minLength = null, maxLength = undefined) {
 // 校验规则： minInt为在取值范围中最小的整数；maxInt为在取值范围中最大的整数
 export function checkIntRange(value, minInt, maxInt = 9007199254740991) {
   return Boolean(isInt(value) && (Boolean(minInt != undefined && minInt != null) ? value >= minInt : true) && (value <= maxInt));
-}
-
-// 校验是否为中国大陆第二代居民身份证
-// 校验规则：
-//     共18位，最后一位可为X(大小写均可)
-//     不能以0开头
-//     出生年月日会进行校验：年份只能为18/19/2*开头，月份只能为01-12，日只能为01-31
-export function isIDCard(str) {
-  return /^[1-9][0-9]{5}(18|19|(2[0-9]))[0-9]{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)[0-9]{3}[0-9Xx]$/.test(str);
 }
 
 // 校验是否为中国大陆邮政编码
@@ -303,4 +302,40 @@ export function isPwd(str) {
 
   var reg4 = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~!@#$%^&*_.]).{8,}$/;
   // 口令长度8位以上，至少包含大小写字母、数字、特殊符号
+}
+
+
+/**
+ *  @description 验证身份证
+ */
+export function validateIDCard(id) {
+  // 1 "验证通过!", 0 //校验不通过
+  let format = /^(([1][1-5])|([2][1-3])|([3][1-7])|([4][1-6])|([5][0-4])|([6][1-5])|([7][1])|([8][1-2]))\d{4}(([1][9]\d{2})|([2]\d{3}))(([0][1-9])|([1][0-2]))(([0][1-9])|([1-2][0-9])|([3][0-1]))\d{3}[0-9xX]$/;
+  // 号码规则校验
+  if (!format.test(id)) {
+    return { status: false, msg: "身份证号码不合规" };
+  }
+  // 区位码校验
+  // 出生年月日校验   前正则限制起始年份为1900;
+  let year = id.substr(6, 4); // 身份证年
+  let month = id.substr(10, 2); // 身份证月
+  let date = id.substr(12, 2); // 身份证日
+  let time = Date.parse(month + "-" + date + "-" + year); // 身份证日期时间戳date
+  let nowTime = Date.parse(new Date()); // 当前时间戳
+  let dates = new Date(year, month, 0).getDate(); // 身份证当月天数
+  if (time > nowTime || date > dates) {
+    return { status: false, msg: "出生日期不合规" };
+  }
+  // 校验码判断
+  let c = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2]; // 系数
+  let b = ["1", "0", "X", "9", "8", "7", "6", "5", "4", "3", "2"]; // 校验码对照表
+  let idArray = id.split("");
+  let sum = 0;
+  for (let k = 0; k < 17; k++) {
+    sum += parseInt(idArray[k]) * parseInt(c[k]);
+  }
+  if (idArray[17].toUpperCase() !== b[sum % 11].toUpperCase()) {
+    return { status: false, msg: "身份证校验码不合规" };
+  }
+  return { status: true, msg: "校验通过" };
 }

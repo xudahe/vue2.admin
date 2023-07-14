@@ -29,9 +29,6 @@ export default {
     },
   },
   mounted() {
-    // toggleGrayMode(true); //网页设置成灰色
-    this.$store.commit("SET_THEME_NAME", this.$store.state.theme.themeName);
-
     function checkIE() {
       return (
         "-ms-scroll-limit" in document.documentElement.style &&
@@ -53,11 +50,19 @@ export default {
       );
     }
   },
-  async created() {
-    // 已载入高德地图API，则直接初始化地图
-    if (window.AMap && window.AMapUI) {
-      await location.initMap("map-container"); //获取当前客户端位置
+  methods: {
+    async initAamp() {
+      // 已载入高德地图API，则直接初始化地图
+      if (window.AMap && window.AMapUI) {
+        await location.initMap("map-container"); //获取当前客户端位置
+      }
     }
+  },
+  created() {
+    this.initAamp();
+
+    this.$store.commit("SET_THEME_GRAY", this.$store.state.theme.themeGray);
+    this.$store.commit("SET_THEME_NAME", this.$store.state.theme.themeName);
   },
   //生命周期函数--实例销毁之前调用
   beforeDestroy() {

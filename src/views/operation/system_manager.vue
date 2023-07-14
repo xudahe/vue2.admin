@@ -78,6 +78,7 @@
 
 <script>
 import { debounce } from '@/api/control/index.js'
+import apiSetting from "@/api/apiSetting.js"
 
 export default {
     name: 'system_manager',
@@ -178,7 +179,7 @@ export default {
         //获取系统列表
         searchData() {
             let _this = this;
-            this.$ajax(this.$apiSet.getSystemInfo, {
+            this.$ajax(apiSetting.getSystemInfo, {
                 key: this.filters.name,
             }).then(res => {
                 _this.loading = false;
@@ -206,7 +207,7 @@ export default {
                 type: 'warning',
                 isHTML: true
             }).then(() => {
-                this.$ajax(this.$apiSet.disableSystem, {
+                this.$ajax(apiSetting.disableSystem, {
                     id: row.id,
                     falg: !row.enabled
                 }).then(res => {
@@ -227,7 +228,7 @@ export default {
                 type: 'warning',
                 isHTML: true
             }).then(() => {
-                this.$ajax(this.$apiSet.deleteSystem, {
+                this.$ajax(apiSetting.deleteSystem, {
                     id: row.id
                 }).then(res => {
                     if (!res.data.success) {
@@ -259,7 +260,7 @@ export default {
             if (this.$isNull(this.systemForm.index))
                 return this.$warnMsg("加载序号不能为空！")
 
-            let apiUrl = this.formTitle == '编辑' ? this.$apiSet.putSystem : this.$apiSet.postSystem;
+            let apiUrl = this.formTitle == '编辑' ? apiSetting.putSystem : apiSetting.postSystem;
 
             this.logining = true;
             this.$ajax(apiUrl, this.systemForm)

@@ -140,6 +140,7 @@
 
 <script>
 import { debounce } from '@/api/control/index.js'
+import apiSetting from "@/api/apiSetting.js"
 
 export default {
   name: 'task_manager',
@@ -266,7 +267,7 @@ export default {
     searchData() {
       let _this = this;
 
-      this.$ajax(this.$apiSet.getTasksQzInfo, {
+      this.$ajax(apiSetting.getTasksQzInfo, {
         name: this.filters.name
       }).then(res => {
         _this.loading = false;
@@ -303,7 +304,7 @@ export default {
         type: 'warning',
         isHTML: true
       }).then(() => {
-        _this.$ajax(this.$apiSet.deleteTask, {
+        _this.$ajax(apiSetting.deleteTask, {
           id: row.id
         }).then(res => {
           if (!res.data.success) {
@@ -334,7 +335,7 @@ export default {
       if (this.taskForm.triggerType == 'cron') this.taskForm.intervalSecond = 0;
       if (this.taskForm.triggerType == 'simple') this.taskForm.cron = '';
 
-      let apiUrl = this.formTitle == '编辑' ? this.$apiSet.putTasksQz : this.$apiSet.postTasksQz;
+      let apiUrl = this.formTitle == '编辑' ? apiSetting.putTasksQz : apiSetting.postTasksQz;
       let _this = this;
 
       this.logining = true;
@@ -359,15 +360,15 @@ export default {
       switch (row.jobStatus) {
         case '未启动': // 1 未启动 ==> 启动
           state = "启动";
-          apiUrl = this.$apiSet.getStartJob;
+          apiUrl = apiSetting.getStartJob;
           break;
         case '运行中': // 2 运行中 ==> 停止
           state = "停止";
-          apiUrl = this.$apiSet.getStopJob;
+          apiUrl = apiSetting.getStopJob;
           break;
         case '已停止': // 3 已停止 ==> 重启
           state = "重启";
-          apiUrl = this.$apiSet.getReCovery;
+          apiUrl = apiSetting.getReCovery;
           break;
       }
       this.$showMsgBox({
@@ -396,7 +397,7 @@ export default {
     getTaskNameSpace() {
       let _this = this;
 
-      this.$ajax(this.$apiSet.getTaskNameSpace, {}).then(res => {
+      this.$ajax(apiSetting.getTaskNameSpace, {}).then(res => {
         if (!res.data.success) {
           _this.$errorMsg(res.data.message)
         } else {

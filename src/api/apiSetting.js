@@ -197,6 +197,7 @@ const LogModule = {
     method: 'get'
   },
 }
+
 const FileModule = {
   imgUpload: { //上传图片到服务器
     url: '/api/File/imgUpload',
@@ -216,6 +217,60 @@ const FileModule = {
   },
 }
 
+
+//仿钉钉打卡
+const workflow = {
+  // 查询表单组
+  getFormGroups: {
+    url: '',
+    method: ''
+  },
+
+  // 表单排序
+  groupItemsSort: {
+    url: '',
+    method: ''
+  },
+
+  // 更新表单组
+  updateGroup: {
+    url: '',
+    method: ''
+  },
+
+  // 获取表单分组
+  getGroup: {
+    url: '',
+    method: ''
+  },
+
+  // 更新表单
+  updateForm: {
+    url: '',
+    method: ''
+  },
+
+  // 创建表单
+  createForm: {
+    url: '',
+    method: ''
+  },
+
+  // 查询表单详情
+  getFormDetail: {
+    url: '',
+    method: ''
+  },
+
+  // 更新表单详情
+  updateFormDetail: {
+    url: '',
+    method: ''
+  },
+
+}
+
+
 const ApiSetting = {
   ...LoginModule,
   ...SystemModule,
@@ -226,6 +281,7 @@ const ApiSetting = {
   ...TasksQzModule,
   ...LogModule,
   ...FileModule,
+  ...workflow,
 }
 
 export default ApiSetting

@@ -301,7 +301,7 @@ export default {
       text-align: center;
       display: flex;
       align-items: center;
-      width: 124px;
+      width: calc(~"50% - 8px");
       height: 38px;
       margin-bottom: 12px;
       border: 1px solid transparent;
@@ -527,5 +527,4 @@ export default {
     }
   }
 }
-
 </style>

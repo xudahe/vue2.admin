@@ -112,6 +112,7 @@
 
 <script>
 import { debounce } from '@/api/control/index.js'
+import apiSetting from "@/api/apiSetting.js"
 
 export default {
   name: 'user_manager',
@@ -224,7 +225,7 @@ export default {
     //获取用户列表
     searchData() {
       let _this = this;
-      this.$ajax(this.$apiSet.getUserInfo, {
+      this.$ajax(apiSetting.getUserInfo, {
         key: this.filters.name
       }).then(res => {
         _this.loading = false;
@@ -239,7 +240,7 @@ export default {
     },
     getRoleData() {
       let _this = this;
-      this.$ajax(this.$apiSet.getRoleInfo)
+      this.$ajax(apiSetting.getRoleInfo)
         .then(res => {
           if (!res.data.success) {
             _this.$errorMsg(res.data.message)
@@ -267,7 +268,7 @@ export default {
         type: 'warning',
         isHTML: true
       }).then(() => {
-        this.$ajax(this.$apiSet.disableUser, {
+        this.$ajax(apiSetting.disableUser, {
           id: row.id,
           falg: !row.enabled
         }).then(res => {
@@ -288,7 +289,7 @@ export default {
         type: 'warning',
         isHTML: true
       }).then(() => {
-        this.$ajax(this.$apiSet.deleteUesr, {
+        this.$ajax(apiSetting.deleteUesr, {
           id: row.id
         }).then(res => {
           if (!res.data.success) {
@@ -313,7 +314,7 @@ export default {
       let _this = this;
       let ids = this.$refs.roletree.getCheckedNodes(false, true).map(item => item.guid)
 
-      this.$ajax(this.$apiSet.UserByRoleId, {
+      this.$ajax(apiSetting.UserByRoleId, {
         userId: this.sels.guid,
         roleIds: ids.join(','),
       }).then(res => {
@@ -343,7 +344,7 @@ export default {
       if (this.$isNull(this.userForm.loginPwd))
         return this.$warnMsg("密码不能为空！")
 
-      let apiUrl = this.formTitle == '编辑' ? this.$apiSet.putUser : this.$apiSet.postUser;
+      let apiUrl = this.formTitle == '编辑' ? apiSetting.putUser : apiSetting.postUser;
       let _this = this;
 
       this.logining = true;

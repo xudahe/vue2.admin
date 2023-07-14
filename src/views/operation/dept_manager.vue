@@ -74,6 +74,7 @@
 
 <script>
 import { debounce } from '@/api/control/index.js'
+import apiSetting from "@/api/apiSetting.js"
 
 export default {
   name: 'dept_manager',
@@ -176,7 +177,7 @@ export default {
     //获取部门列表
     searchData() {
       let _this = this;
-      this.$ajax(this.$apiSet.getDeptInfo, {
+      this.$ajax(apiSetting.getDeptInfo, {
         key: this.filters.name
       }).then(res => {
         _this.loading = false;
@@ -191,7 +192,7 @@ export default {
     },
     getUserData() {
       let _this = this;
-      this.$ajax(this.$apiSet.getUserInfo)
+      this.$ajax(apiSetting.getUserInfo)
         .then(res => {
           if (!res.data.success) {
             _this.$errorMsg(res.data.message)
@@ -214,7 +215,7 @@ export default {
         type: 'warning',
         isHTML: true
       }).then(() => {
-        this.$ajax(this.$apiSet.disableDept, {
+        this.$ajax(apiSetting.disableDept, {
           id: row.id,
           falg: !row.enabled
         }).then(res => {
@@ -235,7 +236,7 @@ export default {
         type: 'warning',
         isHTML: true
       }).then(() => {
-        this.$ajax(this.$apiSet.deleteDept, {
+        this.$ajax(apiSetting.deleteDept, {
           id: row.id
         }).then(res => {
           if (!res.data.success) {
@@ -263,7 +264,7 @@ export default {
       if (this.$isNull(this.deptForm.deptName))
         return this.$warnMsg("部门名称不能为空！")
 
-      let apiUrl = this.formTitle == '编辑' ? this.$apiSet.putDept : this.$apiSet.postDept;
+      let apiUrl = this.formTitle == '编辑' ? apiSetting.putDept : apiSetting.postDept;
       let _this = this;
 
       this.logining = true;

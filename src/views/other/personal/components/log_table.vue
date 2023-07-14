@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import apiSetting from "@/api/apiSetting.js"
+
 export default {
   data() {
     return {
@@ -33,7 +35,7 @@ export default {
   methods: {
     getAccessLogs() {
       let _this = this;
-      this.$ajax(this.$apiSet.getAccessLogs)
+      this.$ajax(apiSetting.getAccessLogs)
         .then(res => {
           if (!res.data.success) {
             _this.$errorMsg(res.data.message)

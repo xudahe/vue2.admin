@@ -109,6 +109,7 @@
 
 <script>
 import { debounce } from '@/api/control/index.js'
+import apiSetting from "@/api/apiSetting.js"
 
 export default {
   name: 'menu_manager',
@@ -221,8 +222,8 @@ export default {
     //获取菜单列表
     searchData() {
       let _this = this;
-      // this.$ajax(this.$apiSet.getMenuInfo, {
-      this.$ajax(this.$apiSet.getMenuByIds, {
+      // this.$ajax(apiSetting.getMenuInfo, {
+      this.$ajax(apiSetting.getMenuByIds, {
         // menuName: this.filters.name,
         // parentId: this.filters.parentId,
       })
@@ -239,7 +240,7 @@ export default {
     },
     getParentData() {
       let _this = this;
-      this.$ajax(this.$apiSet.GetParentMenu)
+      this.$ajax(apiSetting.GetParentMenu)
         .then(res => {
           if (!res.data.success) {
             _this.$errorMsg(res.data.message)
@@ -262,7 +263,7 @@ export default {
         type: 'warning',
         isHTML: true
       }).then(() => {
-        this.$ajax(this.$apiSet.disableMenu, {
+        this.$ajax(apiSetting.disableMenu, {
           id: row.id,
           falg: !row.enabled
         }).then(res => {
@@ -283,7 +284,7 @@ export default {
         type: 'warning',
         isHTML: true
       }).then(() => {
-        this.$ajax(this.$apiSet.deleteMenu, {
+        this.$ajax(apiSetting.deleteMenu, {
           id: row.id
         }).then(res => {
           if (!res.data.success) {
@@ -310,7 +311,7 @@ export default {
     //获取系统列表
     getSystemData() {
       let _this = this;
-      this.$ajax(this.$apiSet.getSystemInfo, {}).then(res => {
+      this.$ajax(apiSetting.getSystemInfo, {}).then(res => {
         if (!res.data.success) {
           _this.$errorMsg(res.data.message)
         } else {
@@ -339,7 +340,7 @@ export default {
         this.menuForm.className = "/" + this.menuForm.className;
       }
 
-      let apiUrl = this.formTitle == '编辑' ? this.$apiSet.putMenu : this.$apiSet.postMenu;
+      let apiUrl = this.formTitle == '编辑' ? apiSetting.putMenu : apiSetting.postMenu;
 
       this.logining = true;
       this.$ajax(apiUrl, this.menuForm)

@@ -1,9 +1,11 @@
+import apiSetting from "@/api/apiSetting.js"
+
 export const common = {};
 
 
 //全局通用的某个接口，比如日志
 common.apiLog = function (vm, data) {
-  vm.$ajax(vm.$apiSet.getDeptInfo, data)
+  vm.$ajax(apiSetting.getDeptInfo, data)
     .then(res => {
       if (!res.data.success) {
         vm.$errorMsg(res.data.message)
