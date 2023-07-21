@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --report"
+    "build": "node ./src/utils/versionAdd.js && vue-cli-service build --report"
   },
   "dependencies": {
     "@aspnet/signalr": "^1.0.27",

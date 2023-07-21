@@ -13,6 +13,8 @@ import {
 import 'nprogress/nprogress.css'
 import NProgress from 'nprogress'
 
+import versionTood from '@/utils/versionUpdate';
+
 // 配置NProgress进度条选项 —— 动画效果
 NProgress.configure({
   ease: 'ease',
@@ -21,6 +23,9 @@ NProgress.configure({
 
 // 全局路由拦截-进入页面前执行
 router.beforeEach((to, from, next) => {
+  //判断当前代码版本是否与服务器中代码版本一致，如不一致则刷新页面获取最新
+  versionTood.isNewVersion();
+
   NProgress.start(); //显示进度条
 
   let arrStr = store.getters.regRouters;
@@ -35,7 +40,6 @@ router.beforeEach((to, from, next) => {
     next({
       path: "/home"
     });
-    return;
   }
 
   if (!isNull(store.getters.accessToken)) {

@@ -82,7 +82,7 @@ module.exports = defineConfig({
     if (process.env.NODE_ENV === 'production') {
 
       // 生产环境，则添加不参与打包的包名和依赖包的名称
-      config.externals = assetsCDN.externals
+      config.externals = assetsCDN.externals;
 
       const plugins = [];
       // 代码压缩
@@ -102,18 +102,18 @@ module.exports = defineConfig({
           sourceMap: false,
           parallel: true
         })
-      ),
-        //代码压缩打包
-        plugins.push(
-          new CompressionWebpackPlugin({
-            filename: "[path][base].gz", // 压缩后的文件名(保持原文件名，后缀加.gz)
-            algorithm: "gzip", // 使用gzip压缩
-            test: productionGzipExtensions, // 匹配文件名
-            threshold: 1024 * 10, // 对超过10k的数据压缩
-            minRatio: 0.8, // 压缩率小于0.8才会压缩
-            deleteOriginalAssets: false, // 是否删除未压缩的源文件
-          })
-        );
+      );
+      //代码压缩打包
+      plugins.push(
+        new CompressionWebpackPlugin({
+          filename: "[path][base].gz", // 压缩后的文件名(保持原文件名，后缀加.gz)
+          algorithm: "gzip", // 使用gzip压缩
+          test: productionGzipExtensions, // 匹配文件名
+          threshold: 1024 * 10, // 对超过10k的数据压缩
+          minRatio: 0.8, // 压缩率小于0.8才会压缩
+          deleteOriginalAssets: false, // 是否删除未压缩的源文件
+        })
+      );
       config.plugins = [...config.plugins, ...plugins];
     }
 
@@ -141,7 +141,7 @@ module.exports = defineConfig({
           },
           styles: {
             name: 'styles',
-            test: /\.(sa|sc|c)ss$/,
+            test: /\.(le|sa|sc|c)ss$/,
             chunks: 'all',
             enforce: true
           },
@@ -241,14 +241,12 @@ module.exports = defineConfig({
     // https: false, //false关闭https，true为开启
     // open: true, //自动打开浏览器
     proxy: {
+      // 匹配所有以 '/api'开头的请求路径
       '/api': {
-        //普通的http代理
         target: 'http://localhost:1081', //开发环境接口地址
         // ws: true, //是否代理websockets
         changeOrigin: true, // 开启跨域
         // secure: true,   // 如果是https接口，需要配置这个参数
-
-        // 注释掉pathRewrite，不然会导致proxy的target失效
         // pathRewrite: {
         //   '^/api': '' //路径重写 
         // }
