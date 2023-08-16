@@ -85,13 +85,6 @@ Viewer.setDefaults({
   },
 });
 
-// 设置浏览器标题
-Vue.directive("title", {
-  inserted: function (el, binding) {
-    document.title = el.dataset.title;
-  },
-});
-
 Vue.prototype.$store = store;
 
 new Vue({

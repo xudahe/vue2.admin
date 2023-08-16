@@ -14,8 +14,9 @@
 </template>
 
 <script>
-import { toggleGrayMode, setTheme } from "@/utils/index";
+
 import { location } from "@/utils/location.js";
+import store from "@/store";
 
 export default {
   name: "app",
@@ -25,7 +26,7 @@ export default {
   },
   watch: {
     $route(to, from) {
-      console.log("当前路由：", to);
+      // console.log("当前路由：", to);
     },
   },
   mounted() {
@@ -59,6 +60,8 @@ export default {
     }
   },
   created() {
+    window.document.title = store.state.metatitle;
+
     this.initAamp();
 
     this.$store.commit("SET_THEME_GRAY", this.$store.state.theme.themeGray);

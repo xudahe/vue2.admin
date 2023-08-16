@@ -174,7 +174,7 @@ export default {
 }
 
 .node {
-  padding: 30px 15px 0;
+  padding: 50px 15px 0;
   width: 220px;
 
   .node-body {
@@ -305,9 +305,9 @@ export default {
       justify-content: center;
     }
 
-    /deep/ .el-button {
-      height: 32px;
-    }
+    // /deep/ .el-button {
+    //   height: 32px;
+    // }
 
     &::before {
       content: "";

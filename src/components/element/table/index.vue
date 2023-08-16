@@ -1,34 +1,43 @@
 <template>
   <section>
-    <el-table ref="table" v-loading="loading" element-loading-text="" row-key="id" :tree-props="{ children: 'children', hasChildren: 'hasChildren' }" :data="dataList" :height="tableHeight" border fit highlight-current-row tooltip-effect="dark" style="width:100%;margin-top: 3px;" :header-cell-style="{background:'#f2f2f2',color:'#606266'}" @row-click="handleRowClick" @sort-change="handleSortChange" @selection-change="handleSelectionChange">
-      <template v-for="(item,index) in tableLabel">
+    <el-table ref="table" v-loading="loading" element-loading-text="" row-key="id"
+      :tree-props="{ children: 'children', hasChildren: 'hasChildren' }" :data="dataList" :height="tableHeight" border fit
+      highlight-current-row tooltip-effect="dark" style="width:100%;margin-top: 3px;"
+      :header-cell-style="{ background: '#f2f2f2', color: '#606266' }" @row-click="handleRowClick"
+      @sort-change="handleSortChange" @selection-change="handleSelectionChange">
+      <template v-for="(item, index) in tableLabel">
         <el-table-column v-if="item.type" :type="item.type" :key="index"></el-table-column>
-        <el-table-column v-else :width="item.width ? item.width : ''" :key="index + 1" :align="item.align ? item.align : 'center'" :label="item.label" :prop="item.param" :sortable="item.sortable ? true : false">
+        <el-table-column v-else :width="item.width ? item.width : ''" :key="index + 1"
+          :align="item.align ? item.align : 'center'" :label="item.label" :prop="item.param"
+          :sortable="item.sortable ? true : false">
           <template slot-scope="scope">
 
             <template v-if="item.render">
               <ex-slot :render="item.render" :row="scope.row" :index="scope.$index" :column="item"></ex-slot>
             </template>
             <template v-else-if="item.param == 'image'">
-              <img v-for="item in scope.row[item.param]" :src="item" style="width: 30px;margin-right:5px;	cursor:pointer;" v-viewer/>
+              <img v-for="{ item, ind } in scope.row[item.param]" :src="item"
+                style="width: 30px;margin-right:5px;	cursor:pointer;" :key="ind" v-viewer />
             </template>
             <template v-else-if="item.formatter">
               <span v-html="item.formatter(scope.row)"></span>
             </template>
             <template v-else>
-              <span>{{scope.row[item.param]}}</span>
+              <span>{{ scope.row[item.param] }}</span>
             </template>
 
           </template>
         </el-table-column>
       </template>
-      <el-table-column v-if="tableOption.label" :width="tableOption.width" :label="tableOption.label" align="center" class-name="small-padding fixed-width">
+      <el-table-column v-if="tableOption.label" :width="tableOption.width" :label="tableOption.label" align="center"
+        class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <template v-for="(item,index) in tableOption.options">
+          <template v-for="(item, index) in tableOption.options">
             <!-- <el-button  v-if="item.label" :key="index" :type="item.type" :icon="item.icon" @click.native="handleButton(item.methods,scope.row,index)" size="mini">
               {{item.label}}
             </el-button> -->
-            <el-button  :key="index" :type="item.type" :icon="item.icon" @click.native="handleButton(item.methods,scope.row,index)" size="mini">
+            <el-button :key="index" :type="item.type" :icon="item.icon"
+              @click.native="handleButton(item.methods, scope.row, index)" size="mini">
             </el-button>
             <!-- <el-popconfirm v-if="item.type=='danger'" :key="index" confirm-button-text='确定' cancel-button-text='取消' icon="el-icon-info" icon-color="red" title="这条数据确定删除吗？" cancelButtonType="ghost" @confirm="handleButton(item.methods,scope.row,index)" @cancel="()=>{}">
               <el-button slot="reference" :type="item.type" :icon="item.icon" style="margin-right:5px;" size="mini"></el-button>
@@ -37,15 +46,16 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-row >
+    <el-row>
       <el-col :span="4" v-if="refresh.showRefresh">
         <div style="margin-top: 10px;">
           <el-checkbox v-model="refresh.isRefresh">自动刷新</el-checkbox>
-          <span style="color: green;padding-left: 0.1rem;">{{second}}s</span>
+          <span style="color: green;padding-left: 0.1rem;">{{ second }}s</span>
         </div>
       </el-col>
-      <el-col :span="refresh.showRefresh ? 20:24">
-        <pagination ref="pagination" :now-page.sync="nowPage" :now-size.sync="nowSize" :total="tableData.length" @handleSizeChange="handleSizeChange" @handleCurrentChange="handleCurrentChange" />
+      <el-col :span="refresh.showRefresh ? 20 : 24">
+        <pagination ref="pagination" :now-page.sync="nowPage" :now-size.sync="nowSize" :total="tableData.length"
+          @handleSizeChange="handleSizeChange" @handleCurrentChange="handleCurrentChange" />
       </el-col>
     </el-row>
   </section>
@@ -157,6 +167,11 @@ export default {
       this.second = this.refresh.timer;
       clearInterval(timer);
     });
+
+    setTimeout(() => {
+      this.initialTable();
+    }, 200);
+    window.addEventListener("resize", this.initialTable);
   },
   methods: {
     handleButton(methods, row, index) {  //监听按钮事件
@@ -188,13 +203,6 @@ export default {
     },
   },
   created() {
-    let _this = this;
-
-    setTimeout(() => {
-      _this.initialTable();
-    }, 100);
-
-    window.addEventListener("resize", this.initialTable);
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.initialTable);

@@ -181,9 +181,9 @@ export default {
       padding: 20px 0 32px;
       justify-content: center;
     }
-    /deep/ .el-button{
-      height: 32px;
-    }
+    // /deep/ .el-button{
+    //   height: 32px;
+    // }
     &::before{
       content: "";
       position: absolute;

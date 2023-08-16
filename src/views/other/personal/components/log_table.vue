@@ -3,7 +3,20 @@
     <el-Divider>
       <span>操作日志</span>
     </el-Divider>
-    <e-table :table-data="tableData" :table-label="tableLabel" :now-page="nowPage" :now-size="nowSize"></e-table>
+
+    <el-table :data="tableData" border fit highlight-current-row tooltip-effect="dark" style="width:100%;"
+      :header-cell-style="{ background: '#f2f2f2', color: '#606266' }" :height="tableHeight">
+      <el-table-column prop="user" label="操作人" align="center" width="100">
+      </el-table-column>
+      <el-table-column prop="url" label="请求地址" align="center">
+      </el-table-column>
+      <el-table-column prop="clientIP" label="客户端IP" align="center">
+      </el-table-column>
+      <el-table-column prop="beginTime" label="请求时间" align="center">
+      </el-table-column>
+    </el-table>
+
+    <!-- <e-table :table-data="tableData" :table-label="tableLabel" :now-page="nowPage" :now-size="nowSize"></e-table> -->
   </div>
 </template>
 
@@ -13,8 +26,7 @@ import apiSetting from "@/api/apiSetting.js"
 export default {
   data() {
     return {
-      nowPage: 1,
-      nowSize: 10,
+      tableHeight: 310,
 
       tableData: [],
       tableLabel: [
@@ -40,23 +52,34 @@ export default {
           if (!res.data.success) {
             _this.$errorMsg(res.data.message)
           } else {
-            _this.loading = false;
             _this.tableData = res.data.response;
           }
         })
         .catch(err => { })
-    }
-
+    },
+    initialTable() {
+      let docm1 = document.getElementsByClassName("log_table")
+      this.tableHeight = docm1 != undefined ? docm1[0].offsetHeight - 33 : this.tableHeight;
+    },
   },
   mounted() {
     this.getAccessLogs();
+
+
+    setTimeout(() => {
+      this.initialTable();
+    }, 200);
+    window.addEventListener("resize", this.initialTable);
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.initialTable);
   }
 };
 </script>
 
 <style>
 .log_table {
-  height: 100%;
+  height: calc(100% - 20px);
   width: 100%;
 }
 </style>

@@ -545,7 +545,7 @@ body {
 
 .form-group {
   margin: 20px 0;
-  padding: 5px 0px;
+  // padding: 5px 0px;
   border-radius: 10px;
   //border: 1px solid #d3d3d3;
   box-shadow: 1px 1px 10px 0 #d2d2d2;
@@ -556,8 +556,8 @@ body {
 
   .form-group-title {
     padding: 5px 20px;
-    height: 40px;
-    line-height: 40px;
+    height: 60px;
+    line-height: 60px;
     border-bottom: 1px solid #d3d3d3;
 
     .el-icon-rank {
@@ -607,9 +607,9 @@ body {
     font-size: small;
     padding: 10px 0;
     margin: 0 20px;
-    height: 50px;
+    height: 60px;
     position: relative;
-    line-height: 40px;
+    line-height: 45px;
     border-top: 1px solid #d3d3d3;
 
     div {

@@ -1,6 +1,6 @@
 <template>
   <div class="personal card_css">
-    <el-row :gutter="10" style="height: 100%;width:100%;">
+    <el-row :gutter="10" style="height:calc(100% - 10px);width:calc(100% - 10px);margin:5px;">
       <el-col :sm="24" :md="6" style="height: 100%;">
         <el-card class="box-card" shadow="hover">
           <el-Divider>
@@ -70,7 +70,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :sm="24" :md="10" style="height: 100%;">
+      <el-col :sm="24" :md="10" style="height:100%;">
         <el-card class="box-card" shadow="hover">
           <logTable></logTable>
         </el-card>

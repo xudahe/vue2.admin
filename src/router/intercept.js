@@ -42,6 +42,10 @@ router.beforeEach((to, from, next) => {
     });
   }
 
+  //动态修改页面标题title
+  let title = to.meta && to.meta.title ? to.meta.title + '-' : '';
+  window.document.title = title + store.state.metatitle;
+
   if (!isNull(store.getters.accessToken)) {
     if (to.path === "/login") {
       next()

@@ -69,7 +69,7 @@ export default {
 
 
 .node{
-  padding: 30px 15px 0;
+  padding: 50px 15px 0;
   width: 220px;
   .node-body{
     overflow: hidden;
@@ -165,9 +165,9 @@ export default {
       padding: 20px 0 32px;
       justify-content: center;
     }
-    /deep/ .el-button{
-      height: 32px;
-    }
+    // /deep/ .el-button{
+    //   height: 32px;
+    // }
     &::before{
       content: "";
       position: absolute;

@@ -1,5 +1,6 @@
 import { defaultRouter, addRouter } from "@/router/index";
 import Router from "@/router/index";
+import store from "@/store";
 
 const routerData = {
   state: {
@@ -35,9 +36,31 @@ const routerData = {
   },
   actions: {
     newRoutes({ commit }, role) {
+      let menus = store.getters.loginInfo.menuinfo, title = '';
+      let navTitle = function (path, routerARR) {
+        for (let i = 0; i < routerARR.length; i++) {
+          if (routerARR[i].className === ('/' + path)) {
+            title = routerARR[i].menuName;
+            break;
+          } else {
+            if (routerARR[i].children && routerARR[i].children.length > 0) {
+              navTitle(path, routerARR[i].children);
+            }
+          }
+        }
+
+        return title || path;
+      };
+
+
       //  通过递归路由表，删除掉没有权限的路由
       function eachSelect(routers, userRole) {
         for (let j = 0; j < routers.length; j++) {
+
+          routers[j].meta = {
+            title: navTitle(routers[j].name, menus) || routers[j].name
+          };
+
           if (
             routers[j].meta &&
             routers[j].meta.role &&

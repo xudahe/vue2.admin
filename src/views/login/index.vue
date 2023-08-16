@@ -1,67 +1,66 @@
 <!-- 应用系统登录 -->
 <template>
   <div class="login-page">
-    <div class="login-container">
+    <div class="container">
       <div class="container-left">
 
       </div>
       <div class="container-right">
         <el-form :model="loginForm" status-icon ref="loginForm" label-position="left" label-width="0px"
           class="login-form">
-          <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-            <el-menu-item index="1">帐号登陆</el-menu-item>
-            <el-menu-item index="2">账号注册</el-menu-item>
-          </el-menu>
-          <el-row :span="24" style="margin-top: 22px;" v-if="activeIndex == '1'">
-            <el-form-item prop="username" style="border-bottom: 1px solid #eeeeee;">
-              <el-col :span="6">
-                <Icon type="ios-people" :size="20" />&nbsp;账&nbsp;&nbsp;&nbsp;号：
+          <div class="div-title">账号登录</div>
+          <div class="div-content">
+            <el-row :span="24" style="height: 100%;">
+              <el-form-item prop="username" style="border-bottom: 1px solid #eeeeee;">
+                <el-col :span="6">
+                  <Icon type="ios-people" :size="20" />
+                  <span style="font-size: 0.16rem;">&nbsp;账&nbsp;&nbsp;&nbsp;号：</span>
+                </el-col>
+                <el-col :span="18">
+                  <el-input type="text" v-model="loginForm.username" autocomplete="off" placeholder="请输入账号" clearable
+                    @keydown.enter.native="nextFocus(0)" />
+                </el-col>
+              </el-form-item>
+              <el-form-item prop="username" style="border-bottom: 1px solid #eeeeee;">
+                <el-col :span="6">
+                  <Icon type="ios-lock" :size="20" />
+                  <span style="font-size: 0.16rem;">&nbsp;密&nbsp;&nbsp;&nbsp;码：</span>
+                </el-col>
+                <el-col :span="18">
+                  <el-input type="text" v-model="loginForm.password" autocomplete="off" placeholder="请输入密码" show-password
+                    @keydown.enter.native="nextFocus(1)" />
+                </el-col>
+              </el-form-item>
+              <el-form-item prop="code" style="border-bottom: 1px solid #eeeeee;">
+                <el-col :span="6">
+                  <Icon type="md-images" :size="20" />
+                  <span style="font-size: 0.16rem;">&nbsp;验证码：</span>
+                </el-col>
+                <el-col :span="12">
+                  <el-input type="text" v-model="loginCode" autocomplete="off" placeholder="请输入验证码" clearable
+                    @keydown.enter.native="nextFocus(2)" />
+                </el-col>
+                <el-col :span="6">
+                  <div class="login-code" @click="setRefreshCode">
+                    <s-identify :identifyCode="identifyCode" :fontSizeMax="25" :contentWidth="80"></s-identify>
+                  </div>
+                </el-col>
+              </el-form-item>
+              <el-form-item style="width:100%;">
+                <el-col :span="24">
+                  <el-button type="primary" style="width:100%;" @click.native.prevent="loginSubmit" :loading="logining">
+                    {{ loadName }}
+                  </el-button>
+                </el-col>
+              </el-form-item>
+              <el-col :span="12" style="text-align: left;">
+                <el-checkbox v-model="checkboxValue" class="rememberme">记住密码</el-checkbox>
               </el-col>
-              <el-col :span="18">
-                <el-input type="text" v-model="loginForm.username" autocomplete="off" placeholder="请输入账号" clearable
-                  @keydown.enter.native="nextFocus(0)" />
+              <el-col :span="12" style="text-align: right;">
+                <a>忘记密码？</a>
               </el-col>
-            </el-form-item>
-            <el-form-item prop="username" style="border-bottom: 1px solid #eeeeee;">
-              <el-col :span="6">
-                <Icon type="ios-lock" :size="20" />&nbsp;密&nbsp;&nbsp;&nbsp;码：
-              </el-col>
-              <el-col :span="18">
-                <el-input type="text" v-model="loginForm.password" autocomplete="off" placeholder="请输入密码" show-password
-                  @keydown.enter.native="nextFocus(1)" />
-              </el-col>
-            </el-form-item>
-            <el-form-item prop="code" style="border-bottom: 1px solid #eeeeee;">
-              <el-col :span="6">
-                <Icon type="md-images" :size="20" />&nbsp;验证码：
-              </el-col>
-              <el-col :span="12">
-                <el-input type="text" v-model="loginCode" autocomplete="off" placeholder="请输入验证码" clearable
-                  @keydown.enter.native="nextFocus(2)" />
-              </el-col>
-              <el-col :span="6">
-                <div class="login-code" @click="setRefreshCode">
-                  <s-identify :identifyCode="identifyCode" :fontSizeMax="25" :contentWidth="80"></s-identify>
-                </div>
-              </el-col>
-            </el-form-item>
-            <el-form-item style="width:100%;">
-              <el-col :span="24">
-                <el-button type="primary" style="width:100%;" @click.native.prevent="loginSubmit" :loading="logining">
-                  {{ loadName }}
-                </el-button>
-              </el-col>
-            </el-form-item>
-            <el-col :span="12" style="text-align: left;">
-              <el-checkbox v-model="checkboxValue" class="rememberme">记住密码</el-checkbox>
-            </el-col>
-            <el-col :span="12" style="text-align: right;">
-              <a>忘记密码</a>
-            </el-col>
-          </el-row>
-          <el-row :span="24" style="margin-top: 22px;" v-else>
-
-          </el-row>
+            </el-row>
+          </div>
         </el-form>
       </div>
     </div>
@@ -302,9 +301,27 @@ export default {
   }
 }
 
-.login-page .login-container {
-  width: 900px;
-  height: 450px;
+.login-form {
+  height: 100%;
+}
+
+.div-title {
+  height: 0.6rem;
+  line-height: 0.6rem;
+  text-align: center;
+  letter-spacing: 3px;
+  font-size: 0.28rem;
+  font-weight: bold;
+}
+
+.div-content {
+  margin-top: 0.25rem;
+  height: calc(100% - 0.85rem);
+}
+
+.login-page .container {
+  width: 1200px;
+  height: 500px;
   color: #868484;
   border-radius: 5px;
   box-shadow: 0 0 25px #cac6c6; //添加阴影
@@ -331,7 +348,7 @@ export default {
   // margin: auto;
 }
 
-.login-page .login-container .container-left {
+.login-page .container .container-left {
   width: 50%;
   height: 100%;
   float: left;
@@ -343,7 +360,7 @@ export default {
 }
 
 
-.login-page .login-container .container-right {
+.login-page .container .container-right {
   width: 50%;
   height: 100%;
   float: left;
@@ -353,6 +370,6 @@ export default {
 
   color: #868484;
   font-weight: 400;
-  padding: 15px 45px;
+  padding: 15px 65px;
 }
 </style>

@@ -17,6 +17,8 @@ const store = new Vuex.Store({
     //缓存组件，该值是组件中定义的name值，include 名称匹配的组件会被缓存，exclude 名称匹配的组件不被缓存。
     cachedViews: ["t-gdmap", "t-echartMap", "paper"],
 
+    metatitle: "xuAdmin",//设置浏览器标题
+
     drag_com: "",
     drag_ref: "",
     weather: getStore({ name: "weather" }) || [
